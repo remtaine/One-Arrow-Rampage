@@ -46,9 +46,9 @@ const DAMAGE = {
 }
 
 const SPEED = {
-	STATES.WALK: 300,
-	STATES.RUN: 450,
-	STATES.GRAPPLE_MOVE: 1500,
+	STATES.WALK: 200,
+	STATES.RUN: 150,
+	STATES.GRAPPLE_MOVE: 1000,
 }
 
 const JUMP_SPEED = 500
@@ -135,7 +135,6 @@ func _init():
 
 func _ready():
 	set_territory_text()	
-	$Camera2D.current = true
 
 func _physics_process(delta):
 	for i in get_slide_count():
@@ -266,37 +265,15 @@ static func get_dir(a1, a2):
 static func get_raw_input(state):
 	return {
 		direction = get_input_direction(),
-		is_running = Input.is_action_pressed("run"),
-		is_changing_weapon = Input.is_action_just_pressed("change_weapon") or Input.is_action_just_released("change_weapon_wheel"),
-		is_attacking = Input.is_action_just_pressed("attack"),
-		is_going_up = Input.is_action_pressed("move_up"),
-		is_launching_grappling_hook = Input.is_action_just_pressed("launch_grappling_hook")
+		is_running = false,
+		is_changing_weapon = false,
+		is_attacking = false,
+		is_going_up = false,
+		is_launching_grappling_hook = false
 	}
 
 static func get_input_direction(event = Input):
-	return Vector2(
-		float(event.is_action_pressed("move_right")) - float(event.is_action_pressed("move_left")),
-		0).normalized()
-
-func hook_launch_outcome(outcome, hook):
-	match outcome:
-		"success":
-			change_state(EVENTS.GRAPPLE_SUCCESS)
-			print("HOOOKED SUCCESFULLY!!!")
-			current_hook = hook	
-		"failure":
-			if _velocity.y > 0:
-				change_state(EVENTS.GRAPPLE_FAILED_AIR)
-			else:
-				change_state(EVENTS.GRAPPLE_FAILED_GROUND)
-			hook.queue_free()
-
-func hook_move_outcome(outcome):
-	match outcome:
-		"failure":
-			current_hook.queue_free()
-			current_hook = null
-			change_state(EVENTS.GRAPPLE_DONE)
+	return Vector2(-1,0).normalized()
 
 func get_event(input):
 	"""
@@ -371,4 +348,4 @@ func _on_SwordHitbox_body_entered(body):
 	#damage enemy
 	if body.is_in_group("characters") and not enemies_damaged.has(body):
 		enemies_damaged.append(body)
-		body.hit(DAMAGE.SWORD * (territory/10))
+		body.hit(DAMAGE.SWORD * territory/100)

@@ -42,4 +42,11 @@ z_index = -50
 z_as_relative = false
 default_color = Color( 1, 1, 1, 1 )
 script = ExtResource( 3 )
+
+[node name="PlayerMoveTimer" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="LaunchTimer" type="Timer" parent="."]
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="timeout" from="PlayerMoveTimer" to="." method="_on_PlayerMoveTimer_timeout"]
+[connection signal="timeout" from="LaunchTimer" to="." method="_on_LaunchTimer_timeout"]

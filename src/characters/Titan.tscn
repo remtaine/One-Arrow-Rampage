@@ -1,10 +1,10 @@
 [gd_scene load_steps=20 format=2]
 
-[ext_resource path="res://images/placeholders/white.png" type="Texture" id=1]
-[ext_resource path="res://fonts/BebasNeue Bold.ttf" type="DynamicFontData" id=2]
-[ext_resource path="res://src/characters/Player.gd" type="Script" id=3]
-[ext_resource path="res://images/spritesheets/spritesheet_retina.png" type="Texture" id=4]
-[ext_resource path="res://images/ui/effect_shotLarge - Copy.png" type="Texture" id=5]
+[ext_resource path="res://src/characters/Titan.gd" type="Script" id=1]
+[ext_resource path="res://images/ui/effect_shotLarge - Copy.png" type="Texture" id=2]
+[ext_resource path="res://images/placeholders/white.png" type="Texture" id=3]
+[ext_resource path="res://fonts/BebasNeue Bold.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://images/spritesheets/spritesheet_retina.png" type="Texture" id=5]
 [ext_resource path="res://images/characters/green empty body.png" type="Texture" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -786,17 +786,18 @@ tracks/6/keys = {
 
 [sub_resource type="DynamicFont" id=12]
 size = 20
-font_data = ExtResource( 2 )
+font_data = ExtResource( 4 )
 
 [sub_resource type="DynamicFont" id=13]
 size = 20
-font_data = ExtResource( 2 )
+font_data = ExtResource( 4 )
 
-[node name="Player" type="KinematicBody2D" groups=[
+[node name="Titan" type="KinematicBody2D" groups=[
 "characters",
 ]]
-script = ExtResource( 3 )
-color = Color( 0.215686, 0.85098, 0.54902, 1 )
+scale = Vector2( 8, 8 )
+script = ExtResource( 1 )
+color = Color( 0.568627, 0.47451, 1, 1 )
 
 [node name="CenterPivot" type="Position2D" parent="."]
 
@@ -808,9 +809,9 @@ position = Vector2( 120, 0 )
 [node name="Body" type="Position2D" parent="Sprite"]
 
 [node name="MainBody" type="Sprite" parent="Sprite/Body"]
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 region_enabled = true
-region_rect = Rect2( 1175, 896, 82, 125 )
+region_rect = Rect2( 1176, 256, 80, 128 )
 
 [node name="ClimbingBody" type="Sprite" parent="Sprite/Body"]
 visible = false
@@ -821,43 +822,45 @@ texture = ExtResource( 6 )
 visible = false
 self_modulate = Color( 0.215686, 0.85098, 0.54902, 1 )
 position = Vector2( 0, 21.2985 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 region_enabled = true
 region_rect = Rect2( 1040, 1168, 96, 96 )
 
 [node name="WeaponArm" type="Sprite" parent="Sprite"]
 position = Vector2( 25.9817, -86.5766 )
 rotation = -0.0587745
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 region_enabled = true
-region_rect = Rect2( 1328, 179, 32, 30 )
+region_rect = Rect2( 1329, 50, 31, 30 )
 
 [node name="Weapons" type="Position2D" parent="Sprite/WeaponArm"]
+visible = false
 show_behind_parent = true
 
 [node name="Bow" type="Sprite" parent="Sprite/WeaponArm/Weapons"]
 visible = false
 show_behind_parent = true
 position = Vector2( -3.38873, 0.527094 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 region_enabled = true
 region_rect = Rect2( 928, 1280, 64, 128 )
 
 [node name="Sword" type="Sprite" parent="Sprite/WeaponArm/Weapons"]
 show_behind_parent = true
 position = Vector2( 2.86395, -54.4149 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 region_enabled = true
 region_rect = Rect2( 800, 1152, 64, 128 )
 
 [node name="FreeArm" type="Sprite" parent="Sprite"]
 position = Vector2( -43.9567, -94.2351 )
 rotation = 2.11708
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 region_enabled = true
-region_rect = Rect2( 1328, 179, 32, 30 )
+region_rect = Rect2( 1329, 50, 31, 30 )
 
 [node name="SideItems" type="Position2D" parent="Sprite/FreeArm"]
+visible = false
 show_behind_parent = true
 
 [node name="Shield" type="Sprite" parent="Sprite/FreeArm/SideItems"]
@@ -865,14 +868,14 @@ visible = false
 show_behind_parent = true
 position = Vector2( -11.0546, 18.9089 )
 rotation = -0.224766
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 region_enabled = true
 region_rect = Rect2( 919, 401, 82, 93 )
 
 [node name="OffhandSword" type="Sprite" parent="Sprite/FreeArm/SideItems"]
 position = Vector2( -32.6724, 22.5952 )
 rotation = -2.1706
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 region_enabled = true
 region_rect = Rect2( 808, 1160, 48, 120 )
 
@@ -888,13 +891,9 @@ shape = SubResource( 1 )
 disabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 scale = Vector2( 1.44, 5.72 )
 shape = SubResource( 2 )
-
-[node name="Camera2D" type="Camera2D" parent="."]
-current = true
-zoom = Vector2( 2.5, 2.5 )
-smoothing_enabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/attack_swing = SubResource( 3 )
@@ -934,20 +933,19 @@ __meta__ = {
 [node name="HealthBarFrame" type="Sprite" parent="."]
 visible = false
 position = Vector2( 1.12959, -92.093 )
-texture = ExtResource( 5 )
+texture = ExtResource( 2 )
 region_rect = Rect2( 1024, 816, 128, 32 )
 
 [node name="HealthBar" type="TextureProgress" parent="."]
-visible = false
 margin_left = -56.7147
 margin_top = -97.9638
 margin_right = -24.7147
 margin_bottom = -65.9638
 rect_scale = Vector2( 3.6, 0.35 )
 value = 50.0
-texture_under = ExtResource( 1 )
-texture_progress = ExtResource( 1 )
-tint_progress = Color( 0.215686, 0.85098, 0.54902, 1 )
+texture_under = ExtResource( 3 )
+texture_progress = ExtResource( 3 )
+tint_progress = Color( 0.556863, 0.466667, 0.94902, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -959,29 +957,5 @@ one_shot = true
 
 [node name="JumpBufferTimer" type="Timer" parent="GameFeel"]
 one_shot = true
-
-[node name="UI" type="CanvasLayer" parent="."]
-
-[node name="Health" type="Sprite" parent="UI"]
-modulate = Color( 0.215686, 0.85098, 0.54902, 1 )
-scale = Vector2( 0.5, 0.5 )
-
-[node name="Heart1" type="Sprite" parent="UI/Health"]
-position = Vector2( 60, 60 )
-texture = ExtResource( 4 )
-region_enabled = true
-region_rect = Rect2( 408, 664, 80, 80 )
-
-[node name="Heart2" type="Sprite" parent="UI/Health"]
-position = Vector2( 140, 60 )
-texture = ExtResource( 4 )
-region_enabled = true
-region_rect = Rect2( 408, 664, 80, 80 )
-
-[node name="Heart3" type="Sprite" parent="UI/Health"]
-position = Vector2( 220, 60 )
-texture = ExtResource( 4 )
-region_enabled = true
-region_rect = Rect2( 408, 664, 80, 80 )
 [connection signal="body_entered" from="Hitboxes/SwordHitbox" to="." method="_on_SwordHitbox_body_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
