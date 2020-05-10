@@ -62,7 +62,6 @@ func _physics_process(delta):
 		STATES.WALK, STATES.RUN:
 			_velocity.x = _speed * input.direction.x
 	
-	print("Y VELOCITY IS ", _velocity.y)
 	_velocity.y += 10
 	_velocity = move_and_slide(_velocity)
 

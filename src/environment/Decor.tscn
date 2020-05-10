@@ -1,21 +1,20 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://src/environment/Ground.gd" type="Script" id=2]
+[ext_resource path="res://src/environment/Decor.gd" type="Script" id=1]
 [ext_resource path="res://images/spritesheets/spritesheet_retina.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 41.2009, 44.1655 )
+extents = Vector2( 61.5596, 28.9705 )
 
-[node name="Ground" type="StaticBody2D" groups=[
-"tiles",
-]]
-script = ExtResource( 2 )
+[node name="Decor" type="Area2D"]
+script = ExtResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 3 )
 region_enabled = true
-region_rect = Rect2( 384, 768, 128, 128 )
+region_rect = Rect2( 512, 128, 128, 128 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-scale = Vector2( 1.52, 1.44 )
+position = Vector2( 1.08073, 29.7199 )
 shape = SubResource( 1 )
+[connection signal="body_entered" from="." to="." method="_on_Area2D_body_entered"]
