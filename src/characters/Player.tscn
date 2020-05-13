@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://images/placeholders/white.png" type="Texture" id=1]
 [ext_resource path="res://fonts/BebasNeue Bold.ttf" type="DynamicFontData" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://images/spritesheets/spritesheet_retina.png" type="Texture" id=4]
 [ext_resource path="res://images/ui/effect_shotLarge - Copy.png" type="Texture" id=5]
 [ext_resource path="res://images/characters/green empty body.png" type="Texture" id=6]
+[ext_resource path="res://src/helpers/StateLabel.gd" type="Script" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -792,20 +793,22 @@ font_data = ExtResource( 2 )
 size = 20
 font_data = ExtResource( 2 )
 
+[sub_resource type="DynamicFont" id=14]
+size = 32
+font_data = ExtResource( 2 )
+
 [node name="Player" type="KinematicBody2D" groups=[
 "characters",
 ]]
+z_index = 2
+collision_mask = 2
 script = ExtResource( 3 )
 color = Color( 0.215686, 0.85098, 0.54902, 1 )
-
-[node name="CenterPivot" type="Position2D" parent="."]
-
-[node name="GrapplingHookLaunchPosition" type="Position2D" parent="CenterPivot"]
-position = Vector2( 120, 0 )
 
 [node name="Sprite" type="Sprite" parent="."]
 
 [node name="Body" type="Position2D" parent="Sprite"]
+rotation = 0.261799
 
 [node name="MainBody" type="Sprite" parent="Sprite/Body"]
 texture = ExtResource( 4 )
@@ -876,10 +879,18 @@ texture = ExtResource( 4 )
 region_enabled = true
 region_rect = Rect2( 808, 1160, 48, 120 )
 
+[node name="CenterPivot" type="Position2D" parent="Sprite"]
+
+[node name="ProjectileLaunchPosition1" type="Position2D" parent="Sprite/CenterPivot"]
+position = Vector2( 69.8782, 0 )
+
 [node name="Hitboxes" type="Node2D" parent="."]
 
 [node name="SwordHitbox" type="Area2D" parent="Hitboxes"]
-position = Vector2( 103.421, 45.3837 )
+position = Vector2( 103.421, 63.3629 )
+scale = Vector2( 1.2, 1.24 )
+collision_layer = 8
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitboxes/SwordHitbox"]
 position = Vector2( -0.767166, -51.6639 )
@@ -894,7 +905,6 @@ shape = SubResource( 2 )
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 zoom = Vector2( 2.5, 2.5 )
-smoothing_enabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/attack_swing = SubResource( 3 )
@@ -955,9 +965,11 @@ __meta__ = {
 [node name="GameFeel" type="Node" parent="."]
 
 [node name="CoyoteGroundTimer" type="Timer" parent="GameFeel"]
+wait_time = 0.1
 one_shot = true
 
 [node name="JumpBufferTimer" type="Timer" parent="GameFeel"]
+wait_time = 0.1
 one_shot = true
 
 [node name="UI" type="CanvasLayer" parent="."]
@@ -983,5 +995,18 @@ position = Vector2( 220, 60 )
 texture = ExtResource( 4 )
 region_enabled = true
 region_rect = Rect2( 408, 664, 80, 80 )
+
+[node name="StateLabel" type="Label" parent="."]
+margin_left = -73.7393
+margin_top = -96.2672
+margin_right = 76.2607
+margin_bottom = -64.2672
+custom_fonts/font = SubResource( 14 )
+text = "IDLE"
+align = 1
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="body_entered" from="Hitboxes/SwordHitbox" to="." method="_on_SwordHitbox_body_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

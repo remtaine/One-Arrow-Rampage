@@ -62,7 +62,7 @@ onready var side_items = $Sprite/FreeArm/SideItems
 const HOOK_LEEWAY = 100
 const HOOK_VELOCITY_DAMPENING = 0.7
 onready var pivot_pos = $CenterPivot
-onready var g_hook_pos = $CenterPivot/GrapplingHookLaunchPosition
+onready var g_hook_pos = $CenterPivot/ProjectileLaunchPosition1
 onready var g_hook_resource = preload("res://src/weapons/GrapplingHook.tscn")
 
 onready var main_body = $Sprite/Body/MainBody
@@ -85,7 +85,6 @@ var current_weapon = WEAPON.SWORD
 var _collision_normal = Vector2()
 var _last_input_direction = Vector2.ZERO
 
-var current_hook
 var is_climbing = false #TODO dont actually need this, use state instead
 var is_running = false
 
@@ -134,6 +133,8 @@ func _init():
 	}
 
 func _ready():
+	hp_bar = $CanvasLayer/HealthBar
+	hp_bar.set_value(hp)
 	set_territory_text()	
 
 func _physics_process(delta):
@@ -141,7 +142,9 @@ func _physics_process(delta):
 		#changing collisions for ground object
 		var collision = get_slide_collision(i)
 		var collider = collision.get_collider()
-		if collider.is_in_group("tiles"):
+		if collider == null:
+			pass
+		elif collider.is_in_group("tiles"):
 			collider.change_color(self)
 	
 	if is_on_floor() and (state == STATES.RUN or state == STATES.WALK):
@@ -165,7 +168,6 @@ func _physics_process(delta):
 			continue
 		STATES.JUMP:
 			if _velocity.y > 0:
-				print("NOW FALLING")
 				change_state(EVENTS.JUMP_DONE)
 		STATES.WALK, STATES.RUN:
 			animation.play("walk")
@@ -177,20 +179,6 @@ func _physics_process(delta):
 		STATES.FALL:
 			if is_on_floor():
 				change_state(EVENTS.LAND)
-		STATES.GRAPPLE_MOVE:
-			var temp = current_hook.global_position.x < global_position.x
-			flip(temp)
-
-			var _dir = get_dir(current_hook, self)
-			_velocity = _speed * _dir
-			if current_hook.global_position.distance_to(global_position) < HOOK_LEEWAY:
-				print("GRAPPLE HOOK DONE")
-#				rotation = 0
-				_prev_velocity = _velocity * HOOK_VELOCITY_DAMPENING
-				change_state(EVENTS.GRAPPLE_DONE)
-				current_hook.fade_away()
-				current_hook = null
-				_velocity = Vector2.ZERO
 
 	if ((state == STATES.RUN or state == STATES.WALK) and not coyote_timer.is_stopped()) and not is_on_floor():
 		pass
@@ -204,7 +192,6 @@ func _physics_process(delta):
 	pivot_pos.look_at(get_global_mouse_position())
 
 func enter_state():
-	print("STATE IS NOW: ", state)
 	match state:
 		STATES.IDLE:
 			_velocity.x = 0
@@ -234,7 +221,6 @@ func enter_state():
 #			hook.position = g_hook_pos.position
 			hook.setup(get_dir(g_hook_pos, pivot_pos), g_hook_pos.global_position, pivot_pos.rotation, self)
 			get_parent().get_parent().add_child(hook)
-			print("LAUNCHED HOOK")
 		STATES.WALK, STATES.RUN, STATES.GRAPPLE_MOVE:
 			_speed = SPEED[state]
 			continue

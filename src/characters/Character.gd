@@ -13,14 +13,17 @@ var max_hp = 100
 onready var hp_bar = $HealthBar
 
 func _ready():
-	hp_bar.set_value(hp)
-
+	connect("state_changed",$StateLabel, "_on_Character_state_changed")
+	
 func enter_state():
 	pass
 
 func hit(damage):
+	
 	hp -= damage
 	hp_bar.set_value(hp)
+	if hp <= 0:
+		queue_free()
 
 func change_state(event):
 	var transition = [state, event]

@@ -21,6 +21,7 @@ func _ready():
 #	line.add_point(_owner.global_position)
 	
 func _physics_process(delta):
+	#TODO when attached, same velocity as body attached to
 	_velocity = move_and_slide(_velocity)
 #	line.add_point(_owner.global_position)
 #	if is_fading:
@@ -28,7 +29,7 @@ func _physics_process(delta):
 #		tween.interpolate_property(self, "visibility/modulate", modulate, Color(c.r, c.g, c.b, 0), 1.0,Tween.TRANS_LINEAR,Tween.EASE_IN)
 
 func setup(dir, pos, rot, owner):
-	_dir = dir
+	_dir = dir.normalized()
 	position = pos
 #	look_at(get_global_mouse_position())
 	if owner.is_flipped:
@@ -61,6 +62,7 @@ func _on_Area2D_body_entered(body):
 	pass # Replace with function body.
 
 func _on_LaunchTimer_timeout():
+	#TODO end on line dist rather than timeout
 	if not launch_successful:
 		_owner.hook_launch_outcome("failure", self)
 

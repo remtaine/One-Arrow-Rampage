@@ -9,9 +9,12 @@ extents = Vector2( 43.4751, 59.3209 )
 [node name="Ladder" type="Area2D" groups=[
 "tiles",
 ]]
+collision_layer = 2
+collision_mask = 13
 script = ExtResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
+self_modulate = Color( 0.811765, 0.858824, 0.835294, 1 )
 texture = ExtResource( 3 )
 region_enabled = true
 region_rect = Rect2( 384, 256, 128, 128 )

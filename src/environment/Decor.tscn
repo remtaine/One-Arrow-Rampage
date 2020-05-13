@@ -7,6 +7,7 @@
 extents = Vector2( 61.5596, 28.9705 )
 
 [node name="Decor" type="Area2D"]
+self_modulate = Color( 0.811765, 0.858824, 0.835294, 1 )
 script = ExtResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]

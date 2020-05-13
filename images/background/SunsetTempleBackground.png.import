@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/spritesheet_retina.png-7b8dfb7d22df67decb34ab3692003b4f.stex"
+path="res://.import/SunsetTempleBackground.png-07f4af71646f732804b014b2354e3f2d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/spritesheets/spritesheet_retina.png"
-dest_files=[ "res://.import/spritesheet_retina.png-7b8dfb7d22df67decb34ab3692003b4f.stex" ]
+source_file="res://images/background/SunsetTempleBackground.png"
+dest_files=[ "res://.import/SunsetTempleBackground.png-07f4af71646f732804b014b2354e3f2d.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

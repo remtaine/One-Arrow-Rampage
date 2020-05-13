@@ -11,8 +11,9 @@ extents = Vector2( 28.9303, 17.8338 )
 extents = Vector2( 35.2069, 20.0509 )
 
 [node name="GrapplingHook" type="KinematicBody2D"]
-collision_layer = 2
-collision_mask = 0
+z_index = 2
+collision_layer = 8
+collision_mask = 6
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -25,8 +26,11 @@ region_rect = Rect2( 944, 8, 32, 64 )
 visible = false
 position = Vector2( -2.86331, -7.62939e-06 )
 shape = SubResource( 1 )
+disabled = true
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2( -3.16309, 0.225937 )
@@ -38,7 +42,7 @@ shape = SubResource( 2 )
 [node name="Node" type="Node" parent="."]
 
 [node name="Trail" type="Line2D" parent="Node"]
-z_index = -50
+z_index = 1
 z_as_relative = false
 default_color = Color( 1, 1, 1, 1 )
 script = ExtResource( 3 )
