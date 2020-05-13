@@ -40,10 +40,7 @@ enum WEAPON {
 	BOW
 }
 
-const DAMAGE = {
-	SWORD = 10.0,
-	BOW = 5.0
-}
+const DAMAGE = 100
 
 const SPEED = {
 	STATES.WALK: 200,
@@ -215,10 +212,7 @@ func enter_state():
 					pass #keep velocity
 				STATES.RUN, STATES.WALK:
 					_velocity.x = 0 #velocity = 0
-			#TODO change shiz depending on prev_state
-			#spawn launcher at g_hook_pos
 			var hook = g_hook_resource.instance()
-#			hook.position = g_hook_pos.position
 			hook.setup(get_dir(g_hook_pos, pivot_pos), g_hook_pos.global_position, pivot_pos.rotation, self)
 			get_parent().get_parent().add_child(hook)
 		STATES.WALK, STATES.RUN, STATES.GRAPPLE_MOVE:
@@ -329,9 +323,3 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		change_state(EVENTS.STOP)
 	elif anim_name == "fall":
 		animation.play("fall_continue")
-
-func _on_SwordHitbox_body_entered(body):
-	#damage enemy
-	if body.is_in_group("characters") and not enemies_damaged.has(body):
-		enemies_damaged.append(body)
-		body.hit(DAMAGE.SWORD * territory/100)

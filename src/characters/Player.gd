@@ -8,6 +8,7 @@ enum STATES {
 	GRAPPLE_LAUNCH_AIR,
 	GRAPPLE_LAUNCH_GROUND,
 	GRAPPLE_MOVE,
+	FLY,
 	ATTACK_GROUND,
 	ATTACK_AIR,
 	ROLL,
@@ -25,6 +26,7 @@ enum EVENTS {
 	GRAPPLE_FAIL,
 	GRAPPLE_DONE,
 	ROLL,
+	LAND
 }
 
 enum WEAPON {
@@ -32,26 +34,21 @@ enum WEAPON {
 	BOW
 }
 
-const DAMAGE = {
-	SWORD = 100.0,
-	BOW = 5.0
-}
+const DAMAGE =  10.0
 
-#const SPEED = {
-#	STATES.WALK: 15,
-#	STATES.IDLE: 15,
-#	STATES.GRAPPLE_MOVE: 1500,
-#}
+const SPEED = 40
+const GRAPPLE_SPEED = 1350
 
-const SPEED = 30
-const SPEED_LIMIT = 750
+const SPEED_LIMIT = 720
 const FRICTION = 25
-const TURN_STRENGTH = 2.5
-const AIR_CONTROL = 0.3
+const AIR_FRICTION = 5
+const TURN_STRENGTH = 1.5
+const AIR_CONTROL = 0.4
 const GRAVITY = 10
-const JUMP_DEFICIENCY = 0.8
+const JUMP_DEFICIENCY = 1
 
 const JUMP_HEIGHT = -600
+onready var sprite = $Sprite #shuld be #Sprite
 onready var sword = $Sprite/WeaponArm/Weapons/Sword
 onready var bow = $Sprite/WeaponArm/Weapons/Bow
 onready var shield = $Sprite/FreeArm/SideItems/Shield
@@ -68,6 +65,7 @@ onready var g_hook_resource = preload("res://src/weapons/GrapplingHook.tscn")
 onready var main_body = $Sprite/Body/MainBody
 onready var climbing_body = $Sprite/Body/ClimbingBody
 
+var can_coyote_jump = false
 onready var coyote_timer = $GameFeel/CoyoteGroundTimer
 onready var jump_buffer_timer = $GameFeel/JumpBufferTimer
 
@@ -87,7 +85,9 @@ var current_weapon = WEAPON.SWORD
 var _collision_normal = Vector2()
 var _last_input_direction = Vector2.ZERO
 
+var can
 var current_hook
+var current_hook_wr
 #var is_climbing = false #TODO dont actually need this, use state instead
 var is_running = false
 var is_holding_jump = false
@@ -112,23 +112,29 @@ func _init():
 		[STATES.JUMP, EVENTS.GRAPPLE_LAUNCH]:STATES.GRAPPLE_LAUNCH_AIR,
 		[STATES.JUMP, EVENTS.ATTACK]:STATES.ATTACK_AIR,
 		[STATES.JUMP, EVENTS.FALL]:STATES.FALL,
+
+		[STATES.FLY, EVENTS.GRAPPLE_LAUNCH]:STATES.GRAPPLE_LAUNCH_AIR,
+		[STATES.FLY, EVENTS.ATTACK]:STATES.ATTACK_AIR,
+		[STATES.FLY, EVENTS.FALL]:STATES.FALL,
+		[STATES.FLY, EVENTS.LAND]:STATES.IDLE,
 		
-		[STATES.FALL, EVENTS.STOP]:STATES.IDLE, #heading to idle # NO NEED FOR LAND JUST USE DIFF ANIMATION at set_state
+		[STATES.FALL, EVENTS.LAND]:STATES.IDLE, #heading to idle # NO NEED FOR LAND JUST USE DIFF ANIMATION at set_state
 		[STATES.FALL, EVENTS.GRAPPLE_LAUNCH]:STATES.GRAPPLE_LAUNCH_AIR,
 		[STATES.FALL, EVENTS.ATTACK]:STATES.ATTACK_AIR,
 		
 		[STATES.GRAPPLE_LAUNCH_AIR, EVENTS.GRAPPLE_SUCCESS]:STATES.GRAPPLE_MOVE,
-		[STATES.GRAPPLE_LAUNCH_AIR, EVENTS.GRAPPLE_FAIL]:STATES.JUMP,
+		[STATES.GRAPPLE_LAUNCH_AIR, EVENTS.GRAPPLE_FAIL]:STATES.FALL,
 		
 		[STATES.GRAPPLE_LAUNCH_GROUND, EVENTS.GRAPPLE_SUCCESS]:STATES.GRAPPLE_MOVE,
 		[STATES.GRAPPLE_LAUNCH_GROUND, EVENTS.GRAPPLE_FAIL]:STATES.IDLE,
 		
-		[STATES.GRAPPLE_MOVE, EVENTS.GRAPPLE_DONE]:STATES.JUMP,
+		[STATES.GRAPPLE_MOVE, EVENTS.GRAPPLE_DONE]:STATES.FLY,
 		
 		[STATES.ATTACK_GROUND, EVENTS.STOP]:STATES.IDLE,
 		
 		[STATES.ATTACK_AIR, EVENTS.JUMP]:STATES.JUMP,
 		[STATES.ATTACK_AIR, EVENTS.FALL]:STATES.FALL,
+		[STATES.ATTACK_AIR, EVENTS.LAND]:STATES.IDLE,
 		
 		[STATES.ROLL, EVENTS.ROLL]:STATES.IDLE,
 	}
@@ -147,41 +153,54 @@ func _physics_process(delta):
 	var input = get_raw_input(state)
 	var event = get_event(input)
 	change_state(event)
+
+	if is_on_floor():
+		can_coyote_jump = true
+		coyote_timer.start()
+	elif not coyote_timer.is_stopped():
+		coyote_timer.start()
+	_dir = input.direction
 	
 	match state:
 		STATES.IDLE:
-			if _velocity.x > 0:
-				_velocity.x = max(_velocity.x - FRICTION, 0)
-			elif _velocity.x < 0:
-				_velocity.x = min(_velocity.x + FRICTION, 0)
-		STATES.WALK:
+			add_friction()
+		STATES.WALK, STATES.GRAPPLE_LAUNCH_GROUND, STATES.ATTACK_GROUND:
 			if input.direction.x * _velocity.x < 0:
-				_velocity.x += SPEED * input.direction.x * TURN_STRENGTH
+				_velocity.x += SPEED * _dir.x * TURN_STRENGTH
 			else:
-				_velocity.x += SPEED * input.direction.x
+				_velocity.x += SPEED * _dir.x
 			
-		STATES.JUMP, STATES.FALL:
+		STATES.JUMP, STATES.FALL, STATES.GRAPPLE_LAUNCH_AIR:
 #			var temp = 
-			
-			if input.direction.x * _velocity.x < 0:
-				_velocity.x += SPEED * input.direction.x * AIR_CONTROL
+			if input.direction.x != 0:
+				if input.direction.x * _velocity.x < 0:
+					_velocity.x += SPEED * _dir.x * AIR_CONTROL
+				else:
+					pass
+					_velocity.x += SPEED * _dir.x * AIR_CONTROL * 0.25
 			else:
-				pass
-				_velocity.x += SPEED * input.direction.x * AIR_CONTROL * 0.25
+				add_friction(AIR_FRICTION)
 			continue #TODO add air control 
-		STATES.JUMP:
+		STATES.JUMP, STATES.GRAPPLE_LAUNCH_AIR, STATES.ATTACK_AIR, STATES.FLY:
 			if not input.is_jumping: #whil
 				is_holding_jump = false
 			if not is_holding_jump:
-				_velocity.y += GRAVITY * JUMP_DEFICIENCY
-			if _velocity.y >= 0:
-				change_state(EVENTS.FALL)
-		STATES.FALL:
+				_velocity.y += GRAVITY * JUMP_DEFICIENCY * 1.2
 			if is_on_floor():
-				change_state(EVENTS.STOP)
+				change_state(EVENTS.LAND)
+		STATES.FALL:
+#			if not (can_coyote_jump and not is_on_floor()):
+			_velocity.y += GRAVITY * JUMP_DEFICIENCY * 1.7
+			if is_on_floor():
+				change_state(EVENTS.LAND)
 #		STATES.GRAPPLE_LAUNCH_AIR:
 #		STATES.GRAPPLE_LAUNCH_GROUND:
-#		STATES.GRAPPLE_MOVE:
+		STATES.GRAPPLE_MOVE:
+			_dir = get_dir(current_hook, self)
+			if current_hook.global_position.distance_to(global_position) < HOOK_LEEWAY:
+				change_state(EVENTS.GRAPPLE_DONE)
+			else:
+				_velocity = GRAPPLE_SPEED * _dir
 #		STATES.ATTACK_GROUND:
 #		STATES.ATTACK_AIR:
 #		STATES.ROLL:
@@ -189,49 +208,75 @@ func _physics_process(delta):
 	match state: # for velocity.y
 		STATES.GRAPPLE_MOVE:
 			pass
+#		STATES.WALK, STATES.IDLE, STATES.ATTACK_GROUND:
+#			if is_on_floor():
+#				_velocity.y += GRAVITY
+#			elif not can_coyote_jump:
+#				_velocity.y += GRAVITY
 		_:
 			_velocity.y += GRAVITY
+				
 		
-	match state: # for velocity.y
+	match state: # for flipping
 		STATES.JUMP, STATES.FALL, STATES.ATTACK_AIR, STATES.GRAPPLE_LAUNCH_AIR, STATES.GRAPPLE_MOVE, STATES.IDLE:
 			flip(_velocity.x, 0)
 		_:
 			flip(input.direction.x, 0)
 			
 	
-	_velocity.x = clamp (_velocity.x, -SPEED_LIMIT, SPEED_LIMIT)
-	_velocity.y = clamp (_velocity.y, -SPEED_LIMIT, SPEED_LIMIT)
+	if state != STATES.GRAPPLE_MOVE:
+		_velocity.x = clamp (_velocity.x, -SPEED_LIMIT, SPEED_LIMIT)
+		_velocity.y = clamp (_velocity.y, -SPEED_LIMIT, SPEED_LIMIT)
 	
 	_velocity = move_and_slide(_velocity, Vector2(0, -1))
 	
-	
+	pivot_pos.look_at(get_global_mouse_position())	
 	
 	prev_state = state
 	_prev_dir = input.direction
 	_prev_velocity = _velocity
 	
-	if _velocity.y > 0:
+	if _velocity.y > 0 and not (state == STATES.ATTACK_AIR and animation.is_playing()):
 		change_state(EVENTS.FALL)
 
 func enter_state():
 	match state:
 		STATES.IDLE:
 			animation.play("idle")
+#			animation.play("idle")
 		STATES.WALK:
 			animation.play("walk")
-		STATES.JUMP:	
-			is_holding_jump = true
-			_velocity.y = JUMP_HEIGHT
-			animation.play("grapple_move")
+#			animation.play("walk")
+		STATES.JUMP:
+				is_holding_jump = true
+				_velocity.y = JUMP_HEIGHT
+				animation.play("grapple_move")
 		STATES.FALL:
 			is_holding_jump = false
 			animation.play("fall")
-			print("FALL")
-#		STATES.GRAPPLE_LAUNCH_AIR:
-#		STATES.GRAPPLE_LAUNCH_GROUND:
-#		STATES.GRAPPLE_MOVE:
-#		STATES.ATTACK_GROUND:
-#		STATES.ATTACK_AIR:
+		STATES.FLY:
+			finish_hook()
+		STATES.GRAPPLE_LAUNCH_AIR, STATES.GRAPPLE_LAUNCH_GROUND:
+			#creating hoook
+			if true: #checking if hook area is in monster
+				var hook = g_hook_resource.instance()
+
+				hook.setup(get_dir(g_hook_pos, pivot_pos), g_hook_pos.global_position, get_global_mouse_position(), self)
+				current_hook = hook
+				get_parent().get_parent().add_child(hook)
+			continue
+		STATES.GRAPPLE_LAUNCH_GROUND:
+#			_velocity.x = 0	
+			animation.play("idle")
+		STATES.GRAPPLE_MOVE:
+			if _velocity.y < 0:
+				animation.play("grapple_move")
+			else:
+				animation.play("fall")			
+		STATES.ATTACK_GROUND:
+			animation.play("attack_swing")
+		STATES.ATTACK_AIR:
+			animation.play("attack_swing")
 #		STATES.ROLL:
 
 static func get_raw_input(state):
@@ -254,40 +299,44 @@ func get_event(input): #only events based on input here!
 	if input.is_jumping:
 		jump_buffer_timer.start()
 	
-	if input.is_attacking:
+	if input.is_attacking or state == STATES.ATTACK_GROUND or state == STATES.ATTACK_AIR:
 		e = EVENTS.ATTACK
-	elif not jump_buffer_timer.is_stopped() and is_on_floor():
-		e = EVENTS.JUMP
 	elif input.is_using_hook:
 		if state == STATES.GRAPPLE_MOVE:
 			e = EVENTS.GRAPPLE_DONE
 		else:
+			var space_state = get_world_2d().direct_space_state
+			var result = space_state.intersect_point(g_hook_pos.position)
+#			print("RESULTS ", result)
 			e = EVENTS.GRAPPLE_LAUNCH
+	elif (not jump_buffer_timer.is_stopped()) and (is_on_floor() or can_coyote_jump):
+		e = EVENTS.JUMP
 	elif input.is_rolling:
 		e = EVENTS.ROLL
 	elif input.direction != Vector2.ZERO:
 		e = EVENTS.WALK
 	elif state != STATES.FALL:
 		e = EVENTS.STOP	
-	return e
-#	FALL, #put in physics_process on jump when vel.y <= 0
-#	GRAPPLE_SUCCESS, #dependent on hook outcome
-#	GRAPPLE_FAIL, #dependent on hook outcome
-#	GRAPPLE_DONE, #dependent on hit hook or end hook
+	return e	
 	
-	
-	
-	
-	
-	
-	
+func finish_hook():
+	if current_hook_wr.get_ref():
+		current_hook.fade_away()
+		current_hook = null
+		change_state(EVENTS.GRAPPLE_DONE)
+
+func add_friction(friction = FRICTION):
+	if _velocity.x > 0:
+		_velocity.x = max(_velocity.x - friction, 0)
+	elif _velocity.x < 0:
+		_velocity.x = min(_velocity.x + friction, 0)
 	
 func flip(val1, val2):
 	if val1 < val2:
-		$Sprite.scale.x = -1
+		sprite.scale.x = -1		
 		is_flipped = true
 	elif val1 > val2:
-		$Sprite.scale.x = 1
+		sprite.scale.x = 1
 		is_flipped = false
 			
 static func get_dir(a1, a2):
@@ -298,11 +347,9 @@ func hook_launch_outcome(outcome, hook):
 		"success":
 			change_state(EVENTS.GRAPPLE_SUCCESS)
 			current_hook = hook	
+			current_hook_wr = weakref(hook)
 		"failure":
-			if _velocity.y > 0:
-				change_state(EVENTS.GRAPPLE_FAILED_AIR)
-			else:
-				change_state(EVENTS.GRAPPLE_FAILED_GROUND)
+			change_state(EVENTS.GRAPPLE_FAIL)
 			hook.queue_free()
 
 func hook_move_outcome(outcome):
@@ -350,11 +397,8 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		enemies_damaged = []
 		change_state(EVENTS.STOP)
 	elif anim_name == "fall":
-		print("FALL COINTIUE")
 		animation.play("fall_continue")
 
-func _on_SwordHitbox_body_entered(body):
-	#damage enemy
-	if body.is_in_group("characters") and not enemies_damaged.has(body):
-		enemies_damaged.append(body)
-		body.hit(DAMAGE.SWORD * (territory/20))
+func _on_CoyoteGroundTimer_timeout():
+	can_coyote_jump = false
+#	print("COYOTE JUMP OFF")

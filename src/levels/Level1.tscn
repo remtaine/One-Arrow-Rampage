@@ -43,11 +43,11 @@ centered = false
 motion_scale = Vector2( 0.6, 1 )
 
 [node name="Sprite" type="Sprite" parent="Background/Sun"]
-modulate = Color( 1, 0.713726, 0, 1 )
+modulate = Color( 0.956863, 0.886275, 0.521569, 1 )
 position = Vector2( 1368, 224 )
 texture = ExtResource( 6 )
 region_enabled = true
-region_rect = Rect2( 128, 1024, 128, 128 )
+region_rect = Rect2( 122, 1020, 134, 130 )
 
 [node name="Clouds" type="ParallaxLayer" parent="Background"]
 
@@ -161,7 +161,6 @@ __meta__ = {
 
 [node name="ColorCheckerSprite" type="Sprite" parent="UI"]
 visible = false
-modulate = Color( 0.988235, 0.360784, 0.396078, 1 )
 texture = ExtResource( 6 )
 
 [node name="Music" type="AudioStreamPlayer" parent="."]

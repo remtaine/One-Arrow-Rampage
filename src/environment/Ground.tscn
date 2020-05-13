@@ -14,7 +14,6 @@ collision_mask = 13
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
-self_modulate = Color( 0.811765, 0.858824, 0.835294, 1 )
 texture = ExtResource( 3 )
 region_enabled = true
 region_rect = Rect2( 384, 768, 128, 128 )

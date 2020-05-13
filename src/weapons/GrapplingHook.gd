@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 var _velocity
-var _speed = 1250
+var _speed = 1500
 var _dir
 var _owner
 var is_fading = false
@@ -32,20 +32,9 @@ func setup(dir, pos, rot, owner):
 	_dir = dir.normalized()
 	position = pos
 #	look_at(get_global_mouse_position())
-	if owner.is_flipped:
-		rotation = rot
-#		rotation_degrees += 180
-		scale.y = -1
-	else:
-		rotation = rot
+	look_at(rot)		
 	_owner = owner
-	
-#	look_at(get_global_mouse_position())
-#	rotation_degrees += 180
 	_velocity = _speed * _dir
-	print("VELOCITY IS NOW", _velocity)
-	print("DIR IS NOW", _dir)
-	print("POS IS NOW", position)
 
 func fade_away():
 	queue_free()
