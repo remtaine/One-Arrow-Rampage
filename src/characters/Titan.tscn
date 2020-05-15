@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=2]
+[gd_scene load_steps=77 format=2]
 
 [ext_resource path="res://src/characters/Titan.gd" type="Script" id=1]
 [ext_resource path="res://src/behavior/HurtAnimationPlayer.tscn" type="PackedScene" id=2]
@@ -317,7 +317,7 @@ animations = [ {
 "frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ) ],
 "loop": true,
 "name": "idle",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [ SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ), SubResource( 34 ), SubResource( 35 ), SubResource( 36 ), SubResource( 37 ), SubResource( 38 ) ],
 "loop": true,
@@ -334,6 +334,8 @@ animations = [ {
 "name": "die",
 "speed": 10.0
 } ]
+
+[sub_resource type="RectangleShape2D" id=68]
 
 [sub_resource type="Animation" id=63]
 resource_name = "attack"
@@ -464,6 +466,35 @@ tracks/3/keys = {
 } ]
 }
 
+[sub_resource type="Animation" id=67]
+resource_name = "idle"
+length = 1.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimatedSprite:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "idle" ]
+}
+
 [sub_resource type="Animation" id=66]
 length = 0.8
 loop = true
@@ -498,7 +529,7 @@ tracks/1/keys = {
 ]]
 z_index = -2
 collision_layer = 4
-collision_mask = 14
+collision_mask = 10
 script = ExtResource( 1 )
 color = Color( 0.568627, 0.47451, 1, 1 )
 
@@ -510,8 +541,9 @@ shape = SubResource( 1 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 2, 2 )
 frames = SubResource( 62 )
-animation = "attack"
-frame = 6
+animation = "idle"
+frame = 14
+playing = true
 
 [node name="Hitboxes" type="Node2D" parent="AnimatedSprite"]
 scale = Vector2( 0.5, 0.5 )
@@ -519,6 +551,17 @@ scale = Vector2( 0.5, 0.5 )
 [node name="AttackHitbox" parent="AnimatedSprite/Hitboxes" instance=ExtResource( 8 )]
 position = Vector2( 21.0138, -13.8172 )
 scale = Vector2( 0.318622, -0.0313131 )
+
+[node name="Range" type="Node2D" parent="AnimatedSprite"]
+scale = Vector2( 0.5, 0.5 )
+
+[node name="RoamArea2D" type="Area2D" parent="AnimatedSprite/Range"]
+position = Vector2( 43.5062, 47.886 )
+scale = Vector2( 1.84, 3.52 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite/Range/RoamArea2D"]
+position = Vector2( 2.04391, -7.00771 )
+shape = SubResource( 68 )
 
 [node name="CenterPivot" type="Position2D" parent="."]
 
@@ -542,26 +585,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="HealthBarBottom" type="TextureProgress" parent="CanvasLayer"]
-margin_left = 55.4793
-margin_top = 512.625
-margin_right = 87.4793
-margin_bottom = 544.625
-rect_scale = Vector2( 27, 0.5 )
-value = 50.0
-texture_under = ExtResource( 3 )
-texture_progress = ExtResource( 3 )
-tint_progress = Color( 0.556863, 0.466667, 0.94902, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/attack = SubResource( 63 )
 "anims/attack (old)" = SubResource( 64 )
 anims/die = SubResource( 65 )
+anims/idle = SubResource( 67 )
 anims/walk = SubResource( 66 )
 
 [node name="HurtAnimationPlayer" parent="AnimationPlayer" instance=ExtResource( 2 )]

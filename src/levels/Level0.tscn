@@ -189,12 +189,17 @@ stream = ExtResource( 5 )
 [node name="Enemies" type="Node2D" parent="Characters"]
 
 [node name="Titan" parent="Characters/Enemies" instance=ExtResource( 11 )]
-position = Vector2( 340.077, 364.87 )
+position = Vector2( 2560, 416 )
+
+[node name="Titan2" parent="Characters/Enemies" instance=ExtResource( 11 )]
+position = Vector2( 3520, 224 )
+
+[node name="Titan3" parent="Characters/Enemies" instance=ExtResource( 11 )]
+position = Vector2( 2976, 224 )
 
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="TimeLabel" type="Label" parent="UI"]
-visible = false
 margin_left = 464.0
 margin_top = 40.0
 margin_right = 575.0
@@ -210,10 +215,10 @@ __meta__ = {
 [node name="Traps" type="Node2D" parent="."]
 
 [node name="FloatingSpikes" parent="Traps" instance=ExtResource( 7 )]
-position = Vector2( 836.941, 289.402 )
+position = Vector2( 2144, 288 )
 
 [node name="Spikes" parent="Traps" instance=ExtResource( 1 )]
-position = Vector2( 547.8, 411.25 )
+position = Vector2( 1568, 416 )
 
 [node name="Sky" type="Node2D" parent="."]
 position = Vector2( 51.3912, 487.692 )
@@ -223,24 +228,6 @@ scale = Vector2( 1.6, 0.679995 )
 visible = false
 position = Vector2( 44647.4, -652.842 )
 scale = Vector2( 100, 1 )
-
-[node name="Wall" parent="." groups=[
-"wall",
-] instance=ExtResource( 3 )]
-position = Vector2( 6.46312, 91.6182 )
-rotation = 1.5708
-scale = Vector2( 1, 1 )
-
-[node name="ColorRect" type="ColorRect" parent="Wall"]
-margin_left = 396.074
-margin_top = -44.9295
-margin_right = 436.074
-margin_bottom = -4.9295
-rect_scale = Vector2( 1.6, 0.679995 )
-color = Color( 0.0470588, 0.0666667, 0.133333, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Ground" type="Node2D" parent="."]
 position = Vector2( 51.3912, 487.692 )
@@ -277,15 +264,43 @@ position = Vector2( 15.1924, -6042.12 )
 rotation = -1.5708
 scale = Vector2( 1.4706, 0.625 )
 
+[node name="Ground8" parent="Ground" instance=ExtResource( 3 )]
+position = Vector2( -104.82, -7924.48 )
+rotation = -1.5708
+scale = Vector2( 1.4706, 0.625 )
+
+[node name="Ground9" parent="Ground" instance=ExtResource( 3 )]
+position = Vector2( 15.1782, -8771.55 )
+rotation = -1.5708
+scale = Vector2( 1.4706, 0.625 )
+
+[node name="Wall" parent="Ground" groups=[
+"wall",
+] instance=ExtResource( 3 )]
+position = Vector2( -247.546, 66.0733 )
+scale = Vector2( 0.625, 1.4706 )
+
+[node name="ColorRect" type="ColorRect" parent="Ground/Wall"]
+margin_left = 396.074
+margin_top = -44.9295
+margin_right = 436.074
+margin_bottom = -4.9295
+rect_scale = Vector2( 1.6, 0.679995 )
+color = Color( 0.0470588, 0.0666667, 0.133333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Instructions" type="Node2D" parent="."]
+visible = false
 modulate = Color( 1, 1, 1, 0.670588 )
 z_index = 10
 
 [node name="MoveLabel" type="Label" parent="Instructions"]
 modulate = Color( 1, 1, 1, 0.658824 )
-margin_left = 448.0
+margin_left = 352.0
 margin_top = 352.0
-margin_right = 665.0
+margin_right = 569.0
 margin_bottom = 400.0
 custom_fonts/font = SubResource( 2 )
 text = "WASD to move"
@@ -293,14 +308,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MoveLabel2" type="Label" parent="Instructions"]
+[node name="FireLabel" type="Label" parent="Instructions"]
 modulate = Color( 1, 1, 1, 0.658824 )
-margin_left = 1424.0
-margin_top = 336.0
-margin_right = 1745.0
-margin_bottom = 384.0
+margin_left = 1280.0
+margin_top = 352.0
+margin_right = 1601.0
+margin_bottom = 400.0
 custom_fonts/font = SubResource( 2 )
-text = "Left Click to attack"
+text = "Fire is hot"
 __meta__ = {
 "_edit_use_anchors_": false
 }

@@ -34,7 +34,7 @@ enum ATTACK_PATTERNS {
 }
 const DAMAGE = 10
 
-const SPEED = 500
+const SPEED = 50
 const TITAN_SCALE = 2
 
 export var main_hp = false
@@ -44,8 +44,8 @@ export var color = Color(255,0,0,1)
 
 onready var sprite = $AnimatedSprite
 onready var animation = $AnimationPlayer
+onready var roam_range = $AnimatedSprite/Range/RoamArea2D
 
-onready var roam_range = $Range/RoamArea2D
 var current_phase = PHASE.ZERO
 var current_scale_x
 var enemies_damaged = []
@@ -61,7 +61,6 @@ var _last_input_direction = Vector2.ZERO
 
 var is_climbing = false #TODO dont actually need this, use state instead
 var is_running = false
-
 var is_flipped = false
 
 func _init():	
@@ -96,13 +95,13 @@ func _ready():
 #	max_hp *= enemy_scale/8.0
 #	hp = max_hp
 	_dir.x *= -1
-	if main_hp:
-		hp_bar = $CanvasLayer/HealthBarBottom
-		$Overhead/HealthBarOverhead.visible = false
-	else:
-		hp_bar = $Overhead/HealthBarOverhead
-		$CanvasLayer/HealthBarBottom.visible = false
-#		$Overhead/Label.visible = false
+#	if main_hp:
+#		hp_bar = $CanvasLayer/HealthBarBottom
+#		$Overhead/HealthBarOverhead.visible = false
+#	else:
+	hp_bar = $Overhead/HealthBarOverhead
+#	$CanvasdLayer/HealthBarBottom.visible = false
+#	$Overhead/Label.visible = false
 #	hp_bar.set_min(0)
 #	hp_bar.set_max(max_hp)	
 #	hp_bar.set_value(hp)
@@ -112,31 +111,19 @@ func _ready():
 	state = STATES.IDLE
 
 func _physics_process(delta):
-#	var slides = get_slide_count()
-#	for i in slides:
-#		#changing collisions for ground object
-#		var collision = get_slide_collision(i)
-#		var collider = collision.get_collider()
-#
-#		if collider == null:
-#			pass
-#		elif collider.has_method("change_color"):
-#			collider.change_color(self)
-	
-#	var input = get_raw_input(state)
 	var event = get_event()
 	change_state(event)
 	match state:
 		STATES.IDLE:
-			animation.play("idle")
+			pass
 		STATES.ROAM:
 			pass
-#			var temp = roam_range.get_overlapping_bodies()
-#			if temp.size() == 0 and is_on_floor():
-#				_dir.x *= -1
-#			_velocity.x = _speed * input.direction.x
-#			animation.play("walk")
-#			flip(_dir.x < 0)
+			var temp = roam_range.get_overlapping_bodies()
+			if temp.size() == 0 and is_on_floor():
+				_dir.x *= -1
+			_velocity.x = _speed * _dir.x
+			animation.play("walk")
+			flip(_dir.x < 0)
 			#TODO check if next tile is 
 		STATES.FALL:
 			_velocity.x = _prev_velocity.x
@@ -146,25 +133,26 @@ func _physics_process(delta):
 			_velocity.x = 0
 			match current_attack_pattern:
 				ATTACK_PATTERNS.RUSH:
-					animation.play("attack")
-
+					change_animation("attack")
+	
 	_velocity.y += 10 # for gravity
 	_velocity = move_and_slide(_velocity, Vector2(0, -1))
+	print(_velocity)
 
 func enter_state():
 	match state:
 		STATES.IDLE:
-			pass
+			change_animation("idle")
 		STATES.FALL:
 			if animation.current_animation != "fall_continue":
-				animation.play("fall")
+				change_animation("fall")
 		STATES.ROAM:
 			is_running = false
 		STATES.ATTACK:
 			randomize()
 			current_attack_pattern = 0
 		STATES.DIE:
-			animation.play("die")			
+			change_animation("die")			
 func flip(val = true):
 	if val:
 		sprite.scale.x = -current_scale_x
@@ -193,10 +181,10 @@ func get_event():
 	"""
 	var event = EVENTS.INVALID
 
-	if true: #facing player and within range
+	if false: #facing player and within range
 		event = EVENTS.ATTACK
-	elif true: #within chase range
-		event = EVENTS.CHANGE
+	elif false: #within chase range
+		event = EVENTS.CHASE
 	else: #roam
 		event = EVENTS.ROAM
 
@@ -230,3 +218,13 @@ func _on_AttackArea2D_body_entered(body):
 	if body.is_in_group("human"):
 		change_state(EVENTS.ATTACK)
 		print("ATTACK BOI")
+
+func change_animation(anim):
+	match anim:
+		"idle":
+			animation.set_speed_scale(0.5)
+		"attack":
+			animation.set_speed_scale(1.0)			
+		_:
+			animation.set_speed_scale(1)
+	animation.play(anim)

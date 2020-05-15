@@ -148,7 +148,6 @@ func _physics_process(delta):
 
 	_dir = input.direction
 	
-	
 	match state:
 		STATES.IDLE, STATES.GRAPPLE_LAUNCH_GROUND, STATES.ATTACK_GROUND:
 			add_friction()
@@ -200,7 +199,6 @@ func _physics_process(delta):
 #			elif not can_coyote_jump:
 #				_velocity.y += GRAVITY
 		_:
-#			pass
 			_velocity.y += GRAVITY
 		
 	match state: # for flipping
