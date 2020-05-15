@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/mouse_cursor.png-e2323f01fd6bd2a2b4de24680644aad3.stex"
+path="res://.import/spr_ArcherAttack_strip_NoBkg.png-beeedb7591a0470e1f734c32cc261dab.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mouse_cursor.png"
-dest_files=[ "res://.import/mouse_cursor.png-e2323f01fd6bd2a2b4de24680644aad3.stex" ]
+source_file="res://images/characters/player frames/spr_ArcherAttack_strip_NoBkg.png"
+dest_files=[ "res://.import/spr_ArcherAttack_strip_NoBkg.png-beeedb7591a0470e1f734c32cc261dab.stex" ]
 
 [params]
 

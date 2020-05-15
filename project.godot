@@ -46,7 +46,8 @@ _global_script_class_icons={
 
 config/name="Color Arena"
 run/main_scene="res://src/levels/Level0.tscn"
-config/icon="res://icon2.png"
+boot_splash/image="res://wallpaper.png"
+config/icon="res://Icon v3.png"
 
 [autoload]
 
@@ -115,3 +116,4 @@ change_weapon_wheel={
 2d_physics/layer_4="hook"
 2d_physics/layer_5="hitbox"
 2d_physics/layer_6="hurtbox"
+2d_physics/layer_7="sky"

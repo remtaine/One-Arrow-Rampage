@@ -6,9 +6,15 @@ var enemies_damaged = []
 var hit_damage
 
 export var only_player = false
+
 func _ready():
 	if "DAMAGE" in host:
 		damage = host.DAMAGE
+	
+	if only_player:
+		enable()
+	else:
+		disable()
 
 func _on_SwordHitbox_area_entered(area):
 	print("IVE HIT SOMETHING!")
@@ -16,6 +22,7 @@ func _on_SwordHitbox_area_entered(area):
 		if not area.enabled:
 			return
 		if only_player and not area.host.is_in_group("human"): #meaning it only hits player
+			print("SSORRY, I ONLY HIT PLAYERS")
 			return
 		if is_in_group("hitbox_enemy") and area.is_in_group("hurtbox_enemy"):
 			return
@@ -24,7 +31,7 @@ func _on_SwordHitbox_area_entered(area):
 		enemies_damaged.append(area)
 		hit_damage = damage * area.damage_multiplier
 		print("Damage calculated as ", hit_damage)
-		area.host.hit(hit_damage, area.is_special)
+		area.host.hit()
 
 func enable():
 	$CollisionShape2D.disabled = false

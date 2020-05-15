@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/spr_ArcherJumpAndFall_strip_NoBkg - NO SHADOW.png-e94d11b97de6d19793c2e5d4bd8def10.stex"
+path="res://.import/wallpaper.png-86c4487027ea12d352559cb034241ff5.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/characters/frames/spr_ArcherJumpAndFall_strip_NoBkg - NO SHADOW.png"
-dest_files=[ "res://.import/spr_ArcherJumpAndFall_strip_NoBkg - NO SHADOW.png-e94d11b97de6d19793c2e5d4bd8def10.stex" ]
+source_file="res://wallpaper.png"
+dest_files=[ "res://.import/wallpaper.png-86c4487027ea12d352559cb034241ff5.stex" ]
 
 [params]
 

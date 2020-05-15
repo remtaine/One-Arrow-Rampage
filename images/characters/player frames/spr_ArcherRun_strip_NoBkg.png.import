@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/spr_ArcherDeath_strip_NoBkg.png-e41635085d318ceec6f71dac442676cc.stex"
+path="res://.import/spr_ArcherRun_strip_NoBkg.png-6b8f32fcdca3258c68eca9f82e52e4a9.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/characters/frames/spr_ArcherDeath_strip_NoBkg.png"
-dest_files=[ "res://.import/spr_ArcherDeath_strip_NoBkg.png-e41635085d318ceec6f71dac442676cc.stex" ]
+source_file="res://images/characters/player frames/spr_ArcherRun_strip_NoBkg.png"
+dest_files=[ "res://.import/spr_ArcherRun_strip_NoBkg.png-6b8f32fcdca3258c68eca9f82e52e4a9.stex" ]
 
 [params]
 

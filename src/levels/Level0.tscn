@@ -1,13 +1,16 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=20 format=2]
 
+[ext_resource path="res://src/environment/Spikes.tscn" type="PackedScene" id=1]
 [ext_resource path="res://fonts/BebasNeue Bold.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://src/environment/Ground.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/levels/Level.gd" type="Script" id=4]
 [ext_resource path="res://sounds/music/JDB_Hunters.ogg" type="AudioStream" id=5]
 [ext_resource path="res://src/characters/Player.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/environment/FloatingSpikes.tscn" type="PackedScene" id=7]
 [ext_resource path="res://images/background/layers/Layer_0007_Lights.png" type="Texture" id=8]
 [ext_resource path="res://images/background/layers/Layer_0009_2.png" type="Texture" id=9]
 [ext_resource path="res://images/background/layers/Layer_0008_3.png" type="Texture" id=10]
+[ext_resource path="res://src/characters/Titan.tscn" type="PackedScene" id=11]
 [ext_resource path="res://images/background/layers/Layer_0010_1.png" type="Texture" id=12]
 [ext_resource path="res://images/background/layers/Layer_0006_4.png" type="Texture" id=13]
 [ext_resource path="res://images/background/layers/Layer_0004_Lights.png" type="Texture" id=14]
@@ -31,7 +34,7 @@ script = ExtResource( 4 )
 
 [node name="ParallaxLayer1" type="ParallaxLayer" parent="Background"]
 motion_scale = Vector2( 0.1, 1 )
-motion_mirroring = Vector2( 928, 0 )
+motion_mirroring = Vector2( 1856, 0 )
 
 [node name="Sprite" type="Sprite" parent="Background/ParallaxLayer1"]
 position = Vector2( 0, 540 )
@@ -39,9 +42,15 @@ texture = ExtResource( 12 )
 centered = false
 offset = Vector2( 0, -793 )
 
+[node name="Sprite2" type="Sprite" parent="Background/ParallaxLayer1"]
+position = Vector2( 928, 540 )
+texture = ExtResource( 12 )
+centered = false
+offset = Vector2( 0, -793 )
+
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="Background"]
 motion_scale = Vector2( 0.2, 1 )
-motion_mirroring = Vector2( 928, 0 )
+motion_mirroring = Vector2( 1856, 0 )
 
 [node name="Sprite" type="Sprite" parent="Background/ParallaxLayer2"]
 position = Vector2( 0, 540 )
@@ -49,9 +58,15 @@ texture = ExtResource( 9 )
 centered = false
 offset = Vector2( 0, -793 )
 
+[node name="Sprite2" type="Sprite" parent="Background/ParallaxLayer2"]
+position = Vector2( 928, 540 )
+texture = ExtResource( 9 )
+centered = false
+offset = Vector2( 0, -793 )
+
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="Background"]
 motion_scale = Vector2( 0.3, 1 )
-motion_mirroring = Vector2( 928, 0 )
+motion_mirroring = Vector2( 1856, 0 )
 
 [node name="Sprite" type="Sprite" parent="Background/ParallaxLayer3"]
 position = Vector2( 0, 540 )
@@ -59,9 +74,15 @@ texture = ExtResource( 10 )
 centered = false
 offset = Vector2( 0, -793 )
 
+[node name="Sprite2" type="Sprite" parent="Background/ParallaxLayer3"]
+position = Vector2( 928, 540 )
+texture = ExtResource( 10 )
+centered = false
+offset = Vector2( 0, -793 )
+
 [node name="ParallaxLayer4" type="ParallaxLayer" parent="Background"]
 motion_scale = Vector2( 0.4, 1 )
-motion_mirroring = Vector2( 928, 0 )
+motion_mirroring = Vector2( 1856, 0 )
 
 [node name="Sprite" type="Sprite" parent="Background/ParallaxLayer4"]
 position = Vector2( 0, 540 )
@@ -69,9 +90,15 @@ texture = ExtResource( 8 )
 centered = false
 offset = Vector2( 0, -793 )
 
+[node name="Sprite2" type="Sprite" parent="Background/ParallaxLayer4"]
+position = Vector2( 928, 540 )
+texture = ExtResource( 8 )
+centered = false
+offset = Vector2( 0, -793 )
+
 [node name="ParallaxLayer5" type="ParallaxLayer" parent="Background"]
 motion_scale = Vector2( 0.5, 1 )
-motion_mirroring = Vector2( 928, 0 )
+motion_mirroring = Vector2( 1856, 0 )
 
 [node name="Sprite" type="Sprite" parent="Background/ParallaxLayer5"]
 position = Vector2( 0, 540 )
@@ -79,9 +106,15 @@ texture = ExtResource( 13 )
 centered = false
 offset = Vector2( 0, -793 )
 
+[node name="Sprite2" type="Sprite" parent="Background/ParallaxLayer5"]
+position = Vector2( 928, 540 )
+texture = ExtResource( 13 )
+centered = false
+offset = Vector2( 0, -793 )
+
 [node name="ParallaxLayer6" type="ParallaxLayer" parent="Background"]
 motion_scale = Vector2( 0.6, 1 )
-motion_mirroring = Vector2( 928, 0 )
+motion_mirroring = Vector2( 1856, 0 )
 
 [node name="Sprite" type="Sprite" parent="Background/ParallaxLayer6"]
 position = Vector2( 0, 540 )
@@ -89,9 +122,15 @@ texture = ExtResource( 18 )
 centered = false
 offset = Vector2( 0, -793 )
 
+[node name="Sprite2" type="Sprite" parent="Background/ParallaxLayer6"]
+position = Vector2( 928, 540 )
+texture = ExtResource( 18 )
+centered = false
+offset = Vector2( 0, -793 )
+
 [node name="ParallaxLayer7" type="ParallaxLayer" parent="Background"]
 motion_scale = Vector2( 0.7, 1 )
-motion_mirroring = Vector2( 928, 0 )
+motion_mirroring = Vector2( 1856, 0 )
 
 [node name="Sprite" type="Sprite" parent="Background/ParallaxLayer7"]
 position = Vector2( 0, 540 )
@@ -99,12 +138,24 @@ texture = ExtResource( 14 )
 centered = false
 offset = Vector2( 0, -793 )
 
+[node name="Sprite2" type="Sprite" parent="Background/ParallaxLayer7"]
+position = Vector2( 928, 540 )
+texture = ExtResource( 14 )
+centered = false
+offset = Vector2( 0, -793 )
+
 [node name="ParallaxLayer8" type="ParallaxLayer" parent="Background"]
 motion_scale = Vector2( 0.8, 1 )
-motion_mirroring = Vector2( 928, 0 )
+motion_mirroring = Vector2( 1856, 0 )
 
 [node name="Sprite" type="Sprite" parent="Background/ParallaxLayer8"]
 position = Vector2( 0, 540 )
+texture = ExtResource( 17 )
+centered = false
+offset = Vector2( 0, -793 )
+
+[node name="Sprite2" type="Sprite" parent="Background/ParallaxLayer8"]
+position = Vector2( 928, 540 )
 texture = ExtResource( 17 )
 centered = false
 offset = Vector2( 0, -793 )
@@ -120,7 +171,7 @@ centered = false
 offset = Vector2( 0, -793 )
 
 [node name="Sprite2" type="Sprite" parent="Background/ParallaxLayer9"]
-position = Vector2( 928, 544 )
+position = Vector2( 928, 540 )
 texture = ExtResource( 16 )
 centered = false
 offset = Vector2( 0, -793 )
@@ -130,7 +181,15 @@ offset = Vector2( 0, -793 )
 [node name="Player" parent="Characters" instance=ExtResource( 6 )]
 position = Vector2( 224, 376 )
 z_index = 0
-color = Color( 0.215686, 0.85098, 0.54902, 1 )
+
+[node name="Music" type="AudioStreamPlayer" parent="Characters/Player"]
+stream = ExtResource( 5 )
+autoplay = true
+
+[node name="Enemies" type="Node2D" parent="Characters"]
+
+[node name="Titan" parent="Characters/Enemies" instance=ExtResource( 11 )]
+position = Vector2( 591.728, 280.986 )
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -147,11 +206,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 5 )
-autoplay = true
-
 [node name="Traps" type="Node2D" parent="."]
+
+[node name="FloatingSpikes" parent="Traps" instance=ExtResource( 7 )]
+position = Vector2( 836.941, 289.402 )
+
+[node name="Spikes" parent="Traps" instance=ExtResource( 1 )]
+position = Vector2( 547.8, 411.25 )
 
 [node name="Ground" type="Node2D" parent="."]
 position = Vector2( 51.3912, 487.692 )
@@ -189,8 +250,13 @@ position = Vector2( 15.1925, -3312.68 )
 rotation = -1.5708
 scale = Vector2( 1.4706, 0.625 )
 
-[node name="Ground4" parent="Ground" instance=ExtResource( 3 )]
-position = Vector2( 15.1926, -4677.4 )
+[node name="Ground6" parent="Ground" instance=ExtResource( 3 )]
+position = Vector2( -4.81262, -3312.68 )
+rotation = -1.5708
+scale = Vector2( 1.4706, 0.625 )
+
+[node name="Ground7" parent="Ground" instance=ExtResource( 3 )]
+position = Vector2( -124.814, -4677.4 )
 rotation = -1.5708
 scale = Vector2( 1.4706, 0.625 )
 
@@ -200,12 +266,6 @@ rotation = -1.5708
 scale = Vector2( 1.4706, 0.625 )
 
 [node name="Sky" type="Node2D" parent="Ground"]
-visible = false
-
-[node name="Ground3" parent="Ground/Sky" instance=ExtResource( 3 )]
-position = Vector2( -300, -46000 )
-rotation = 1.5708
-scale = Vector2( 100, 0.625 )
 
 [node name="Instructions" type="Node2D" parent="."]
 modulate = Color( 1, 1, 1, 0.670588 )

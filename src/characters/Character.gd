@@ -10,20 +10,18 @@ var _transitions = {}
 var hp = 100.0
 var max_hp = 100.0
 
+onready var healthUI = $UI/HealthUI
 onready var hp_bar = $UI/HealthBar
 onready var hurt_animation = $AnimationPlayer/HurtAnimationPlayer
+
 func _ready():
 	connect("state_changed",$StateLabel, "_on_Character_state_changed")
 	
 func enter_state():
 	pass
 
-func hit(damage, special = false):
-	hurt_animation.play_hurt(special)
-	hp -= damage
-	hp_bar.set_value(hp)
-	if hp <= 0:
-		die()
+func hit():
+	pass
 
 func die():
 	pass

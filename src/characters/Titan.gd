@@ -2,9 +2,9 @@ extends "res://src/characters/Character.gd"
 
 var STATES = {
 	IDLE = "idle",
-	CHANGE_PHASE = "change phase",
 	ROAM = "roam",
 	CHASE = "chase",
+	CHASE_DEFEND = "defend",	
 	ATTACK = "attack",
 	FALL = "fall",
 }
@@ -13,7 +13,7 @@ enum EVENTS {
 	INVALID=-1,
 	STOP,
 	ROAM,
-	TARGET,
+	DEFEND,
 	ATTACK,
 	FALL,
 	LAND
@@ -32,44 +32,23 @@ enum ATTACK_PATTERNS {
 }
 const DAMAGE = 10
 
-var SPEED = {
-	STATES.ROAM: 300,
-	STATES.CHASE: 500
-}
+const SPEED = 500
 const TITAN_SCALE = 2
 
 export var main_hp = false
 export var enemy_scale = 8
 
-onready var sword = $Sprite/WeaponArm/Weapons/Sword
-onready var bow = $Sprite/WeaponArm/Weapons/Bow
-onready var shield = $Sprite/FreeArm/SideItems/Shield
-
-onready var weapons = $Sprite/WeaponArm/Weapons
-onready var side_items = $Sprite/FreeArm/SideItems
-
-const HOOK_LEEWAY = 100
-const HOOK_VELOCITY_DAMPENING = 0.7
-onready var pivot_pos = $CenterPivot
-onready var g_hook_pos = $CenterPivot/ProjectileLaunchPosition1
-onready var g_hook_resource = preload("res://src/weapons/GrapplingHook.tscn")
-
-onready var main_body = $Sprite/Body/MainBody
-onready var climbing_body = $Sprite/Body/ClimbingBody
-
-onready var coyote_timer = $GameFeel/CoyoteGroundTimer
-onready var jump_buffer_timer = $GameFeel/JumpBufferTimer
-
-onready var animation = $AnimationPlayer
-
 export var color = Color(255,0,0,1)
 
-onready var roam_range = $Sprite/Range/RoamArea2D
+onready var sprite = $AnimatedSprite
+onready var animation = $AnimationPlayer
+
+onready var roam_range = $Range/RoamArea2D
 var current_phase = PHASE.ZERO
 var current_scale_x
 var enemies_damaged = []
 
-var _speed = SPEED[STATES.ROAM]
+var _speed = SPEED
 var _velocity = Vector2.ZERO
 var _dir = Vector2(1,0)
 var _prev_velocity = Vector2.ZERO
@@ -88,7 +67,6 @@ func _init():
 		[STATES.IDLE, EVENTS.ROAM]: STATES.ROAM,
 		
 		[STATES.ROAM, EVENTS.STOP]: STATES.IDLE,
-		[STATES.ROAM, EVENTS.TARGET]: STATES.CHASE,
 		[STATES.ROAM, EVENTS.ATTACK]: STATES.ATTACK, #TEMP! TODO remove once chase state implemented
 
 		[STATES.CHASE, EVENTS.ATTACK]: STATES.ATTACK,
@@ -102,11 +80,9 @@ func _init():
 
 func _ready():
 	max_hp *= TITAN_SCALE #to make titans stronger
-	scale.x = enemy_scale
-	scale.y = enemy_scale
 	max_hp *= enemy_scale/8.0
 	hp = max_hp
-	
+	_dir.x *= -1
 	if main_hp:
 		hp_bar = $CanvasLayer/HealthBarBottom
 		$Overhead/HealthBarOverhead.visible = false
@@ -119,7 +95,7 @@ func _ready():
 	hp_bar.set_value(hp)
 	print("ENEMY MAX HP AT ", max_hp)
 	
-	current_scale_x = $Sprite.scale.x
+	current_scale_x = sprite.scale.x
 	state = STATES.ROAM
 
 func _physics_process(delta):
@@ -142,7 +118,7 @@ func _physics_process(delta):
 			animation.play("idle")
 		STATES.ROAM:
 			var temp = roam_range.get_overlapping_bodies()
-			if temp.size() == 0:
+			if temp.size() == 0 and is_on_floor():
 				_dir.x *= -1
 			_velocity.x = _speed * input.direction.x
 			animation.play("walk")
@@ -156,11 +132,10 @@ func _physics_process(delta):
 			_velocity.x = 0
 			match current_attack_pattern:
 				ATTACK_PATTERNS.RUSH:
-					animation.play("attack_rush")
+					animation.play("attack")
 
 	_velocity.y += 10 # for gravity
 	_velocity = move_and_slide(_velocity, Vector2(0, -1))
-	pivot_pos.look_at(get_global_mouse_position())
 
 func enter_state():
 	match state:
@@ -177,10 +152,10 @@ func enter_state():
 					
 func flip(val = true):
 	if val:
-		$Sprite.scale.x = -current_scale_x
+		sprite.scale.x = -current_scale_x
 		is_flipped = true
 	else:
-		$Sprite.scale.x = current_scale_x
+		sprite.scale.x = current_scale_x
 		is_flipped = false
 			
 static func get_dir(a1, a2):
@@ -212,11 +187,20 @@ func get_event(input):
 
 	return event
 
+func hit():
+	hp -= 1000
+	hp_bar.set_value(hp)
+	if hp <= 0:
+		die()
+	else:
+		hurt_animation.play_hurt()
+		print("HURT")
+
 func die():
-	queue_free()
+	animation.play("die")
 	
 func _on_AnimationPlayer_animation_finished(anim_name):
-	if anim_name == "attack_swing":
+	if anim_name == "attack":
 		enemies_damaged = []
 		change_state(EVENTS.STOP)
 	elif anim_name == "fall":

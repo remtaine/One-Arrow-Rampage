@@ -42,10 +42,8 @@ func fade_away():
 
 func _on_Area2D_body_entered(body):
 	#change state of player to GRAPPLING_MOVING
-	if body.has_method("change_color"):
-		body.change_color(_owner)
-		attached_to = body
-		attached_to_wr = weakref(body)
+	if body.has_method("hit"):
+		body.hit()
 	_velocity = Vector2.ZERO
 	launch_successful = true
 	move_timer.start()

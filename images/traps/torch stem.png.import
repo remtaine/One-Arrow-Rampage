@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/spr_ArcherIdle_strip_NoBkg.png-26c4185c65587c8a7b34c7966a11db06.stex"
+path="res://.import/torch stem.png-224ed1762fded9b5faeb01cc6499f920.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/characters/frames/spr_ArcherIdle_strip_NoBkg.png"
-dest_files=[ "res://.import/spr_ArcherIdle_strip_NoBkg.png-26c4185c65587c8a7b34c7966a11db06.stex" ]
+source_file="res://images/traps/torch stem.png"
+dest_files=[ "res://.import/torch stem.png-224ed1762fded9b5faeb01cc6499f920.stex" ]
 
 [params]
 

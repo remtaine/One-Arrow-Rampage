@@ -39,9 +39,9 @@ const DAMAGE =  10.0
 const SPEED = 20
 const GRAPPLE_SPEED = 700
 const JUMP_HEIGHT = -450
-const SPEED_LIMIT = Vector2(400, 500)
+const SPEED_LIMIT = Vector2(400, 450)
 
-const FRICTION = 15
+const FRICTION = 20
 const AIR_FRICTION = 2
 const TURN_STRENGTH = 1.0
 const AIR_CONTROL = 0.5
@@ -49,7 +49,8 @@ const GRAVITY = 12
 const JUMP_DEFICIENCY = 1
 
 onready var camera = $Camera2D
-onready var sprite = $Sprite #shuld be #Sprite
+onready var sprite = $AnimatedSprite #shuld be #Sprite
+onready var animation = $AnimationPlayer
 
 const HOOK_LEEWAY = 50
 const HOOK_VELOCITY_DAMPENING = 0.7
@@ -62,10 +63,9 @@ var can_coyote_jump = false
 onready var coyote_timer = $GameFeel/CoyoteGroundTimer
 onready var jump_buffer_timer = $GameFeel/JumpBufferTimer
 
-onready var animation = $Sprite
-
 export var color = Color(255,0,0,1)
 
+export var is_invulnerable = false
 var enemies_damaged = []
 
 var _speed = 0
@@ -138,7 +138,7 @@ func _ready():
 	hp_bar.set_value(hp)
 
 func _physics_process(delta):
-	if global_position.y > 600:
+	if global_position.y > 700:
 		die()
 	var input = get_raw_input(state)
 	var event = get_event(input)
@@ -148,14 +148,14 @@ func _physics_process(delta):
 	
 	
 	match state:
-		STATES.IDLE:
+		STATES.IDLE, STATES.GRAPPLE_LAUNCH_GROUND, STATES.ATTACK_GROUND:
 			add_friction()
-		STATES.WALK, STATES.GRAPPLE_LAUNCH_GROUND, STATES.ATTACK_GROUND:
+		STATES.WALK:
 			if input.direction.x * _velocity.x < 0:
 				_velocity.x += SPEED * _dir.x * TURN_STRENGTH
 			else:
 				_velocity.x += SPEED * _dir.x
-			
+			continue
 		STATES.JUMP, STATES.GRAPPLE_LAUNCH_AIR:
 #			var temp = 
 			if input.direction.x != 0:
@@ -261,6 +261,7 @@ func enter_state():
 		STATES.GRAPPLE_MOVE:
 			animation.play("jump")		
 		STATES.ATTACK_GROUND:
+#			_velocity.x = 0	
 			animation.play("attack_swing")
 		STATES.ATTACK_AIR:
 			animation.play("attack_swing")
@@ -331,15 +332,20 @@ func hook_launch_outcome(outcome, hook):
 			hook.retract()
 			current_hook = null
 
-func hook_move_outcome(outcome):
+func hook_move_outcome(outcome = "failure"):
 	match outcome:
 		"failure":
 			if current_hook_wr.get_ref():
 				current_hook.fade_away()
 				current_hook = null
-	
+
+func hit():
+	healthUI.update_health()
+	hurt_animation.play_hurt()
+
 func die():
 	#TODO add death screen
+	hook_move_outcome("failure")
 	queue_free()
 
 func _on_AnimationPlayer_animation_finished(anim_name):

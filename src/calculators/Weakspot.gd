@@ -1,6 +1,6 @@
 extends Area2D
 
-onready var host = get_parent().get_parent().get_parent()
+onready var host = get_parent().get_parent()
 export var damage_multiplier = 1.0
 export var is_special = false
 export var enabled = true

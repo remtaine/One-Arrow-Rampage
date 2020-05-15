@@ -1,5 +1,6 @@
 extends Trap
 
 func _ready():
-	$AnimationPlayer.play("float")
+	pass
+#	$AnimationPlayer.play("float")
 	
