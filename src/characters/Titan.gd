@@ -109,22 +109,22 @@ func _ready():
 #	print("ENEMY MAX HP AT ", max_hp)
 	
 	current_scale_x = sprite.scale.x
-	state = STATES.ATTACK
+	state = STATES.IDLE
 
 func _physics_process(delta):
-	var slides = get_slide_count()
-	for i in slides:
-		#changing collisions for ground object
-		var collision = get_slide_collision(i)
-		var collider = collision.get_collider()
-		
-		if collider == null:
-			pass
-		elif collider.has_method("change_color"):
-			collider.change_color(self)
+#	var slides = get_slide_count()
+#	for i in slides:
+#		#changing collisions for ground object
+#		var collision = get_slide_collision(i)
+#		var collider = collision.get_collider()
+#
+#		if collider == null:
+#			pass
+#		elif collider.has_method("change_color"):
+#			collider.change_color(self)
 	
-	var input = get_raw_input(state)
-	var event = get_event(input)
+#	var input = get_raw_input(state)
+	var event = get_event()
 	change_state(event)
 	match state:
 		STATES.IDLE:
@@ -186,18 +186,18 @@ func get_raw_input(state):
 		is_launching_grappling_hook = false
 	}
 
-func get_event(input):
+func get_event():
 	"""
 	Converts the player's input to events. The state machine
 	uses these events to trigger transitions from one state to another.
 	"""
 	var event = EVENTS.INVALID
 
-	if input.is_attacking or state == STATES.ATTACK:
+	if true: #facing player and within range
 		event = EVENTS.ATTACK
-	elif input.direction == Vector2():
-		event = EVENTS.STOP
-	else:
+	elif true: #within chase range
+		event = EVENTS.CHANGE
+	else: #roam
 		event = EVENTS.ROAM
 
 	return event

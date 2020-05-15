@@ -52,9 +52,9 @@ func _on_Area2D_body_entered(body):
 		if initial_y < body.global_position.y: #if I hit the sky from above
 			return
 	
-#	if body.is_in_group("ground"):
-#		if initial_y > body.global_position.y: #if I hit the sky from above
-#			return
+	if body.is_in_group("ground") and not body.is_in_group("wall"):
+		if initial_y > body.global_position.y: #if I hit the sky from above
+			return
 	
 	_velocity = Vector2.ZERO
 	launch_successful = true

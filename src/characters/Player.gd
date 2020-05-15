@@ -57,6 +57,7 @@ const HOOK_VELOCITY_DAMPENING = 0.7
 onready var pivot_pos = $CenterPivot
 onready var g_hook_pos = $CenterPivot/ProjectileLaunchPosition1
 onready var g_hook_resource = preload("res://src/weapons/GrapplingHook.tscn")
+onready var screenshake = $Camera2D/ScreenShakeGenerator
 
 var current_scale = 1
 var can_coyote_jump = false
@@ -338,6 +339,7 @@ func hook_move_outcome(outcome = "failure"):
 func hit():
 	healthUI.update_health()
 	hurt_animation.play_hurt()
+	screenshake.start()
 
 func die():
 	#TODO add death screen

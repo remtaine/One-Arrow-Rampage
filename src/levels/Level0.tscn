@@ -224,22 +224,14 @@ visible = false
 position = Vector2( 44647.4, -652.842 )
 scale = Vector2( 100, 1 )
 
-[node name="Ground" type="Node2D" parent="."]
-position = Vector2( 51.3912, 487.692 )
+[node name="Wall" parent="." groups=[
+"wall",
+] instance=ExtResource( 3 )]
+position = Vector2( 6.46312, 91.6182 )
 rotation = 1.5708
-scale = Vector2( 1.6, 0.679995 )
+scale = Vector2( 1, 1 )
 
-[node name="Ground1" parent="Ground" instance=ExtResource( 3 )]
-position = Vector2( 15.1926, -583.252 )
-rotation = -1.5708
-scale = Vector2( 1.4706, 0.625 )
-
-[node name="Wall" parent="Ground" instance=ExtResource( 3 )]
-position = Vector2( -247.546, 66.0733 )
-rotation = -1.13687e-14
-scale = Vector2( 0.625, 1.4706 )
-
-[node name="ColorRect" type="ColorRect" parent="Ground/Wall"]
+[node name="ColorRect" type="ColorRect" parent="Wall"]
 margin_left = 396.074
 margin_top = -44.9295
 margin_right = 436.074
@@ -249,6 +241,16 @@ color = Color( 0.0470588, 0.0666667, 0.133333, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Ground" type="Node2D" parent="."]
+position = Vector2( 51.3912, 487.692 )
+rotation = 1.5708
+scale = Vector2( 1.6, 0.679995 )
+
+[node name="Ground1" parent="Ground" instance=ExtResource( 3 )]
+position = Vector2( 15.1926, -583.252 )
+rotation = -1.5708
+scale = Vector2( 1.4706, 0.625 )
 
 [node name="Ground2" parent="Ground" instance=ExtResource( 3 )]
 position = Vector2( 15.1926, -1947.97 )
