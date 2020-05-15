@@ -4,27 +4,30 @@ class_name Character
 
 signal state_changed(state)
 
-var state = 0
+var state = "idle"
 var prev_state = state
 var _transitions = {}
-var hp = 100
-var max_hp = 100
+var hp = 100.0
+var max_hp = 100.0
 
-onready var hp_bar = $HealthBar
-
+onready var hp_bar = $UI/HealthBar
+onready var hurt_animation = $AnimationPlayer/HurtAnimationPlayer
 func _ready():
 	connect("state_changed",$StateLabel, "_on_Character_state_changed")
 	
 func enter_state():
 	pass
 
-func hit(damage):
-	
+func hit(damage, special = false):
+	hurt_animation.play_hurt(special)
 	hp -= damage
 	hp_bar.set_value(hp)
 	if hp <= 0:
-		queue_free()
+		die()
 
+func die():
+	pass
+	
 func change_state(event):
 	var transition = [state, event]
 	if not transition in _transitions:

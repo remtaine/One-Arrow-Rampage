@@ -1,12 +1,14 @@
 extends KinematicBody2D
 
 var _velocity
-var _speed = 1500
+var _speed = 1000
 var _dir
 var _owner
 var is_fading = false
 var c
 var launch_successful = false
+var attached_to
+var attached_to_wr = null
 
 onready var line = $Node/Trail
 onready var sprite = $Sprite
@@ -21,12 +23,11 @@ func _ready():
 #	line.add_point(_owner.global_position)
 	
 func _physics_process(delta):
-	#TODO when attached, same velocity as body attached to
+	if attached_to_wr != null and attached_to_wr.get_ref():
+		if "_velocity" in attached_to:
+			print("I HAVE VELOCITY")
+			_velocity = attached_to._velocity
 	_velocity = move_and_slide(_velocity)
-#	line.add_point(_owner.global_position)
-#	if is_fading:
-#		print("fading!")
-#		tween.interpolate_property(self, "visibility/modulate", modulate, Color(c.r, c.g, c.b, 0), 1.0,Tween.TRANS_LINEAR,Tween.EASE_IN)
 
 func setup(dir, pos, rot, owner):
 	_dir = dir.normalized()
@@ -43,12 +44,13 @@ func _on_Area2D_body_entered(body):
 	#change state of player to GRAPPLING_MOVING
 	if body.has_method("change_color"):
 		body.change_color(_owner)
+		attached_to = body
+		attached_to_wr = weakref(body)
 	_velocity = Vector2.ZERO
 	launch_successful = true
 	move_timer.start()
 	_owner.hook_launch_outcome("success", self)
-	#change state
-	pass # Replace with function body.
+
 
 func _on_LaunchTimer_timeout():
 	#TODO end on line dist rather than timeout
@@ -57,3 +59,11 @@ func _on_LaunchTimer_timeout():
 
 func _on_PlayerMoveTimer_timeout():
 	_owner.hook_move_outcome("failure")
+
+func retract():
+	fade_away()
+#	_dir = Utils.get_dir(_owner, self)
+#	if global_position.distance_to(_owner.global_position) < _owner.HOOK_LEEWAY:
+#		fade_away()
+#	else:
+#		_velocity = _speed * _dir

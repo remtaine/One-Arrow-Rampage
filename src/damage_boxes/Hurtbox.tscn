@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/calculators/Weakspot.gd" type="Script" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 38.7783, 62.0735 )
+
+[node name="Hurtbox" type="Area2D" groups=[
+"hurtbox",
+]]
+collision_layer = 32
+collision_mask = 16
+script = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )

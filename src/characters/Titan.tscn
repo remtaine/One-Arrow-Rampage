@@ -1,79 +1,87 @@
 [gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://src/characters/Titan.gd" type="Script" id=1]
-[ext_resource path="res://images/ui/effect_shotLarge - Copy.png" type="Texture" id=2]
+[ext_resource path="res://src/behavior/HurtAnimationPlayer.tscn" type="PackedScene" id=2]
 [ext_resource path="res://images/placeholders/white.png" type="Texture" id=3]
 [ext_resource path="res://fonts/BebasNeue Bold.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://images/spritesheets/spritesheet_retina.png" type="Texture" id=5]
 [ext_resource path="res://images/characters/green empty body.png" type="Texture" id=6]
-[ext_resource path="res://src/calculators/Weakspot.gd" type="Script" id=7]
+[ext_resource path="res://src/damage_boxes/Hurtbox.tscn" type="PackedScene" id=7]
+[ext_resource path="res://src/damage_boxes/Hitbox.tscn" type="PackedScene" id=8]
 
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 8.7566, 10 )
+[sub_resource type="RectangleShape2D" id=11]
+extents = Vector2( 38.0091, 42.1855 )
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=12]
+extents = Vector2( 20.2097, 20.1006 )
 
-[sub_resource type="Animation" id=3]
-length = 0.7
+[sub_resource type="RectangleShape2D" id=13]
+extents = Vector2( 58.4563, 56.7922 )
+
+[sub_resource type="Animation" id=1]
+resource_name = "attack_rush"
+length = 1.2
+loop = true
+step = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite/WeaponArm:position")
+tracks/0/path = NodePath("Sprite/Body:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4, 0.5, 0.7 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 55.7273, 17.9124 ), Vector2( -37.5623, -58.5423 ), Vector2( 57.7285, 15.6959 ), Vector2( 57.7285, 15.6959 ), Vector2( 55.7273, 17.9124 ) ]
+"values": [ Vector2( 0, 0 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite/WeaponArm:rotation_degrees")
+tracks/1/path = NodePath("Sprite/WeaponArm:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4, 0.5, 0.7 ),
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ 0.0, -60.0, 120.0, 120.0, 0.0 ]
+"values": [ Vector2( 55.7273, 17.9124 ), Vector2( 55.7273, 17.9124 ), Vector2( 200, 20 ), Vector2( 55.7273, 17.9124 ), Vector2( 55.7273, 17.9124 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Sprite/FreeArm:position")
+tracks/2/path = NodePath("Sprite/WeaponArm:rotation_degrees")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4, 0.5, 0.7 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( -45.4409, -14.5754 ), Vector2( 44.5586, 23.8396 ), Vector2( -50.9811, -25.6557 ), Vector2( -50.9811, -25.6557 ), Vector2( -45.4409, -14.5754 ) ]
+"values": [ 0.0 ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Sprite/Body:rotation_degrees")
+tracks/3/path = NodePath("Sprite/FreeArm:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4, 0.5, 0.7 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 0.0, -30.0, 20.0, 20.0, 0.0 ]
+"values": [ Vector2( -45.4409, -14.5754 ) ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("Sprite/Hitboxes/SwordHitbox/CollisionShape2D:disabled")
+tracks/4/path = NodePath("Sprite/Body:rotation_degrees")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0, 0.4, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ true, false, true ]
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
 }
 tracks/5/type = "value"
 tracks/5/path = NodePath("Sprite/FreeArm:rotation_degrees")
@@ -87,8 +95,66 @@ tracks/5/keys = {
 "update": 0,
 "values": [ 8.70825 ]
 }
+tracks/6/type = "value"
+tracks/6/path = NodePath("Sprite/WeaponArm:modulate")
+tracks/6/interp = 2
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 0.001, 0.2, 0.6, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 0, 0.117647, 1 ), Color( 1, 0, 0.117647, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Sprite/FreeArm:modulate")
+tracks/7/interp = 2
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = false
+tracks/7/keys = {
+"times": PoolRealArray( 0, 0.2, 0.6, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/8/type = "method"
+tracks/8/path = NodePath("Sprite/FreeArm/FreeArmHitbox")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = false
+tracks/8/keys = {
+"times": PoolRealArray( 0.2, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "enable"
+}, {
+"args": [  ],
+"method": "disable"
+} ]
+}
+tracks/9/type = "method"
+tracks/9/path = NodePath("Sprite/WeaponArm/WeaponArmHitbox")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0.2, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "enable"
+}, {
+"args": [  ],
+"method": "disable"
+} ]
+}
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=2]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite/Body/MainBody:position")
@@ -150,20 +216,8 @@ tracks/4/keys = {
 "update": 0,
 "values": [ 0.0 ]
 }
-tracks/5/type = "value"
-tracks/5/path = NodePath("Sprite/Hitboxes/SwordHitbox/CollisionShape2D:disabled")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
-}
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=3]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite/Body:position")
@@ -226,118 +280,19 @@ tracks/4/keys = {
 "values": [ -30.0, 15.0 ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Sprite/Hitboxes/SwordHitbox/CollisionShape2D:disabled")
+tracks/5/path = NodePath("Sprite/FreeArm:rotation_degrees")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
-}
-tracks/6/type = "value"
-tracks/6/path = NodePath("Sprite/FreeArm:rotation_degrees")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/keys = {
 "times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ -10.0, 121.3 ]
 }
 
-[sub_resource type="Animation" id=6]
-length = 0.3
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite/Body:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite/WeaponArm:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 55.7273, 17.9124 ), Vector2( 50.9773, -52.3875 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Sprite/WeaponArm:rotation_degrees")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 0.0 ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("Sprite/FreeArm:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( -45.4409, -14.5754 ), Vector2( -51.1409, -56.3753 ) ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("Sprite/Body:rotation_degrees")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 0.0 ]
-}
-tracks/5/type = "value"
-tracks/5/path = NodePath("Sprite/Hitboxes/SwordHitbox/CollisionShape2D:disabled")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
-}
-tracks/6/type = "value"
-tracks/6/path = NodePath("Sprite/FreeArm:rotation_degrees")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/keys = {
-"times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 0.0, 121.275 ]
-}
-
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=4]
 length = 0.8
 loop = true
 step = 0.2
@@ -402,119 +357,19 @@ tracks/4/keys = {
 "values": [ 15.0 ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Sprite/Hitboxes/SwordHitbox/CollisionShape2D:disabled")
+tracks/5/path = NodePath("Sprite/FreeArm:rotation_degrees")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
-}
-tracks/6/type = "value"
-tracks/6/path = NodePath("Sprite/FreeArm:rotation_degrees")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/keys = {
 "times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 0,
 "values": [ 121.3, 110.0, 121.3, 130.0, 121.3 ]
 }
 
-[sub_resource type="Animation" id=8]
-length = 0.8
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite/Body:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.4, 0.8 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite/WeaponArm:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.4, 0.8 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 50.9773, -52.3875 ), Vector2( 50.9773, -52.3875 ), Vector2( 50.9773, -52.3875 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Sprite/WeaponArm:rotation_degrees")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ 0.0, 10.0, 0.0, -10.0, 0.0 ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("Sprite/FreeArm:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 0.4, 0.8 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( -51.1409, -56.3753 ), Vector2( -51.1409, -56.3753 ), Vector2( -51.1409, -56.3753 ) ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("Sprite/Body:rotation_degrees")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0, 0.4, 0.8 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ 0.0, 0.0, 0.0 ]
-}
-tracks/5/type = "value"
-tracks/5/path = NodePath("Sprite/Hitboxes/SwordHitbox/CollisionShape2D:disabled")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"times": PoolRealArray( 0, 0.4, 0.8 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ true, true, true ]
-}
-tracks/6/type = "value"
-tracks/6/path = NodePath("Sprite/FreeArm:rotation_degrees")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ 121.275, 130.0, 121.275, 110.0, 121.275 ]
-}
-
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=5]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite/Body:position")
@@ -577,31 +432,19 @@ tracks/4/keys = {
 "values": [ 0.0, -30.0 ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Sprite/Hitboxes/SwordHitbox/CollisionShape2D:disabled")
+tracks/5/path = NodePath("Sprite/FreeArm:rotation_degrees")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
-}
-tracks/6/type = "value"
-tracks/6/path = NodePath("Sprite/FreeArm:rotation_degrees")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/keys = {
 "times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ 8.70825, -10.0 ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=6]
 loop = true
 step = 0.5
 tracks/0/type = "value"
@@ -665,7 +508,7 @@ tracks/4/keys = {
 "values": [ 0.0 ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Sprite/Hitboxes/SwordHitbox/CollisionShape2D:disabled")
+tracks/5/path = NodePath("Sprite/FreeArm:rotation_degrees")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -673,23 +516,11 @@ tracks/5/enabled = true
 tracks/5/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
-}
-tracks/6/type = "value"
-tracks/6/path = NodePath("Sprite/FreeArm:rotation_degrees")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ 8.70825 ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=7]
 length = 0.4
 loop = true
 step = 0.2
@@ -754,7 +585,7 @@ tracks/4/keys = {
 "values": [ 0.0 ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Sprite/Hitboxes/SwordHitbox/CollisionShape2D:disabled")
+tracks/5/path = NodePath("Sprite/FreeArm:rotation_degrees")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -762,51 +593,39 @@ tracks/5/enabled = true
 tracks/5/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
-}
-tracks/6/type = "value"
-tracks/6/path = NodePath("Sprite/FreeArm:rotation_degrees")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ 8.70825 ]
 }
 
-[sub_resource type="DynamicFont" id=12]
+[sub_resource type="DynamicFont" id=8]
 size = 20
 font_data = ExtResource( 4 )
 
-[sub_resource type="DynamicFont" id=13]
+[sub_resource type="DynamicFont" id=9]
 size = 20
 font_data = ExtResource( 4 )
 
-[sub_resource type="RectangleShape2D" id=14]
+[sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 27.1584, 10.9478 )
 
 [node name="Titan" type="KinematicBody2D" groups=[
 "characters",
 ]]
 scale = Vector2( 8, 8 )
+z_index = -2
 collision_layer = 4
-collision_mask = 10
+collision_mask = 14
 script = ExtResource( 1 )
 color = Color( 0.568627, 0.47451, 1, 1 )
 
 [node name="CenterPivot" type="Position2D" parent="."]
 
-[node name="GrapplingHookLaunchPosition" type="Position2D" parent="CenterPivot"]
+[node name="BulletSpawnArea" type="Position2D" parent="CenterPivot"]
 position = Vector2( 120, 0 )
 
 [node name="Sprite" type="Sprite" parent="."]
 
 [node name="Body" type="Position2D" parent="Sprite"]
-position = Vector2( 0, -0.603689 )
 
 [node name="MainBody" type="Sprite" parent="Sprite/Body"]
 texture = ExtResource( 5 )
@@ -865,6 +684,11 @@ texture = ExtResource( 5 )
 region_enabled = true
 region_rect = Rect2( 800, 1152, 64, 128 )
 
+[node name="WeaponArmHitbox" parent="Sprite/WeaponArm" groups=[
+"hitbox_enemy",
+] instance=ExtResource( 8 )]
+scale = Vector2( 0.23, 0.135 )
+
 [node name="FreeArm" type="Sprite" parent="Sprite"]
 position = Vector2( -45.4409, -14.5754 )
 rotation = 0.151988
@@ -892,58 +716,63 @@ texture = ExtResource( 5 )
 region_enabled = true
 region_rect = Rect2( 808, 1160, 48, 120 )
 
-[node name="Weakspots" type="Node2D" parent="Sprite"]
+[node name="FreeArmHitbox" parent="Sprite/FreeArm" groups=[
+"hitbox_enemy",
+] instance=ExtResource( 8 )]
+scale = Vector2( 0.218428, 0.127249 )
 
-[node name="BackWeakspot" type="Area2D" parent="Sprite/Weakspots" groups=[
-"weakspots",
-]]
+[node name="Hurtboxes" type="Node2D" parent="Sprite"]
+
+[node name="BodyHurtbox" parent="Sprite/Hurtboxes" groups=[
+"hurtbox_enemy",
+] instance=ExtResource( 7 )]
+
+[node name="NeckHurtbox" parent="Sprite/Hurtboxes" groups=[
+"hurtbox_enemy",
+] instance=ExtResource( 7 )]
 modulate = Color( 0, 0, 0, 1 )
-collision_layer = 32
-collision_mask = 16
-script = ExtResource( 7 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/Weakspots/BackWeakspot"]
-position = Vector2( -26.5731, -1.39285 )
-scale = Vector2( 1.4975, 6.38 )
-shape = SubResource( 2 )
-
-[node name="NeckWeakspot" type="Area2D" parent="Sprite/Weakspots" groups=[
-"weakspots",
-]]
-self_modulate = Color( 0, 0, 0, 1 )
-position = Vector2( -0.734108, -30.8315 )
-scale = Vector2( 1, 0.435 )
-collision_layer = 32
-collision_mask = 16
-script = ExtResource( 7 )
-damage_multiplier = 0.5
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/Weakspots/NeckWeakspot"]
-position = Vector2( -26.5731, -1.39285 )
-scale = Vector2( 1.4975, 6.38 )
-shape = SubResource( 2 )
+position = Vector2( -24.5922, -0.403748 )
+scale = Vector2( 0.415, 1.04597 )
+damage_multiplier = 2.0
+is_special = true
 
 [node name="Hitboxes" type="Node2D" parent="Sprite"]
 
-[node name="SwordHitbox" type="Area2D" parent="Sprite/Hitboxes"]
-position = Vector2( 103.421, 45.3837 )
+[node name="RushHitbox" parent="Sprite/Hitboxes" instance=ExtResource( 8 )]
+scale = Vector2( 0.755, 0.84 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/Hitboxes/SwordHitbox"]
-position = Vector2( -0.767166, -51.6639 )
-scale = Vector2( -4.74084, -6.89465 )
-shape = SubResource( 1 )
-disabled = true
+[node name="Range" type="Node2D" parent="Sprite"]
+visible = false
+
+[node name="RoamArea2D" type="Area2D" parent="Sprite/Range"]
+position = Vector2( 82.0145, 63.0881 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/Range/RoamArea2D"]
+position = Vector2( 4.07661, 43.678 )
+shape = SubResource( 11 )
+
+[node name="TargetArea2D" type="Area2D" parent="Sprite/Range"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/Range/TargetArea2D"]
+scale = Vector2( 13.325, 13.325 )
+shape = SubResource( 12 )
+
+[node name="AttackArea2D" type="Area2D" parent="Sprite/Range"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/Range/AttackArea2D"]
+scale = Vector2( 3.045, 3.045 )
+shape = SubResource( 13 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/attack_swing = SubResource( 3 )
-anims/climb = SubResource( 4 )
-anims/fall = SubResource( 5 )
-"anims/fall (old)" = SubResource( 6 )
-anims/fall_continue = SubResource( 7 )
-"anims/fall_continue (old)" = SubResource( 8 )
-anims/grapple_move = SubResource( 9 )
-anims/idle = SubResource( 10 )
-anims/walk = SubResource( 11 )
+anims/attack_rush = SubResource( 1 )
+anims/climb = SubResource( 2 )
+anims/fall = SubResource( 3 )
+anims/fall_continue = SubResource( 4 )
+anims/grapple_move = SubResource( 5 )
+anims/idle = SubResource( 6 )
+anims/walk = SubResource( 7 )
+
+[node name="HurtAnimationPlayer" parent="AnimationPlayer" instance=ExtResource( 2 )]
 
 [node name="Name" type="Label" parent="."]
 visible = false
@@ -951,7 +780,7 @@ margin_left = -38.23
 margin_top = -80.6719
 margin_right = 18.77
 margin_bottom = -60.6719
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 8 )
 text = "Player 1"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -963,38 +792,20 @@ margin_left = 17.9723
 margin_top = -80.6386
 margin_right = 43.9723
 margin_bottom = -60.6386
-custom_fonts/font = SubResource( 13 )
+custom_fonts/font = SubResource( 9 )
 text = "(10)"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HealthBarFrame" type="Sprite" parent="."]
-visible = false
-position = Vector2( 1.12959, -92.093 )
-texture = ExtResource( 2 )
-region_rect = Rect2( 1024, 816, 128, 32 )
+[node name="Overhead" type="Node2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-scale = Vector2( 1.44, 5.72 )
-shape = SubResource( 14 )
-
-[node name="GameFeel" type="Node" parent="."]
-
-[node name="CoyoteGroundTimer" type="Timer" parent="GameFeel"]
-one_shot = true
-
-[node name="JumpBufferTimer" type="Timer" parent="GameFeel"]
-one_shot = true
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="HealthBar" type="TextureProgress" parent="CanvasLayer"]
-margin_left = 30.3634
-margin_top = 493.742
-margin_right = 62.3634
-margin_bottom = 525.742
-rect_scale = Vector2( 28, 0.35 )
+[node name="HealthBarOverhead" type="TextureProgress" parent="Overhead"]
+margin_left = -40.1992
+margin_top = -75.8796
+margin_right = -8.19923
+margin_bottom = -43.8796
+rect_scale = Vector2( 2.5, 0.2 )
 value = 50.0
 texture_under = ExtResource( 3 )
 texture_progress = ExtResource( 3 )
@@ -1002,7 +813,25 @@ tint_progress = Color( 0.556863, 0.466667, 0.94902, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="area_entered" from="Sprite/Weakspots/BackWeakspot" to="Sprite/Weakspots/BackWeakspot" method="_on_BackWeakspot_area_entered"]
-[connection signal="area_entered" from="Sprite/Weakspots/NeckWeakspot" to="Sprite/Weakspots/NeckWeakspot" method="_on_BackWeakspot_area_entered"]
-[connection signal="body_entered" from="Sprite/Hitboxes/SwordHitbox" to="." method="_on_SwordHitbox_body_entered"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2( 1.44, 5.72 )
+shape = SubResource( 10 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HealthBarBottom" type="TextureProgress" parent="CanvasLayer"]
+margin_left = 55.4793
+margin_top = 512.625
+margin_right = 87.4793
+margin_bottom = 544.625
+rect_scale = Vector2( 27, 0.5 )
+value = 50.0
+texture_under = ExtResource( 3 )
+texture_progress = ExtResource( 3 )
+tint_progress = Color( 0.556863, 0.466667, 0.94902, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="body_entered" from="Sprite/Range/AttackArea2D" to="." method="_on_AttackArea2D_body_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

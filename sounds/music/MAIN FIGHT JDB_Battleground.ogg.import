@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/MAIN FIGHT JDB_Battleground.ogg-e2bbbb05915f80b10f0c8ee0fd2eaa15.oggstr"
+
+[deps]
+
+source_file="res://sounds/music/MAIN FIGHT JDB_Battleground.ogg"
+dest_files=[ "res://.import/MAIN FIGHT JDB_Battleground.ogg-e2bbbb05915f80b10f0c8ee0fd2eaa15.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

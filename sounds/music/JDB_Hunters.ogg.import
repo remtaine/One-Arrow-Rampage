@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/JDB_Hunters.ogg-a178785568c437a1c7bbb16d906a0800.oggstr"
+
+[deps]
+
+source_file="res://sounds/music/JDB_Hunters.ogg"
+dest_files=[ "res://.import/JDB_Hunters.ogg-a178785568c437a1c7bbb16d906a0800.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

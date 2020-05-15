@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://images/spritesheets/spritesheet_retina.png" type="Texture" id=1]
+[ext_resource path="res://src/damage_boxes/Hitbox.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/environment/FloatingSpikes.gd" type="Script" id=3]
+
+[sub_resource type="Animation" id=1]
+resource_name = "float"
+length = 5.0
+loop = true
+step = 0.25
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.25, 2.5, 3.75, 5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 50 ), Vector2( 0, 0 ), Vector2( 0, -50 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "spin"
+
+[node name="FloatingSpikes" type="Node2D" groups=[
+"traps",
+]]
+script = ExtResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 256, 1024, 128, 128 )
+
+[node name="Hitboxes" type="Node2D" parent="Sprite"]
+
+[node name="Hitbox" parent="Sprite/Hitboxes" instance=ExtResource( 2 )]
+scale = Vector2( 0.889856, 0.541037 )
+only_player = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/float = SubResource( 1 )
+anims/spin = SubResource( 2 )
+
+[editable path="Sprite/Hitboxes/Hitbox"]

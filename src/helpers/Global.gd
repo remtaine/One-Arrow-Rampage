@@ -1,7 +1,7 @@
 extends Node
 
-func _ready():
-	pass # Replace with function body.
+var TILE_SIZE = 128
+var player = null
 
-static func get_flipped_angle(angle):
-	
+func _ready():
+	pass # Replace with function body

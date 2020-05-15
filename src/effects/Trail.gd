@@ -7,13 +7,10 @@ func _ready():
 func _physics_process(delta):
 	clear_points()
 	add_point(hook.global_position)
-	add_point(hook._owner.global_position)
+	add_point(hook._owner.get_node("CenterPivot").global_position)
 	
 func get_dir():
 	"""
 		returns direction between hook and player
 	"""
 	return
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass

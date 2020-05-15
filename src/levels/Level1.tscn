@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://src/characters/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/characters/Titan.tscn" type="PackedScene" id=2]
@@ -7,6 +7,13 @@
 [ext_resource path="res://src/tilesets/scribbles.tres" type="TileSet" id=5]
 [ext_resource path="res://images/spritesheets/spritesheet_retina.png" type="Texture" id=6]
 [ext_resource path="res://images/background/SunsetTempleBackground.png" type="Texture" id=7]
+[ext_resource path="res://fonts/BebasNeue Bold.ttf" type="DynamicFontData" id=8]
+
+[sub_resource type="DynamicFont" id=1]
+size = 36
+outline_size = 2
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 8 )
 
 [node name="Level1" type="Node2D"]
 script = ExtResource( 3 )
@@ -16,7 +23,7 @@ tile_set = ExtResource( 5 )
 cell_size = Vector2( 120, 120 )
 cell_tile_origin = 1
 format = 1
-tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0, 11, 0, 0, 12, 0, 0, 13, 0, 0, 16, 0, 0, 19, 0, 0, 20, 0, 0, 21, 0, 0, 22, 0, 0, 23, 0, 0, 26, 0, 0, 27, 0, 0, 30, 0, 0, 31, 0, 0, 32, 0, 0, 33, 0, 0, 37, 0, 0, 41, 0, 0, 42, 0, 0, 43, 0, 0, 44, 0, 0, 131072, 0, 0, 196609, 0, 0, 262146, 0, 0, 327689, 0, 0, 327690, 0, 0, 327691, 0, 0, 589828, 2, 0, 589829, 2, 0, 589830, 2, 0, 589832, 2, 0, 589833, 2, 0, 589834, 2, 0, 589835, 2, 0, 655360, 0, 0, 655361, 0, 0, 655362, 0, 0, 655363, 0, 0, 655364, 0, 0, 655365, 0, 0, 655366, 0, 0, 655367, 0, 0, 655368, 0, 0, 655369, 0, 0, 655370, 0, 0, 655371, 0, 0, 655372, 0, 0, 655373, 0, 0, 655374, 0, 0, 655375, 0, 0, 655376, 0, 0, 655377, 0, 0, 655378, 0, 0, 655379, 0, 0, 655380, 0, 0, 655381, 0, 0, 655382, 0, 0, 655383, 0, 0, 655384, 0, 0, 655385, 0, 0, 655386, 0, 0, 655387, 0, 0, 655388, 0, 0, 655389, 0, 0, 655390, 0, 0, 655391, 0, 0, 655392, 0, 0, 655393, 0, 0, 655394, 0, 0, 655395, 0, 0, 655396, 0, 0, 655397, 0, 0, 655398, 0, 0, 655399, 0, 0, 655400, 0, 0, 655401, 0, 0, 655402, 0, 0, 655403, 0, 0, 655404, 0, 0, 655405, 0, 0, 655406, 0, 0, 655407, 0, 0, 655408, 0, 0, 655409, 0, 0, 655410, 0, 0, 655411, 0, 0, 655412, 0, 0, 655413, 0, 0, 655414, 0, 0 )
+tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0, 11, 0, 0, 12, 0, 0, 13, 0, 0, 16, 0, 0, 19, 0, 0, 20, 0, 0, 21, 0, 0, 22, 0, 0, 23, 0, 0, 26, 0, 0, 27, 0, 0, 30, 0, 0, 31, 0, 0, 32, 0, 0, 33, 0, 0, 37, 0, 0, 41, 0, 0, 42, 0, 0, 43, 0, 0, 44, 0, 0, 65556, 536870919, 0, 65568, 7, 0, 65579, 7, 0, 131072, 0, 0, 196609, 0, 0, 196639, 536870918, 0, 262146, 0, 0, 262159, 536870918, 0, 327689, 0, 0, 327690, 0, 0, 327691, 0, 0, 458774, 536870918, 0, 524291, 5, 0, 524295, 5, 0, 524301, 4, 0, 524308, 4, 0, 524316, 5, 0, 524322, 5, 0, 524326, 5, 0, 524334, 4, 0, 524340, 5, 0, 524341, 4, 0, 589828, 2, 0, 589829, 2, 0, 589830, 2, 0, 589832, 2, 0, 589833, 2, 0, 589834, 2, 0, 589835, 2, 0, 589840, 3, 0, 655360, 0, 0, 655361, 0, 0, 655362, 0, 0, 655363, 0, 0, 655364, 0, 0, 655365, 0, 0, 655366, 0, 0, 655367, 0, 0, 655368, 0, 0, 655369, 0, 0, 655370, 0, 0, 655371, 0, 0, 655372, 0, 0, 655373, 0, 0, 655374, 0, 0, 655375, 0, 0, 655376, 0, 0, 655377, 0, 0, 655378, 0, 0, 655379, 0, 0, 655380, 0, 0, 655381, 0, 0, 655382, 0, 0, 655383, 0, 0, 655384, 0, 0, 655386, 0, 0, 655387, 0, 0, 655388, 0, 0, 655389, 0, 0, 655390, 0, 0, 655391, 0, 0, 655393, 0, 0, 655394, 0, 0, 655395, 0, 0, 655396, 0, 0, 655397, 0, 0, 655398, 0, 0, 655399, 0, 0, 655400, 0, 0, 655401, 0, 0, 655404, 0, 0, 655405, 0, 0, 655406, 0, 0, 655407, 0, 0, 655411, 0, 0, 655412, 0, 0, 655413, 0, 0, 655414, 0, 0 )
 script = ExtResource( 4 )
 
 [node name="Background" type="ParallaxBackground" parent="."]
@@ -43,13 +50,14 @@ centered = false
 motion_scale = Vector2( 0.6, 1 )
 
 [node name="Sprite" type="Sprite" parent="Background/Sun"]
-modulate = Color( 0.956863, 0.886275, 0.521569, 1 )
+modulate = Color( 1, 0.733333, 0.0705882, 1 )
 position = Vector2( 1368, 224 )
 texture = ExtResource( 6 )
 region_enabled = true
 region_rect = Rect2( 122, 1020, 134, 130 )
 
 [node name="Clouds" type="ParallaxLayer" parent="Background"]
+modulate = Color( 0.596078, 0.929412, 0.984314, 1 )
 
 [node name="Sprite" type="Sprite" parent="Background/Clouds"]
 position = Vector2( 680, 424 )
@@ -87,58 +95,14 @@ texture = ExtResource( 6 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 256, 128 )
 
-[node name="Trees" type="ParallaxLayer" parent="Background"]
-motion_scale = Vector2( 1, 0 )
-
-[node name="BigTree" type="Sprite" parent="Background/Trees"]
-position = Vector2( 1904, 1088 )
-texture = ExtResource( 6 )
-region_enabled = true
-region_rect = Rect2( 1280, 256, 128, 264 )
-
-[node name="BigTree2" type="Sprite" parent="Background/Trees"]
-position = Vector2( 3400, 1104 )
-texture = ExtResource( 6 )
-region_enabled = true
-region_rect = Rect2( 1280, 256, 128, 264 )
-
-[node name="BigTree3" type="Sprite" parent="Background/Trees"]
-position = Vector2( 4560, 1112 )
-texture = ExtResource( 6 )
-region_enabled = true
-region_rect = Rect2( 1280, 256, 128, 264 )
-
-[node name="BigTree4" type="Sprite" parent="Background/Trees"]
-position = Vector2( 920, 1104 )
-texture = ExtResource( 6 )
-region_enabled = true
-region_rect = Rect2( 1280, 256, 128, 264 )
-
-[node name="SmallTree" type="Sprite" parent="Background/Trees"]
-position = Vector2( 2216, 1112 )
-texture = ExtResource( 6 )
-region_enabled = true
-region_rect = Rect2( 1280, 568, 128, 208 )
-
-[node name="SmallTree2" type="Sprite" parent="Background/Trees"]
-position = Vector2( 3328, 1144 )
-texture = ExtResource( 6 )
-region_enabled = true
-region_rect = Rect2( 1280, 568, 128, 208 )
-
-[node name="SmallTree3" type="Sprite" parent="Background/Trees"]
-position = Vector2( 352, 1112 )
-texture = ExtResource( 6 )
-region_enabled = true
-region_rect = Rect2( 1280, 568, 128, 208 )
-
 [node name="Characters" type="Node2D" parent="."]
 
-[node name="Titan" parent="Characters" instance=ExtResource( 2 )]
-position = Vector2( 5168, 704 )
-
 [node name="Player" parent="Characters" instance=ExtResource( 1 )]
-position = Vector2( 32, 944 )
+position = Vector2( -16, 944 )
+
+[node name="Titan" parent="Characters" instance=ExtResource( 2 )]
+position = Vector2( 4760, 624 )
+main_hp = true
 
 [node name="Tiles" type="Node2D" parent="."]
 
@@ -150,11 +114,15 @@ position = Vector2( 32, 944 )
 
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="Player1Label" type="Label" parent="UI"]
-margin_left = 384.0
-margin_top = 696.0
-margin_right = 424.0
-margin_bottom = 710.0
+[node name="TimeLabel" type="Label" parent="UI"]
+margin_left = 464.0
+margin_top = 24.0
+margin_right = 575.0
+margin_bottom = 104.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 1 )
+text = "0:21"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -164,3 +132,5 @@ visible = false
 texture = ExtResource( 6 )
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
+
+[node name="Traps" type="Node2D" parent="."]
