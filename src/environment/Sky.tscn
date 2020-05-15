@@ -8,9 +8,10 @@
 extents = Vector2( 305.921, 22.0253 )
 
 [node name="Sky" type="StaticBody2D" groups=[
+"sky",
 "tiles",
 ]]
-collision_layer = 2
+collision_layer = 64
 collision_mask = 8
 script = ExtResource( 3 )
 
@@ -27,8 +28,7 @@ texture = ExtResource( 1 )
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -0.342827, 23.5036 )
-rotation = 3.14137
-scale = Vector2( 1.52, 0.1 )
+position = Vector2( -0.342827, 21.555 )
+scale = Vector2( 1.52, 0.180053 )
 shape = SubResource( 1 )
 one_way_collision = true

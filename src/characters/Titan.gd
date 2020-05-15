@@ -7,6 +7,7 @@ var STATES = {
 	CHASE_DEFEND = "defend",	
 	ATTACK = "attack",
 	FALL = "fall",
+	DIE = "DIE"
 }
 
 enum EVENTS {
@@ -16,7 +17,8 @@ enum EVENTS {
 	DEFEND,
 	ATTACK,
 	FALL,
-	LAND
+	LAND,
+	DIE
 }
 
 var PHASE = {
@@ -76,12 +78,23 @@ func _init():
 		[STATES.FALL, EVENTS.LAND]: STATES.IDLE,
 		[STATES.IDLE, EVENTS.FALL]: STATES.FALL,
 		[STATES.ROAM, EVENTS.FALL]: STATES.FALL,
+		
+		[STATES.IDLE, EVENTS.ROAM]: STATES.ROAM,
+		
+		[STATES.IDLE, EVENTS.DIE]: STATES.DIE,
+		[STATES.ROAM, EVENTS.DIE]: STATES.DIE, #TEMP! TODO remove once chase state implemented
+		[STATES.CHASE, EVENTS.DIE]: STATES.DIE,
+		[STATES.CHASE_DEFEND, EVENTS.DIE]: STATES.DIE,
+		[STATES.ATTACK, EVENTS.DIE]: STATES.DIE,		
+		[STATES.FALL, EVENTS.DIE]: STATES.DIE,
+
 	}
 
 func _ready():
-	max_hp *= TITAN_SCALE #to make titans stronger
-	max_hp *= enemy_scale/8.0
-	hp = max_hp
+	instance_name = "titan"
+#	max_hp *= TITAN_SCALE #to make titans stronger
+#	max_hp *= enemy_scale/8.0
+#	hp = max_hp
 	_dir.x *= -1
 	if main_hp:
 		hp_bar = $CanvasLayer/HealthBarBottom
@@ -90,13 +103,13 @@ func _ready():
 		hp_bar = $Overhead/HealthBarOverhead
 		$CanvasLayer/HealthBarBottom.visible = false
 #		$Overhead/Label.visible = false
-	hp_bar.set_min(0)
-	hp_bar.set_max(max_hp)	
-	hp_bar.set_value(hp)
-	print("ENEMY MAX HP AT ", max_hp)
+#	hp_bar.set_min(0)
+#	hp_bar.set_max(max_hp)	
+#	hp_bar.set_value(hp)
+#	print("ENEMY MAX HP AT ", max_hp)
 	
 	current_scale_x = sprite.scale.x
-	state = STATES.ROAM
+	state = STATES.ATTACK
 
 func _physics_process(delta):
 	var slides = get_slide_count()
@@ -117,12 +130,13 @@ func _physics_process(delta):
 		STATES.IDLE:
 			animation.play("idle")
 		STATES.ROAM:
-			var temp = roam_range.get_overlapping_bodies()
-			if temp.size() == 0 and is_on_floor():
-				_dir.x *= -1
-			_velocity.x = _speed * input.direction.x
-			animation.play("walk")
-			flip(_dir.x < 0)
+			pass
+#			var temp = roam_range.get_overlapping_bodies()
+#			if temp.size() == 0 and is_on_floor():
+#				_dir.x *= -1
+#			_velocity.x = _speed * input.direction.x
+#			animation.play("walk")
+#			flip(_dir.x < 0)
 			#TODO check if next tile is 
 		STATES.FALL:
 			_velocity.x = _prev_velocity.x
@@ -149,7 +163,8 @@ func enter_state():
 		STATES.ATTACK:
 			randomize()
 			current_attack_pattern = 0
-					
+		STATES.DIE:
+			animation.play("die")			
 func flip(val = true):
 	if val:
 		sprite.scale.x = -current_scale_x
@@ -187,6 +202,9 @@ func get_event(input):
 
 	return event
 
+func disable_hitboxes():
+	$AnimatedSprite/Hitboxes/AttackHitbox.disable()
+	
 func hit():
 	hp -= 1000
 	hp_bar.set_value(hp)
@@ -197,7 +215,8 @@ func hit():
 		print("HURT")
 
 func die():
-	animation.play("die")
+	disable_hitboxes()
+	change_state(EVENTS.DIE)
 	
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "attack":

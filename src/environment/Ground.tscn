@@ -8,6 +8,7 @@
 extents = Vector2( 305.921, 22.0253 )
 
 [node name="Ground" type="StaticBody2D" groups=[
+"ground",
 "tiles",
 ]]
 collision_layer = 2

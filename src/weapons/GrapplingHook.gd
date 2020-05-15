@@ -9,7 +9,7 @@ var c
 var launch_successful = false
 var attached_to
 var attached_to_wr = null
-
+var initial_y
 onready var line = $Node/Trail
 onready var sprite = $Sprite
 onready var tween = $Tween
@@ -30,9 +30,11 @@ func _physics_process(delta):
 	_velocity = move_and_slide(_velocity)
 
 func setup(dir, pos, rot, owner):
+	
 	_dir = dir.normalized()
 	position = pos
-#	look_at(get_global_mouse_position())
+	initial_y = pos.y	
+#look_at(get_global_mouse_position())
 	look_at(rot)		
 	_owner = owner
 	_velocity = _speed * _dir
@@ -44,6 +46,16 @@ func _on_Area2D_body_entered(body):
 	#change state of player to GRAPPLING_MOVING
 	if body.has_method("hit"):
 		body.hit()
+		print("YOU SHOUULD BE DEAD")
+	
+	if body.is_in_group("sky"):
+		if initial_y < body.global_position.y: #if I hit the sky from above
+			return
+	
+#	if body.is_in_group("ground"):
+#		if initial_y > body.global_position.y: #if I hit the sky from above
+#			return
+	
 	_velocity = Vector2.ZERO
 	launch_successful = true
 	move_timer.start()

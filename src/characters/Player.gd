@@ -136,6 +136,7 @@ func _init():
 func _ready():
 	current_scale = sprite.scale
 	hp_bar.set_value(hp)
+	instance_name = "player"
 
 func _physics_process(delta):
 	if global_position.y > 700:
@@ -182,17 +183,12 @@ func _physics_process(delta):
 			_velocity.y += GRAVITY * JUMP_DEFICIENCY * 1.7
 			if is_on_floor():
 				change_state(EVENTS.LAND)
-#		STATES.GRAPPLE_LAUNCH_AIR:
-#		STATES.GRAPPLE_LAUNCH_GROUND:
 		STATES.GRAPPLE_MOVE:
 			_dir = Utils.get_dir(current_hook, self)
 			if current_hook.global_position.distance_to(global_position) < HOOK_LEEWAY:
 				change_state(EVENTS.GRAPPLE_DONE)
 			else:
 				_velocity = GRAPPLE_SPEED * _dir
-#		STATES.ATTACK_GROUND:
-#		STATES.ATTACK_AIR:
-#		STATES.ROLL:
 
 	match state: # for velocity.y
 		STATES.GRAPPLE_MOVE:
@@ -231,18 +227,18 @@ func _physics_process(delta):
 func enter_state():
 	match state:
 		STATES.IDLE:
-			animation.play("idle")
+			change_animation("idle")
 #			animation.play("idle")
 		STATES.WALK:
-			animation.play("walk")
+			change_animation("walk")
 #			animation.play("walk")
 		STATES.JUMP:
 				is_holding_jump = true
 				_velocity.y = JUMP_HEIGHT
-				animation.play("jump")
+				change_animation("jump")
 		STATES.FALL:
 			is_holding_jump = false
-			animation.play("fall")
+			change_animation("fall")
 		STATES.FLY:
 			finish_hook()
 		STATES.GRAPPLE_LAUNCH_AIR, STATES.GRAPPLE_LAUNCH_GROUND:
@@ -259,12 +255,12 @@ func enter_state():
 #			_velocity.x = 0	
 #			animation.play("idle")
 		STATES.GRAPPLE_MOVE:
-			animation.play("jump")		
+			change_animation("jump")		
 		STATES.ATTACK_GROUND:
 #			_velocity.x = 0	
-			animation.play("attack_swing")
+			change_animation("attack_swing")
 		STATES.ATTACK_AIR:
-			animation.play("attack_swing")
+			change_animation("attack_swing")
 #		STATES.ROLL:
 
 static func get_raw_input(state):
@@ -350,11 +346,9 @@ func die():
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "attack_swing":
-		enemies_damaged = []
 		change_state(EVENTS.STOP)
-		print("DONE WITH ATTACK")
 	elif anim_name == "fall":
-		animation.play("fall_continue")
+		change_animation("fall_continue")
 
 func _on_CoyoteGroundTimer_timeout():
 	can_coyote_jump = false
@@ -366,4 +360,14 @@ func _on_Sprite_animation_finished():
 		change_state(EVENTS.STOP)
 		print("DONE WITH ATTACK")
 	elif sprite.get_animation() == "fall":
-		animation.play("fall_continue")
+		change_animation("fall_continue")
+
+func change_animation(anim):
+	animation.play(anim)
+	match anim:
+		"idle":
+			animation.set_speed_scale(0.7)
+		"attack_swing":
+			animation.set_speed_scale(1.5)			
+		_:
+			animation.set_speed_scale(1)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=2]
+[gd_scene load_steps=53 format=2]
 
 [ext_resource path="res://images/placeholders/white.png" type="Texture" id=1]
 [ext_resource path="res://fonts/BebasNeue Bold.ttf" type="DynamicFontData" id=2]
@@ -8,7 +8,6 @@
 [ext_resource path="res://src/helpers/StateLabel.gd" type="Script" id=7]
 [ext_resource path="res://icon.png" type="Texture" id=9]
 [ext_resource path="res://src/damage_boxes/Hitbox.tscn" type="PackedScene" id=10]
-[ext_resource path="res://src/damage_boxes/Hurtbox.tscn" type="PackedScene" id=11]
 [ext_resource path="res://src/behavior/HurtAnimationPlayer.tscn" type="PackedScene" id=12]
 [ext_resource path="res://images/characters/player frames/spr_ArcherIdle_strip_NoBkg.png" type="Texture" id=13]
 [ext_resource path="res://images/characters/player frames/spr_ArcherMelee_strip_NoBkg.png" type="Texture" id=14]
@@ -16,7 +15,7 @@
 [ext_resource path="res://src/helpers/HealthUI.gd" type="Script" id=16]
 
 [sub_resource type="RectangleShape2D" id=13]
-extents = Vector2( 4.94231, 2.75651 )
+extents = Vector2( 8.86539, 2.75651 )
 
 [sub_resource type="AtlasTexture" id=14]
 flags = 4
@@ -180,15 +179,15 @@ animations = [ {
 "name": "idle",
 "speed": 6.0
 }, {
-"frames": [  ],
-"loop": true,
-"name": "roll",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 21 ), SubResource( 22 ), SubResource( 23 ) ],
 "loop": true,
 "name": "jump",
 "speed": 1.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "roll",
+"speed": 5.0
 }, {
 "frames": [ SubResource( 24 ), SubResource( 25 ) ],
 "loop": true,
@@ -211,7 +210,137 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="Animation" id=62]
+[sub_resource type="Animation" id=44]
+resource_name = "attack_swing"
+length = 1.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "attack_swing" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimatedSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath("AnimatedSprite/Hitboxes/Hitbox")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.4, 0.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "enable"
+}, {
+"args": [  ],
+"method": "disable"
+} ]
+}
+
+[sub_resource type="Animation" id=45]
+resource_name = "fall"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "fall" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimatedSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 1, 0 ]
+}
+
+[sub_resource type="Animation" id=46]
+resource_name = "idle"
+length = 0.7
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "idle" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimatedSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+}
+
+[sub_resource type="Animation" id=47]
+resource_name = "jump"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "jump" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimatedSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 1, 2, 0 ]
+}
+
+[sub_resource type="Animation" id=48]
 resource_name = "walk"
 length = 0.8
 loop = true
@@ -240,7 +369,7 @@ tracks/1/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7 ]
 }
 
-[sub_resource type="DynamicFont" id=53]
+[sub_resource type="DynamicFont" id=49]
 font_data = ExtResource( 2 )
 
 [node name="Player" type="KinematicBody2D" groups=[
@@ -254,7 +383,7 @@ script = ExtResource( 3 )
 color = Color( 0.215686, 0.85098, 0.54902, 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 3.66129, -2.61759 )
+position = Vector2( -0.026988, -2.92495 )
 scale = Vector2( 1.44, 7.32 )
 shape = SubResource( 13 )
 
@@ -262,24 +391,16 @@ shape = SubResource( 13 )
 position = Vector2( 4.62009, -1.02668 )
 scale = Vector2( 1.6, 1.6 )
 frames = SubResource( 43 )
-animation = "walk"
+animation = "attack_swing"
 frame = 4
 
-[node name="Hurtboxes" type="Node2D" parent="."]
+[node name="Hitboxes" type="Node2D" parent="AnimatedSprite"]
+position = Vector2( -2.88756, 0.641675 )
+scale = Vector2( 0.625, 0.625 )
 
-[node name="Hurtbox" parent="Hurtboxes" groups=[
-"hurtbox_player",
-] instance=ExtResource( 11 )]
-position = Vector2( 0, -7.92226 )
-scale = Vector2( 0.28, 0.28 )
-
-[node name="Hitboxes" type="Node2D" parent="."]
-visible = false
-
-[node name="SwordHitbox" parent="Hitboxes" groups=[
-"hitbox_player",
-] instance=ExtResource( 10 )]
-position = Vector2( 106.7, 0 )
+[node name="Hitbox" parent="AnimatedSprite/Hitboxes" instance=ExtResource( 10 )]
+position = Vector2( 21.658, -9.34855 )
+scale = Vector2( 0.802354, 0.368165 )
 
 [node name="CenterPivot" type="Position2D" parent="."]
 position = Vector2( 8.98529, -25.8256 )
@@ -300,7 +421,11 @@ limit_top = -125
 limit_bottom = 530
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/walk = SubResource( 62 )
+anims/attack_swing = SubResource( 44 )
+anims/fall = SubResource( 45 )
+anims/idle = SubResource( 46 )
+anims/jump = SubResource( 47 )
+anims/walk = SubResource( 48 )
 
 [node name="HurtAnimationPlayer" parent="AnimationPlayer" instance=ExtResource( 12 )]
 
@@ -371,7 +496,7 @@ margin_left = -72.7393
 margin_top = -53.2673
 margin_right = 77.2607
 margin_bottom = -21.2673
-custom_fonts/font = SubResource( 53 )
+custom_fonts/font = SubResource( 49 )
 text = "IDLE"
 align = 1
 script = ExtResource( 7 )
@@ -379,4 +504,5 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 [connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_Sprite_animation_finished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="timeout" from="GameFeel/CoyoteGroundTimer" to="." method="_on_CoyoteGroundTimer_timeout"]

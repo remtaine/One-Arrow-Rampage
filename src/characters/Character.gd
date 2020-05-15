@@ -4,11 +4,13 @@ class_name Character
 
 signal state_changed(state)
 
+var is_alive = true
 var state = "idle"
 var prev_state = state
 var _transitions = {}
 var hp = 100.0
 var max_hp = 100.0
+export var instance_name = "none"
 
 onready var healthUI = $UI/HealthUI
 onready var hp_bar = $UI/HealthBar
@@ -24,7 +26,7 @@ func hit():
 	pass
 
 func die():
-	pass
+	is_alive = false
 	
 func change_state(event):
 	var transition = [state, event]
