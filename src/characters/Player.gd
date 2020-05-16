@@ -48,25 +48,38 @@ const AIR_CONTROL = 0.5
 const GRAVITY = 12
 const JUMP_DEFICIENCY = 1
 
+const HOOK_LEEWAY = 50
+const HOOK_VELOCITY_DAMPENING = 0.7
+
 onready var camera = $Camera2D
 onready var sprite = $AnimatedSprite #shuld be #Sprite
 onready var animation = $AnimationPlayer
 
-const HOOK_LEEWAY = 50
-const HOOK_VELOCITY_DAMPENING = 0.7
 onready var pivot_pos = $CenterPivot
 onready var g_hook_pos = $CenterPivot/ProjectileLaunchPosition1
+onready var g_hook_aim = $CenterPivot/ProjectileLaunchPosition1/Aim
 onready var g_hook_resource = preload("res://src/weapons/GrapplingHook.tscn")
 onready var screenshake = $Camera2D/ScreenShakeGenerator
 
-var current_scale = 1
-var can_coyote_jump = false
+onready var hurt_audio1 = $Audio/HurtAudio1
+onready var hurt_audio2 = $Audio/HurtAudio2
+onready var hurt_audios = [hurt_audio1, hurt_audio2]
+
+onready var footsteps_audio1 = $Audio/FootstepsAudio1
+onready var footsteps_audio2 = $Audio/FootstepsAudio2
+onready var footsteps_audio3 = $Audio/FootstepsAudio3
+onready var footsteps_audio4 = $Audio/FootstepsAudio4
+onready var footsteps_audios = [footsteps_audio1, footsteps_audio2, footsteps_audio3, footsteps_audio4] 
+
 onready var coyote_timer = $GameFeel/CoyoteGroundTimer
 onready var jump_buffer_timer = $GameFeel/JumpBufferTimer
 
 export var color = Color(255,0,0,1)
-
 export var is_invulnerable = false
+
+var current_scale = 1
+var can_coyote_jump = false
+
 var enemies_damaged = []
 
 var _speed = 0
@@ -82,7 +95,6 @@ var _last_input_direction = Vector2.ZERO
 var can
 var current_hook
 var current_hook_wr
-#var is_climbing = false #TODO dont actually need this, use state instead
 var is_running = false
 var is_holding_jump = false
 
@@ -245,7 +257,7 @@ func enter_state():
 			if true: #checking if hook area is in monster
 				var hook = g_hook_resource.instance()
 
-				hook.setup(Utils.get_dir(g_hook_pos, pivot_pos), g_hook_pos.global_position, get_global_mouse_position(), self)
+				hook.setup(Utils.get_dir(g_hook_pos, pivot_pos), g_hook_pos.global_position, g_hook_aim.global_position, self)
 				current_hook = hook
 				get_parent().get_parent().add_child(hook)
 			continue
@@ -338,11 +350,13 @@ func hit():
 	healthUI.update_health()
 	hurt_animation.play_hurt()
 	screenshake.start()
+	
+	Utils.play_audio(hurt_audios, "player")
 
 func die():
 	#TODO add death screen
-	hook_move_outcome("failure")
-	queue_free()
+	Utils.reset_scene()
+#	queue_free()
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "attack_swing":
@@ -371,3 +385,6 @@ func change_animation(anim):
 			animation.set_speed_scale(1.5)			
 		_:
 			animation.set_speed_scale(1)
+
+func play_footsteps_audio():
+	Utils.play_audio(footsteps_audios)

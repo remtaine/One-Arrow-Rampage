@@ -35,17 +35,15 @@ func _ready():
 
 func enable():
 	$CollisionShape2D.disabled = false
-	print("HITBOX READY")
 	
 func disable():
 	$CollisionShape2D.disabled = true	
 
 func _on_Hitbox_body_entered(body):
-	print("SOMEONE ENTERED!")
 	if $CollisionShape2D.disabled:
 		return
 	if host.is_in_group("human"):
-		if body.is_in_group("enemy"):
+		if body.is_in_group("enemy") and body.is_alive:
 			body.hit()
 	if host.is_in_group("enemy") or host.is_in_group("traps"):
 		if body.is_in_group("human"):

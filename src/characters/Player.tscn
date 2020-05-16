@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=2]
+[gd_scene load_steps=77 format=2]
 
 [ext_resource path="res://images/placeholders/white.png" type="Texture" id=1]
 [ext_resource path="res://fonts/BebasNeue Bold.ttf" type="DynamicFontData" id=2]
@@ -7,203 +7,287 @@
 [ext_resource path="res://images/characters/player frames/spr_ArcherJumpAndFall_strip_NoBkg - NO SHADOW.png" type="Texture" id=5]
 [ext_resource path="res://images/ui/heart pixel art 64x64.png" type="Texture" id=6]
 [ext_resource path="res://src/helpers/StateLabel.gd" type="Script" id=7]
-[ext_resource path="res://icon.png" type="Texture" id=9]
+[ext_resource path="res://images/characters/player frames/spr_ArcherDash_strip_NoBkg.png" type="Texture" id=8]
 [ext_resource path="res://src/damage_boxes/Hitbox.tscn" type="PackedScene" id=10]
+[ext_resource path="res://sounds/hurt/Player hurt scream v1-001.wav" type="AudioStream" id=11]
 [ext_resource path="res://src/behavior/HurtAnimationPlayer.tscn" type="PackedScene" id=12]
 [ext_resource path="res://images/characters/player frames/spr_ArcherIdle_strip_NoBkg.png" type="Texture" id=13]
 [ext_resource path="res://images/characters/player frames/spr_ArcherMelee_strip_NoBkg.png" type="Texture" id=14]
 [ext_resource path="res://images/characters/player frames/spr_ArcherRun_strip_NoBkg.png" type="Texture" id=15]
 [ext_resource path="res://src/helpers/HealthUI.gd" type="Script" id=16]
+[ext_resource path="res://sounds/footsteps/player footsteps v1-001.wav" type="AudioStream" id=17]
+[ext_resource path="res://sounds/footsteps/player footsteps v1-004.wav" type="AudioStream" id=18]
+[ext_resource path="res://sounds/hurt/Player hurt scream v1-002.wav" type="AudioStream" id=19]
+[ext_resource path="res://sounds/footsteps/player footsteps v1-002.wav" type="AudioStream" id=20]
+[ext_resource path="res://sounds/footsteps/player footsteps v1-003.wav" type="AudioStream" id=21]
+[ext_resource path="res://src/shaders/Outline v1.shader" type="Shader" id=22]
 
-[sub_resource type="RectangleShape2D" id=13]
+[sub_resource type="ShaderMaterial" id=1]
+
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 8.86539, 2.75651 )
 
-[sub_resource type="AtlasTexture" id=14]
+[sub_resource type="ShaderMaterial" id=3]
+shader = ExtResource( 22 )
+shader_param/width = 0.3
+shader_param/outline_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="AtlasTexture" id=4]
 flags = 4
 atlas = ExtResource( 13 )
 region = Rect2( 0, 0, 128, 128 )
 
-[sub_resource type="AtlasTexture" id=15]
+[sub_resource type="AtlasTexture" id=5]
 flags = 4
 atlas = ExtResource( 13 )
 region = Rect2( 128, 0, 128, 128 )
 
-[sub_resource type="AtlasTexture" id=16]
+[sub_resource type="AtlasTexture" id=6]
 flags = 4
 atlas = ExtResource( 13 )
 region = Rect2( 256, 0, 128, 128 )
 
-[sub_resource type="AtlasTexture" id=17]
+[sub_resource type="AtlasTexture" id=7]
 flags = 4
 atlas = ExtResource( 13 )
 region = Rect2( 384, 0, 128, 128 )
 
-[sub_resource type="AtlasTexture" id=18]
+[sub_resource type="AtlasTexture" id=8]
 flags = 4
 atlas = ExtResource( 13 )
 region = Rect2( 512, 0, 128, 128 )
 
-[sub_resource type="AtlasTexture" id=19]
+[sub_resource type="AtlasTexture" id=9]
 flags = 4
 atlas = ExtResource( 13 )
 region = Rect2( 640, 0, 128, 128 )
 
-[sub_resource type="AtlasTexture" id=20]
+[sub_resource type="AtlasTexture" id=10]
 flags = 4
 atlas = ExtResource( 13 )
 region = Rect2( 896, 0, 128, 128 )
-
-[sub_resource type="AtlasTexture" id=21]
-flags = 4
-atlas = ExtResource( 5 )
-region = Rect2( 384, 0, 128, 128 )
-
-[sub_resource type="AtlasTexture" id=22]
-flags = 4
-atlas = ExtResource( 5 )
-region = Rect2( 256, 0, 128, 128 )
-
-[sub_resource type="AtlasTexture" id=23]
-flags = 4
-atlas = ExtResource( 5 )
-region = Rect2( 512, 0, 128, 128 )
-
-[sub_resource type="AtlasTexture" id=24]
-flags = 4
-atlas = ExtResource( 5 )
-region = Rect2( 768, 0, 128, 128 )
-
-[sub_resource type="AtlasTexture" id=25]
-flags = 4
-atlas = ExtResource( 5 )
-region = Rect2( 640, 0, 128, 128 )
-
-[sub_resource type="AtlasTexture" id=26]
-flags = 4
-atlas = ExtResource( 14 )
-region = Rect2( 0, 0, 128, 128 )
-
-[sub_resource type="AtlasTexture" id=27]
-flags = 4
-atlas = ExtResource( 14 )
-region = Rect2( 128, 0, 128, 128 )
 
 [sub_resource type="AtlasTexture" id=11]
 flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 384, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=12]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 256, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=13]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 512, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=14]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 768, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=15]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 640, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=16]
+flags = 4
+atlas = ExtResource( 14 )
+region = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=17]
+flags = 4
+atlas = ExtResource( 14 )
+region = Rect2( 128, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=18]
+flags = 4
 atlas = ExtResource( 14 )
 region = Rect2( 256, 0, 128, 128 )
 
-[sub_resource type="AtlasTexture" id=12]
+[sub_resource type="AtlasTexture" id=19]
 flags = 4
 atlas = ExtResource( 14 )
 region = Rect2( 384, 0, 128, 128 )
 
-[sub_resource type="AtlasTexture" id=28]
+[sub_resource type="AtlasTexture" id=20]
 flags = 4
 atlas = ExtResource( 14 )
 region = Rect2( 512, 0, 128, 128 )
 
-[sub_resource type="AtlasTexture" id=29]
+[sub_resource type="AtlasTexture" id=21]
 flags = 4
 atlas = ExtResource( 14 )
 region = Rect2( 640, 0, 128, 128 )
 
-[sub_resource type="AtlasTexture" id=30]
+[sub_resource type="AtlasTexture" id=22]
 flags = 4
 atlas = ExtResource( 14 )
 region = Rect2( 768, 0, 128, 128 )
 
-[sub_resource type="AtlasTexture" id=31]
+[sub_resource type="AtlasTexture" id=23]
 flags = 4
 atlas = ExtResource( 14 )
 region = Rect2( 896, 0, 128, 128 )
 
-[sub_resource type="AtlasTexture" id=32]
+[sub_resource type="AtlasTexture" id=24]
 flags = 4
 atlas = ExtResource( 14 )
 region = Rect2( 1152, 0, 128, 128 )
 
-[sub_resource type="AtlasTexture" id=33]
+[sub_resource type="AtlasTexture" id=25]
 flags = 4
 atlas = ExtResource( 14 )
 region = Rect2( 1280, 0, 128, 128 )
 
-[sub_resource type="AtlasTexture" id=34]
+[sub_resource type="AtlasTexture" id=26]
 flags = 4
 atlas = ExtResource( 14 )
 region = Rect2( 1408, 0, 128, 128 )
 
-[sub_resource type="AtlasTexture" id=35]
+[sub_resource type="AtlasTexture" id=27]
 flags = 4
 atlas = ExtResource( 15 )
 region = Rect2( 0, 0, 128, 128 )
 
-[sub_resource type="AtlasTexture" id=36]
+[sub_resource type="AtlasTexture" id=28]
 flags = 4
 atlas = ExtResource( 15 )
 region = Rect2( 128, 0, 128, 128 )
 
-[sub_resource type="AtlasTexture" id=37]
+[sub_resource type="AtlasTexture" id=29]
 flags = 4
 atlas = ExtResource( 15 )
 region = Rect2( 256, 0, 128, 128 )
 
-[sub_resource type="AtlasTexture" id=38]
+[sub_resource type="AtlasTexture" id=30]
 flags = 4
 atlas = ExtResource( 15 )
 region = Rect2( 384, 0, 128, 128 )
 
-[sub_resource type="AtlasTexture" id=39]
+[sub_resource type="AtlasTexture" id=31]
 flags = 4
 atlas = ExtResource( 15 )
 region = Rect2( 512, 0, 128, 128 )
 
-[sub_resource type="AtlasTexture" id=40]
+[sub_resource type="AtlasTexture" id=32]
 flags = 4
 atlas = ExtResource( 15 )
 region = Rect2( 640, 0, 128, 128 )
 
-[sub_resource type="AtlasTexture" id=41]
+[sub_resource type="AtlasTexture" id=33]
 flags = 4
 atlas = ExtResource( 15 )
 region = Rect2( 768, 0, 128, 128 )
 
-[sub_resource type="AtlasTexture" id=42]
+[sub_resource type="AtlasTexture" id=34]
 flags = 4
 atlas = ExtResource( 15 )
 region = Rect2( 896, 0, 128, 128 )
 
-[sub_resource type="SpriteFrames" id=43]
+[sub_resource type="AtlasTexture" id=35]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=36]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 128, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=37]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 256, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=38]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 384, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=39]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 512, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=40]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 640, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=41]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 768, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=42]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 896, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=43]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 1024, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=44]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 1152, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=45]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 1280, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=46]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 1408, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=47]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 1536, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=48]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 1664, 0, 128, 128 )
+
+[sub_resource type="SpriteFrames" id=49]
 animations = [ {
-"frames": [ SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ) ],
+"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ],
 "loop": true,
 "name": "idle",
 "speed": 6.0
 }, {
-"frames": [ SubResource( 21 ), SubResource( 22 ), SubResource( 23 ) ],
+"frames": [ SubResource( 11 ), SubResource( 12 ), SubResource( 13 ) ],
 "loop": true,
 "name": "jump",
 "speed": 1.0
 }, {
-"frames": [  ],
-"loop": true,
-"name": "roll",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 24 ), SubResource( 25 ) ],
+"frames": [ SubResource( 14 ), SubResource( 15 ) ],
 "loop": true,
 "name": "fall",
 "speed": 1.0
 }, {
-"frames": [ SubResource( 26 ), SubResource( 27 ), SubResource( 11 ), SubResource( 12 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ), SubResource( 34 ) ],
+"frames": [ SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ) ],
 "loop": true,
 "name": "attack_swing",
 "speed": 15.0
 }, {
-"frames": [ SubResource( 35 ), SubResource( 36 ), SubResource( 37 ), SubResource( 38 ), SubResource( 39 ), SubResource( 40 ), SubResource( 41 ), SubResource( 42 ) ],
+"frames": [ SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ), SubResource( 34 ) ],
 "loop": true,
 "name": "walk",
 "speed": 15.0
+}, {
+"frames": [ SubResource( 35 ), SubResource( 36 ), SubResource( 37 ), SubResource( 38 ), SubResource( 39 ), SubResource( 40 ), SubResource( 41 ), SubResource( 42 ), SubResource( 43 ), SubResource( 44 ), SubResource( 45 ), SubResource( 46 ), SubResource( 47 ), SubResource( 48 ) ],
+"loop": true,
+"name": "roll",
+"speed": 5.0
 }, {
 "frames": [  ],
 "loop": true,
@@ -211,8 +295,7 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="Animation" id=44]
-resource_name = "attack_swing"
+[sub_resource type="Animation" id=50]
 length = 1.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("AnimatedSprite:animation")
@@ -256,8 +339,7 @@ tracks/2/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=45]
-resource_name = "fall"
+[sub_resource type="Animation" id=51]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("AnimatedSprite:animation")
@@ -284,8 +366,7 @@ tracks/1/keys = {
 "values": [ 1, 0 ]
 }
 
-[sub_resource type="Animation" id=46]
-resource_name = "idle"
+[sub_resource type="Animation" id=52]
 length = 0.7
 loop = true
 tracks/0/type = "value"
@@ -313,8 +394,7 @@ tracks/1/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7 ]
 }
 
-[sub_resource type="Animation" id=47]
-resource_name = "jump"
+[sub_resource type="Animation" id=53]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath("AnimatedSprite:animation")
@@ -341,8 +421,7 @@ tracks/1/keys = {
 "values": [ 1, 2, 0 ]
 }
 
-[sub_resource type="Animation" id=48]
-resource_name = "walk"
+[sub_resource type="Animation" id=54]
 length = 0.8
 loop = true
 tracks/0/type = "value"
@@ -369,29 +448,55 @@ tracks/1/keys = {
 "update": 1,
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7 ]
 }
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "play_footsteps_audio"
+}, {
+"args": [  ],
+"method": "play_footsteps_audio"
+}, {
+"args": [  ],
+"method": "play_footsteps_audio"
+}, {
+"args": [  ],
+"method": "play_footsteps_audio"
+} ]
+}
 
-[sub_resource type="DynamicFont" id=49]
+[sub_resource type="DynamicFont" id=55]
 font_data = ExtResource( 2 )
 
 [node name="Player" type="KinematicBody2D" groups=[
 "characters",
 "human",
 ]]
-z_index = 3
+material = SubResource( 1 )
+z_index = 5
 z_as_relative = false
 collision_mask = 2
 script = ExtResource( 3 )
 color = Color( 0.215686, 0.85098, 0.54902, 1 )
+is_invulnerable = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -0.026988, -2.92495 )
 scale = Vector2( 1.44, 7.32 )
-shape = SubResource( 13 )
+shape = SubResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+material = SubResource( 3 )
 position = Vector2( 4.62009, -1.02668 )
 scale = Vector2( 1.6, 1.6 )
-frames = SubResource( 43 )
+frames = SubResource( 49 )
 animation = "attack_swing"
 frame = 4
 
@@ -400,8 +505,8 @@ position = Vector2( -2.88756, 0.641675 )
 scale = Vector2( 0.625, 0.625 )
 
 [node name="Hitbox" parent="AnimatedSprite/Hitboxes" instance=ExtResource( 10 )]
-position = Vector2( 21.658, -9.34855 )
-scale = Vector2( 0.802354, 0.368165 )
+position = Vector2( 36.9466, -8.88526 )
+scale = Vector2( 0.562354, 0.368165 )
 
 [node name="CenterPivot" type="Position2D" parent="."]
 position = Vector2( 8.98529, -25.8256 )
@@ -409,10 +514,8 @@ position = Vector2( 8.98529, -25.8256 )
 [node name="ProjectileLaunchPosition1" type="Position2D" parent="CenterPivot"]
 position = Vector2( 29.9615, 0 )
 
-[node name="Sprite" type="Sprite" parent="CenterPivot/ProjectileLaunchPosition1"]
-visible = false
-scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 9 )
+[node name="Aim" type="Position2D" parent="CenterPivot/ProjectileLaunchPosition1"]
+position = Vector2( 10000, 0 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
@@ -424,11 +527,11 @@ limit_bottom = 530
 [node name="ScreenShakeGenerator" parent="Camera2D" instance=ExtResource( 4 )]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/attack_swing = SubResource( 44 )
-anims/fall = SubResource( 45 )
-anims/idle = SubResource( 46 )
-anims/jump = SubResource( 47 )
-anims/walk = SubResource( 48 )
+anims/attack_swing = SubResource( 50 )
+anims/fall = SubResource( 51 )
+anims/idle = SubResource( 52 )
+anims/jump = SubResource( 53 )
+anims/walk = SubResource( 54 )
 
 [node name="HurtAnimationPlayer" parent="AnimationPlayer" instance=ExtResource( 12 )]
 
@@ -500,13 +603,36 @@ margin_left = -72.7393
 margin_top = -53.2673
 margin_right = 77.2607
 margin_bottom = -21.2673
-custom_fonts/font = SubResource( 49 )
+custom_fonts/font = SubResource( 55 )
 text = "IDLE"
 align = 1
 script = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Audio" type="Node2D" parent="."]
+
+[node name="HurtAudio1" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource( 11 )
+volume_db = 5.0
+pitch_scale = 0.9
+
+[node name="HurtAudio2" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource( 19 )
+pitch_scale = 0.9
+
+[node name="FootstepsAudio1" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource( 17 )
+
+[node name="FootstepsAudio2" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource( 20 )
+
+[node name="FootstepsAudio3" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource( 21 )
+
+[node name="FootstepsAudio4" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource( 18 )
 [connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_Sprite_animation_finished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="timeout" from="GameFeel/CoyoteGroundTimer" to="." method="_on_CoyoteGroundTimer_timeout"]

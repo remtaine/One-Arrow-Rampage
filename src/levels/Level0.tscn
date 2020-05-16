@@ -185,6 +185,8 @@ z_index = 0
 
 [node name="Music" type="AudioStreamPlayer" parent="Characters/Player"]
 stream = ExtResource( 5 )
+volume_db = -10.0
+autoplay = true
 
 [node name="Enemies" type="Node2D" parent="Characters"]
 
@@ -194,16 +196,28 @@ position = Vector2( 2560, 416 )
 [node name="Titan2" parent="Characters/Enemies" instance=ExtResource( 11 )]
 position = Vector2( 3520, 224 )
 
+[node name="Titan5" parent="Characters/Enemies" instance=ExtResource( 11 )]
+position = Vector2( 4544, 448 )
+
+[node name="Titan4" parent="Characters/Enemies" instance=ExtResource( 11 )]
+position = Vector2( 5760, 240 )
+
 [node name="Titan3" parent="Characters/Enemies" instance=ExtResource( 11 )]
 position = Vector2( 2976, 224 )
+
+[node name="Titan6" parent="Characters/Enemies" instance=ExtResource( 11 )]
+position = Vector2( 5848, 440 )
+
+[node name="Titan7" parent="Characters/Enemies" instance=ExtResource( 11 )]
+position = Vector2( 6032, 436 )
 
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="TimeLabel" type="Label" parent="UI"]
 margin_left = 464.0
-margin_top = 40.0
+margin_top = 32.0
 margin_right = 575.0
-margin_bottom = 120.0
+margin_bottom = 112.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = SubResource( 1 )
@@ -213,12 +227,31 @@ __meta__ = {
 }
 
 [node name="Traps" type="Node2D" parent="."]
+position = Vector2( 568, 220 )
 
 [node name="FloatingSpikes" parent="Traps" instance=ExtResource( 7 )]
-position = Vector2( 2144, 288 )
+position = Vector2( 1508, 96 )
 
 [node name="Spikes" parent="Traps" instance=ExtResource( 1 )]
-position = Vector2( 1568, 416 )
+position = Vector2( 3440, 188 )
+
+[node name="Spikes2" parent="Traps" instance=ExtResource( 1 )]
+position = Vector2( 3780, 188 )
+
+[node name="FloatingSpikes2" parent="Traps" instance=ExtResource( 7 )]
+position = Vector2( 5596, 156 )
+
+[node name="Spikes3" parent="Traps" instance=ExtResource( 1 )]
+position = Vector2( 4856, -4 )
+
+[node name="Spikes4" parent="Traps" instance=ExtResource( 1 )]
+position = Vector2( 5796, 188 )
+
+[node name="Spikes5" parent="Traps" instance=ExtResource( 1 )]
+position = Vector2( 1036, 188 )
+
+[node name="FloatingSpikes3" parent="Traps" instance=ExtResource( 7 )]
+position = Vector2( 4576, -48 )
 
 [node name="Sky" type="Node2D" parent="."]
 position = Vector2( 51.3912, 487.692 )
@@ -292,7 +325,6 @@ __meta__ = {
 }
 
 [node name="Instructions" type="Node2D" parent="."]
-visible = false
 modulate = Color( 1, 1, 1, 0.670588 )
 z_index = 10
 
@@ -310,12 +342,36 @@ __meta__ = {
 
 [node name="FireLabel" type="Label" parent="Instructions"]
 modulate = Color( 1, 1, 1, 0.658824 )
-margin_left = 1280.0
-margin_top = 352.0
-margin_right = 1601.0
-margin_bottom = 400.0
+margin_left = 1408.0
+margin_top = 296.0
+margin_right = 1729.0
+margin_bottom = 344.0
 custom_fonts/font = SubResource( 2 )
 text = "Fire is hot"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AttackLabel" type="Label" parent="Instructions"]
+modulate = Color( 1, 1, 1, 0.658824 )
+margin_left = 1948.0
+margin_top = 204.0
+margin_right = 2269.0
+margin_bottom = 252.0
+custom_fonts/font = SubResource( 2 )
+text = "Left Click to Attack"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GrappleLabel" type="Label" parent="Instructions"]
+modulate = Color( 1, 1, 1, 0.658824 )
+margin_left = 2768.0
+margin_top = 132.0
+margin_right = 3121.0
+margin_bottom = 180.0
+custom_fonts/font = SubResource( 2 )
+text = "Right Click to Grapple"
 __meta__ = {
 "_edit_use_anchors_": false
 }

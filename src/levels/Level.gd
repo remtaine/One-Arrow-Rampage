@@ -28,5 +28,6 @@ func _process(delta):
 	var str_elapsed = "%02d : %02d" % [minutes, seconds]
 #	print("elapsed : ", str_elapsed)
 	time_label.text = str_elapsed
+	
 	if Input.is_action_just_pressed("reset"):
-		get_tree().reload_current_scene()
+		Utils.reset_scene()

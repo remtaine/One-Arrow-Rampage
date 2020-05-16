@@ -45,6 +45,12 @@ export var color = Color(255,0,0,1)
 onready var sprite = $AnimatedSprite
 onready var animation = $AnimationPlayer
 onready var roam_range = $AnimatedSprite/Range/RoamArea2D
+onready var death_audio = $DeathAudio
+
+onready var death_audio1 = $DeathAudio1
+onready var death_audio2 = $DeathAudio2
+onready var death_audio3 = $DeathAudio3
+onready var death_audios = [death_audio1, death_audio2, death_audio3]
 
 var current_phase = PHASE.ZERO
 var current_scale_x
@@ -119,7 +125,7 @@ func _physics_process(delta):
 		STATES.ROAM:
 			pass
 			var temp = roam_range.get_overlapping_bodies()
-			if temp.size() == 0 and is_on_floor():
+			if (temp.size() == 0 and is_on_floor()) or is_on_wall():
 				_dir.x *= -1
 			_velocity.x = _speed * _dir.x
 			animation.play("walk")
@@ -137,7 +143,6 @@ func _physics_process(delta):
 	
 	_velocity.y += 10 # for gravity
 	_velocity = move_and_slide(_velocity, Vector2(0, -1))
-	print(_velocity)
 
 func enter_state():
 	match state:
@@ -204,6 +209,9 @@ func hit():
 
 func die():
 	disable_hitboxes()
+	is_alive = false
+	Utils.play_audio(death_audios, "enemy")
+	print("DYING!")
 	change_state(EVENTS.DIE)
 	
 func _on_AnimationPlayer_animation_finished(anim_name):
