@@ -9,7 +9,7 @@
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 5 )
 shader_param/width = 2.0
-shader_param/outline_color = Color( 0, 0, 0, 1 )
+shader_param/outline_color = null
 
 [sub_resource type="AtlasTexture" id=2]
 flags = 4
@@ -52,12 +52,13 @@ animations = [ {
 [node name="FloatingSpikes" type="Node2D" groups=[
 "traps",
 ]]
+z_index = -10
 script = ExtResource( 3 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 material = SubResource( 1 )
 frames = SubResource( 8 )
-frame = 2
+frame = 5
 playing = true
 
 [node name="Hitboxes" type="Node2D" parent="Sprite"]

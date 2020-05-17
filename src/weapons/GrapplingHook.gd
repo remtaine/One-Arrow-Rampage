@@ -11,11 +11,13 @@ var launch_successful = false
 var attached_to
 var attached_to_wr = null
 var initial_y
+
 onready var line = $Node/Trail
 onready var sprite = $Sprite
 onready var tween = $Tween
 onready var launch_timer = $LaunchTimer
 onready var move_timer = $PlayerMoveTimer
+onready var attack_audio = $AttackAudio
 
 func _ready():
 	sprite.modulate = _owner.color
@@ -49,6 +51,7 @@ func _on_Area2D_body_entered(body):
 	#change state of player to GRAPPLING_MOVING
 	if body.has_method("hit") and not launch_successful:
 		if body.is_alive:
+			attack_audio.play()
 			body.hit()
 			_velocity = Vector2.ZERO
 			launch_successful = true
@@ -65,6 +68,7 @@ func _on_Area2D_body_entered(body):
 		if initial_y > body.global_position.y: #if I hit the sky from above
 			return
 	
+	attack_audio.play()
 	_velocity = Vector2.ZERO
 	launch_successful = true
 	move_timer.start()

@@ -7,6 +7,7 @@ signal state_changed(state)
 var is_alive = true
 var state = "idle"
 var prev_state = state
+var prev_event = 0
 var _transitions = {}
 var hp = 100.0
 var max_hp = 100.0
@@ -32,7 +33,7 @@ func change_state(event):
 	var transition = [state, event]
 	if not transition in _transitions:
 		return
-	
+	prev_event = event
 	prev_state = state
 	state = _transitions[transition]
 	enter_state()

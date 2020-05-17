@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/wallpaper.png-86c4487027ea12d352559cb034241ff5.stex"
+path="res://.import/white circle.png-6c8b15ff67c6dce9f7d09193be8049cf.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://wallpaper.png"
-dest_files=[ "res://.import/wallpaper.png-86c4487027ea12d352559cb034241ff5.stex" ]
+source_file="res://images/placeholders/white circle.png"
+dest_files=[ "res://.import/white circle.png-6c8b15ff67c6dce9f7d09193be8049cf.stex" ]
 
 [params]
 

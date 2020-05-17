@@ -46,7 +46,10 @@ func _on_Hitbox_body_entered(body):
 		if body.is_in_group("enemy") and body.is_alive:
 			body.hit()
 	if host.is_in_group("enemy") or host.is_in_group("traps"):
-		if body.is_in_group("human"):
-			body.hit()
+		if body.is_in_group("human") and body.is_alive:
+			if ("is_invulnerable" in body and not body.is_invulnerable):
+				body.hit()
+			else:
+				print ("PLAYER IS INVULNERABLE: ", body.is_invulnerable)
 	else:
 		print("SOMETHINGS WRONG I CAN FEEL IT")

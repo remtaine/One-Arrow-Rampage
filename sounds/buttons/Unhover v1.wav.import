@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Unhover v1.wav-d9a8a2f015dcaf4db7638c7e51a3b8a6.sample"
+
+[deps]
+
+source_file="res://sounds/buttons/Unhover v1.wav"
+dest_files=[ "res://.import/Unhover v1.wav-d9a8a2f015dcaf4db7638c7e51a3b8a6.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

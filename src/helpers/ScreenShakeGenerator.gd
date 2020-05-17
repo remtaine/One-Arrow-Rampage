@@ -11,11 +11,12 @@ onready var duration = $DurationTimer
 var amplitude = 0
 var priority = 0
 
-func start(d = 0.3, f = 15, amplitude = 16, priority = 0):
+func start(priority = 0, d = 0.3, f = 15, amplitude = 18):
+	
 	if self.priority <= priority:
-		self.priority = priority
-		self.amplitude = amplitude
-		frequency.set_wait_time(1.0/float(f))
+		self.priority = priority 
+		self.amplitude = amplitude + priority * 3 
+		frequency.set_wait_time(1.0/float(f * (1 + float(priority)/10.0)))
 		duration.set_wait_time(d)
 		
 		duration.start()

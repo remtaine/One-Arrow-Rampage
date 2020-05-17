@@ -17,6 +17,7 @@ func _ready():
 		Player.STATES.FLY: "Flying",
 		Player.STATES.GRAPPLE_LAUNCH_AIR: "Grapple AIR",
 		Player.STATES.GRAPPLE_LAUNCH_GROUND: "Grapple GROUND",
+		Player.STATES.DIE: "DIE",
 	}
 
 #enum STATES {

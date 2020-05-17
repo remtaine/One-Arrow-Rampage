@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/SFX_3 DEATH.ogg-569b63c20a1b33d29aa0f33b1ddc6d55.oggstr"
+
+[deps]
+
+source_file="res://sounds/hurt/SFX_3 DEATH.ogg"
+dest_files=[ "res://.import/SFX_3 DEATH.ogg-569b63c20a1b33d29aa0f33b1ddc6d55.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

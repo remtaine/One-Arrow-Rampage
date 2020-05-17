@@ -10,15 +10,16 @@ var STATES = {
 	DIE = "DIE"
 }
 
-enum EVENTS {
-	INVALID=-1,
-	STOP,
-	ROAM,
-	DEFEND,
-	ATTACK,
-	FALL,
-	LAND,
-	DIE
+var EVENTS = {
+	INVALID = "EVENT INVALID",
+	STOP = "EVENT STOP",
+	ROAM = "EVENT ROAM",
+	DEFEND = "EVENT DEFEND",
+	CHASE = "EVENT CHASE",
+	ATTACK = "EVENT ATTACK",
+	FALL = "EVENT FALL",
+	LAND = "EVENT LAND",
+	DIE = "EVENT DIE"
 }
 
 var PHASE = {
@@ -35,7 +36,11 @@ enum ATTACK_PATTERNS {
 const DAMAGE = 10
 
 const SPEED = 50
+const CHASE_SPEED = 210
 const TITAN_SCALE = 2
+
+const CHASE_DISTANCE = 350
+const ATTACK_DISTANCE = 40
 
 export var main_hp = false
 export var enemy_scale = 8
@@ -56,6 +61,7 @@ var current_phase = PHASE.ZERO
 var current_scale_x
 var enemies_damaged = []
 
+var has_seen_player = false
 var _speed = SPEED
 var _velocity = Vector2.ZERO
 var _dir = Vector2(1,0)
@@ -74,18 +80,21 @@ func _init():
 		[STATES.IDLE, EVENTS.ROAM]: STATES.ROAM,
 		
 		[STATES.ROAM, EVENTS.STOP]: STATES.IDLE,
+		[STATES.ROAM, EVENTS.CHASE]: STATES.CHASE,
+		[STATES.CHASE, EVENTS.ROAM]: STATES.ROAM,
 		[STATES.ROAM, EVENTS.ATTACK]: STATES.ATTACK, #TEMP! TODO remove once chase state implemented
-
+#
 		[STATES.CHASE, EVENTS.ATTACK]: STATES.ATTACK,
-
-		[STATES.ATTACK, EVENTS.STOP]: STATES.CHASE,
-		
-		[STATES.FALL, EVENTS.LAND]: STATES.IDLE,
-		[STATES.IDLE, EVENTS.FALL]: STATES.FALL,
-		[STATES.ROAM, EVENTS.FALL]: STATES.FALL,
-		
-		[STATES.IDLE, EVENTS.ROAM]: STATES.ROAM,
-		
+#
+		[STATES.ATTACK, EVENTS.CHASE]: STATES.CHASE,
+		[STATES.ATTACK, EVENTS.ROAM]: STATES.ROAM,
+#
+#		[STATES.FALL, EVENTS.LAND]: STATES.IDLE,
+#		[STATES.IDLE, EVENTS.FALL]: STATES.FALL,
+#		[STATES.ROAM, EVENTS.FALL]: STATES.FALL,
+#
+#		[STATES.IDLE, EVENTS.ROAM]: STATES.ROAM,
+#
 		[STATES.IDLE, EVENTS.DIE]: STATES.DIE,
 		[STATES.ROAM, EVENTS.DIE]: STATES.DIE, #TEMP! TODO remove once chase state implemented
 		[STATES.CHASE, EVENTS.DIE]: STATES.DIE,
@@ -119,20 +128,20 @@ func _ready():
 func _physics_process(delta):
 	var event = get_event()
 	change_state(event)
+	
 	match state:
 		STATES.IDLE:
 			pass
-		STATES.ROAM:
-			pass
-			var temp = roam_range.get_overlapping_bodies()
-			if (temp.size() == 0 and is_on_floor()) or is_on_wall():
+		STATES.CHASE:
+			if not is_facing(Utils.player) and $TurnTimer.is_stopped():
 				_dir.x *= -1
-			_velocity.x = _speed * _dir.x
-			animation.play("walk")
-			flip(_dir.x < 0)
-			#TODO check if next tile is 
+				$TurnTimer.start()
+			continue
+		STATES.ROAM:
+			continue
+		STATES.DIE:
+			pass
 		STATES.FALL:
-			_velocity.x = _prev_velocity.x
 			if is_on_floor():
 				change_state(EVENTS.LAND)	
 		STATES.ATTACK:
@@ -140,7 +149,14 @@ func _physics_process(delta):
 			match current_attack_pattern:
 				ATTACK_PATTERNS.RUSH:
 					change_animation("attack")
-	
+		_:
+			var temp = roam_range.get_overlapping_bodies()
+			if ((temp.size() == 0 and is_on_floor()) or is_on_wall()) and $TurnTimer.is_stopped():
+				$TurnTimer.start()
+				_dir.x *= -1
+			_velocity.x = _speed * _dir.x
+			flip(_dir.x < 0)
+
 	_velocity.y += 10 # for gravity
 	_velocity = move_and_slide(_velocity, Vector2(0, -1))
 
@@ -152,11 +168,26 @@ func enter_state():
 			if animation.current_animation != "fall_continue":
 				change_animation("fall")
 		STATES.ROAM:
+			hide_all_emotes()
+			_speed = SPEED
 			is_running = false
+			change_animation("walk")
+		STATES.CHASE:
+			if prev_state == STATES.ROAM:	
+				if (has_seen_player):
+					display_emote("angry")
+				else:
+					display_emote("surprised")
+			has_seen_player = true
+			_speed = CHASE_SPEED
+			is_running = true
+			change_animation("walk")			
 		STATES.ATTACK:
-			randomize()
-			current_attack_pattern = 0
+			hide_all_emotes()
+			has_seen_player = true			
+			change_animation("attack")
 		STATES.DIE:
+			print("IM DYIN NOW")
 			change_animation("die")			
 func flip(val = true):
 	if val:
@@ -169,38 +200,55 @@ func flip(val = true):
 static func get_dir(a1, a2):
 	return (a1.global_position - a2.global_position).normalized()
 
-func get_raw_input(state):
-	return {
-		direction = _dir,
-		is_running = false,
-		is_changing_weapon = false,
-		is_attacking = false,
-		is_going_up = false,
-		is_launching_grappling_hook = false
-	}
-
 func get_event():
 	"""
 	Converts the player's input to events. The state machine
 	uses these events to trigger transitions from one state to another.
 	"""
 	var event = EVENTS.INVALID
+#	if animation.current_animation == "attack":
+#		return EVENTS.ATTACK
+	if animation.is_active() and animation.current_animation == "attack":
+		return EVENTS.ATTACK
+	
+	if global_position.distance_to(Utils.player.global_position) < ATTACK_DISTANCE and near_on_y_plane(): #facing player and within range
+		if is_facing(Utils.player):
+			return EVENTS.ATTACK
+	if global_position.distance_to(Utils.player.global_position) < CHASE_DISTANCE and near_on_y_plane(): #within chase range
+		if is_facing(Utils.player) or has_seen_player:
+			return EVENTS.CHASE
+	return EVENTS.ROAM
 
-	if false: #facing player and within range
-		event = EVENTS.ATTACK
-	elif false: #within chase range
-		event = EVENTS.CHASE
-	else: #roam
-		event = EVENTS.ROAM
+func near_on_y_plane():
+	return abs(Utils.player.global_position.y - global_position.y) < 50.0
 
-	return event
+func hide_all_emotes():
+	for child in $AnimatedSprite/Emotes.get_children():
+		child.visible = false
 
+func display_emote(emotion):
+	hide_all_emotes()
+	match emotion:
+		"surprised":
+			$AnimatedSprite/Emotes/emote_exclamation.visible = true
+		"angry":
+			$AnimatedSprite/Emotes/emote_anger.visible = true
+	$EmotesTimer.start()
+		
+func is_facing(val):
+	if (is_flipped and global_position.x >= val.global_position.x):
+		return true
+	if (not is_flipped and global_position.x <= val.global_position.x):
+		return true		
+	return false
+			
 func disable_hitboxes():
 	$AnimatedSprite/Hitboxes/AttackHitbox.disable()
 	
 func hit():
 	hp -= 1000
 	hp_bar.set_value(hp)
+	Utils.freeze_frame()
 	if hp <= 0:
 		die()
 	else:
@@ -208,19 +256,23 @@ func hit():
 		print("HURT")
 
 func die():
+	Utils.current_level.update_killed_label()
+	if not has_seen_player:
+		Utils.current_level.update_silent_killed_label()
+	_velocity.x = 0
 	disable_hitboxes()
 	is_alive = false
 	Utils.play_audio(death_audios, "enemy")
+	sprite.set_material(null)
 	print("DYING!")
 	change_state(EVENTS.DIE)
 	
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "attack":
 		enemies_damaged = []
-		change_state(EVENTS.STOP)
+#		change_state(EVENTS.CHASE)
 	elif anim_name == "fall":
-		animation.play("fall_continue")
-
+		change_animation("fall_continue")
 
 func _on_AttackArea2D_body_entered(body):
 	if body.is_in_group("human"):
@@ -232,7 +284,12 @@ func change_animation(anim):
 		"idle":
 			animation.set_speed_scale(0.5)
 		"attack":
-			animation.set_speed_scale(1.0)			
+			animation.set_speed_scale(1.5)			
+		"die":
+			animation.set_speed_scale(0.7)					
 		_:
 			animation.set_speed_scale(1)
 	animation.play(anim)
+
+func _on_EmotesTimer_timeout():
+	hide_all_emotes()
