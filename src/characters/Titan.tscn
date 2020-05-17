@@ -1,4 +1,4 @@
-[gd_scene load_steps=93 format=2]
+[gd_scene load_steps=94 format=2]
 
 [ext_resource path="res://src/characters/Titan.gd" type="Script" id=1]
 [ext_resource path="res://src/behavior/HurtAnimationPlayer.tscn" type="PackedScene" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://images/characters/knight frames/noBKG_KnightShield_strip.png" type="Texture" id=13]
 [ext_resource path="res://images/emotes/emote_exclamation.png" type="Texture" id=14]
 [ext_resource path="res://images/emotes/emote_anger.png" type="Texture" id=15]
+[ext_resource path="res://images/emotes/emote_stars.png" type="Texture" id=16]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 7.61708, 8.09606 )
@@ -593,7 +594,7 @@ material = SubResource( 2 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 70 )
 animation = "idle"
-frame = 5
+frame = 3
 playing = true
 
 [node name="Hitboxes" type="Node2D" parent="AnimatedSprite"]
@@ -623,6 +624,11 @@ position = Vector2( -22.1404, -10.6117 )
 shape = SubResource( 72 )
 
 [node name="Emotes" type="Node2D" parent="AnimatedSprite"]
+
+[node name="emote_stars" type="Sprite" parent="AnimatedSprite/Emotes"]
+position = Vector2( 3, -24 )
+scale = Vector2( 0.6, 0.6 )
+texture = ExtResource( 16 )
 
 [node name="emote_exclamation" type="Sprite" parent="AnimatedSprite/Emotes"]
 position = Vector2( 3, -24 )

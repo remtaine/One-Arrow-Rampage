@@ -187,6 +187,8 @@ func enter_state():
 			has_seen_player = true			
 			change_animation("attack")
 		STATES.DIE:
+			if not has_seen_player:
+				display_emote("stars")
 			print("IM DYIN NOW")
 			change_animation("die")			
 func flip(val = true):
@@ -233,6 +235,8 @@ func display_emote(emotion):
 			$AnimatedSprite/Emotes/emote_exclamation.visible = true
 		"angry":
 			$AnimatedSprite/Emotes/emote_anger.visible = true
+		"stars":
+			$AnimatedSprite/Emotes/emote_stars.visible = true
 	$EmotesTimer.start()
 		
 func is_facing(val):

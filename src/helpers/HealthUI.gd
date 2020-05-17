@@ -15,7 +15,7 @@ func _ready():
 	update_health(0)
 
 func update_health(val = -1, all = false):
-	if all:
+	if all and not Utils.has_won:
 		for i in range (0, 3):
 			hearts[i].self_modulate = Color(hearts[i].self_modulate.r, hearts[i].self_modulate.g, hearts[i].self_modulate.b, 0)
 	

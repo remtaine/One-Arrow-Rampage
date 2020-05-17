@@ -251,7 +251,8 @@ func _physics_process(delta):
 			if is_on_floor():
 				change_state(EVENTS.LAND)
 		STATES.GRAPPLE_MOVE:
-			_dir = Utils.get_dir(current_hook, self)
+			if current_hook_wr.get_ref():
+				_dir = Utils.get_dir(current_hook, self)
 			if current_hook.global_position.distance_to(global_position) < HOOK_LEEWAY:
 				change_state(EVENTS.GRAPPLE_DONE)
 			else:

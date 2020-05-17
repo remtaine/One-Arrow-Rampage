@@ -184,11 +184,12 @@ centered = false
 offset = Vector2( 0, -793 )
 
 [node name="DecorTileMap" type="TileMap" parent="."]
-scale = Vector2( 2, 2 )
+scale = Vector2( 1.5, 1.5 )
+z_index = -30
 tile_set = ExtResource( 20 )
-cell_size = Vector2( 8, 8 )
+cell_size = Vector2( 1, 1 )
 format = 1
-tile_data = PoolIntArray( 1703968, 10, 0, 3670130, 10, 0 )
+tile_data = PoolIntArray( 18482542, 12, 0, 18809718, 10, 0 )
 
 [node name="Ground" type="Node2D" parent="."]
 position = Vector2( 51.3912, 487.692 )
@@ -273,9 +274,9 @@ __meta__ = {
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="TimeLabel" type="Label" parent="UI"]
-margin_left = 452.0
+margin_left = 468.0
 margin_top = 32.0
-margin_right = 563.0
+margin_right = 579.0
 margin_bottom = 112.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -286,26 +287,22 @@ __meta__ = {
 }
 
 [node name="KilledLabel" type="Label" parent="UI"]
-margin_left = 444.0
-margin_top = 60.0
-margin_right = 537.0
-margin_bottom = 111.0
+margin_left = 22.0
+margin_top = 48.0
+margin_bottom = 99.0
 custom_fonts/font = SubResource( 2 )
 text = "0/21 killed"
-align = 1
 valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="SilentKilledLabel" type="Label" parent="UI"]
-margin_left = 424.0
-margin_top = 88.0
-margin_right = 556.0
-margin_bottom = 139.0
+margin_left = 20.0
+margin_top = 76.0
+margin_bottom = 127.0
 custom_fonts/font = SubResource( 2 )
 text = "03 stealth kills"
-align = 1
 valign = 1
 __meta__ = {
 "_edit_use_anchors_": false

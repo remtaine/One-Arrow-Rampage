@@ -59,13 +59,19 @@ func hide_instructions():
 func update_silent_killed_label(val = 1):
 	currently_silent_killed += val
 	silent_killed_label.set_align(Label.ALIGN_CENTER)
-	silent_killed_label.text = String(currently_silent_killed) + " Stealth Kills"
+	var percent
+	if total_enemies_on_map > 0:
+		percent = float(currently_silent_killed)/float(total_enemies_on_map)
+		percent *= 100
+	else:
+		percent = 100
+	silent_killed_label.text = String(ceil(percent)) + "% Stealth Kills"
 	silent_killed_label.set_align(Label.ALIGN_CENTER)
 	
 func update_killed_label(val = 1):
 	currently_killed += val
 	killed_label.set_align(Label.ALIGN_CENTER)
-	killed_label.text = String(currently_killed) + " / " + String(total_enemies_on_map) + " Killed"
+	killed_label.text = String(currently_killed) + "/" + String(total_enemies_on_map) + " Killed"
 	killed_label.set_align(Label.ALIGN_CENTER)
 	
 	if currently_killed >= total_enemies_on_map and total_enemies_on_map != 0 and Utils.player.is_alive:
