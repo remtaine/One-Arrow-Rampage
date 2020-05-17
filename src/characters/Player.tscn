@@ -677,14 +677,15 @@ position = Vector2( 4.62009, -1.02668 )
 scale = Vector2( 1.6, 1.6 )
 frames = SubResource( 73 )
 animation = "attack_swing"
+frame = 4
 
 [node name="Hitboxes" type="Node2D" parent="AnimatedSprite"]
 position = Vector2( -2.88756, 0.641675 )
 scale = Vector2( 0.625, 0.625 )
 
 [node name="Hitbox" parent="AnimatedSprite/Hitboxes" instance=ExtResource( 10 )]
-position = Vector2( 36.9466, -8.88526 )
-scale = Vector2( 0.562354, 0.368165 )
+position = Vector2( 33.727, -12.7487 )
+scale = Vector2( 0.682354, 0.368165 )
 
 [node name="CenterPivot" type="Position2D" parent="."]
 position = Vector2( 8.98529, -18.6408 )

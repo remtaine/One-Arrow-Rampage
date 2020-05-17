@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://images/background/layers/Layer_0003_6.png" type="Texture" id=1]
 [ext_resource path="res://images/background/layers/Layer_0005_5.png" type="Texture" id=2]
@@ -10,31 +10,23 @@
 [ext_resource path="res://images/background/layers/Layer_0008_3.png" type="Texture" id=8]
 [ext_resource path="res://images/background/layers/Layer_0002_7.png" type="Texture" id=9]
 [ext_resource path="res://src/environment/Sky.tscn" type="PackedScene" id=10]
-[ext_resource path="res://src/environment/MidGround.tscn" type="PackedScene" id=11]
-[ext_resource path="res://src/menus/YouWonText.tscn" type="PackedScene" id=12]
-[ext_resource path="res://src/environment/Ground.tscn" type="PackedScene" id=13]
-[ext_resource path="res://src/characters/Player.tscn" type="PackedScene" id=14]
-[ext_resource path="res://src/levels/Level.gd" type="Script" id=15]
-[ext_resource path="res://fonts/BebasNeue Bold.ttf" type="DynamicFontData" id=16]
-[ext_resource path="res://src/characters/Titan.tscn" type="PackedScene" id=17]
-[ext_resource path="res://src/environment/FloatingSpikes.tscn" type="PackedScene" id=18]
-[ext_resource path="res://src/environment/Spikes.tscn" type="PackedScene" id=19]
+[ext_resource path="res://src/menus/YouWonText.tscn" type="PackedScene" id=11]
+[ext_resource path="res://src/environment/Ground.tscn" type="PackedScene" id=12]
+[ext_resource path="res://src/characters/Player.tscn" type="PackedScene" id=13]
+[ext_resource path="res://src/levels/Level.gd" type="Script" id=14]
+[ext_resource path="res://fonts/BebasNeue Bold.ttf" type="DynamicFontData" id=15]
 
 [sub_resource type="DynamicFont" id=1]
 size = 36
 outline_color = Color( 0, 0, 0, 1 )
-font_data = ExtResource( 16 )
+font_data = ExtResource( 15 )
 
 [sub_resource type="DynamicFont" id=2]
 size = 24
-font_data = ExtResource( 16 )
-
-[sub_resource type="DynamicFont" id=3]
-size = 48
-font_data = ExtResource( 16 )
+font_data = ExtResource( 15 )
 
 [node name="Level1" type="Node2D"]
-script = ExtResource( 15 )
+script = ExtResource( 14 )
 
 [node name="Background" type="ParallaxBackground" parent="."]
 
@@ -187,95 +179,27 @@ position = Vector2( 51.3912, 487.692 )
 rotation = 1.5708
 scale = Vector2( 1.6, 0.679995 )
 
-[node name="Ground1" parent="Ground" instance=ExtResource( 13 )]
-position = Vector2( 15.4, -653.841 )
+[node name="Ground1" parent="Ground" instance=ExtResource( 12 )]
+position = Vector2( 15.1926, -583.252 )
 rotation = -1.5708
 scale = Vector2( 1.4706, 0.625 )
 
-[node name="Ground4" parent="Ground" instance=ExtResource( 13 )]
-position = Vector2( 15.1387, -10199.1 )
-rotation = -1.5708
-scale = Vector2( 0.75, 0.625 )
-
-[node name="Ground2" parent="Ground" instance=ExtResource( 13 )]
-position = Vector2( 15.1611, -6312.47 )
-rotation = -1.5708
-scale = Vector2( 0.75, 0.625 )
-
-[node name="Ground3" parent="Ground" instance=ExtResource( 13 )]
-position = Vector2( 15.1602, -7733.03 )
-rotation = -1.5708
-scale = Vector2( 0.4, 0.625 )
-
 [node name="Wall" parent="Ground" groups=[
 "wall",
-] instance=ExtResource( 13 )]
+] instance=ExtResource( 12 )]
 position = Vector2( -247.546, 66.0733 )
 scale = Vector2( 0.625, 1.4706 )
 
 [node name="ColorRect" type="ColorRect" parent="Ground/Wall"]
-margin_left = 394.505
-margin_top = -46.3619
-margin_right = 434.505
-margin_bottom = -6.36194
+margin_left = 396.074
+margin_top = -44.9295
+margin_right = 436.074
+margin_bottom = -4.9295
 rect_scale = Vector2( 1.6, 0.679995 )
 color = Color( 0.0470588, 0.0666667, 0.133333, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="ColorRect2" type="ColorRect" parent="Ground/Wall"]
-margin_left = 390.202
-margin_top = -28.0
-margin_right = 430.202
-margin_bottom = 12.0
-rect_scale = Vector2( 1.6, 0.679995 )
-color = Color( 0.0470588, 0.0666667, 0.133333, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Midground" type="Node" parent="Ground"]
-
-[node name="MidGround1" parent="Ground/Midground" instance=ExtResource( 11 )]
-position = Vector2( 1252, 224 )
-rotation = -4.8977e-06
-scale = Vector2( 0.6, 1 )
-
-[node name="MidGround2" parent="Ground/Midground" instance=ExtResource( 11 )]
-position = Vector2( 1820, 328 )
-rotation = -4.8977e-06
-scale = Vector2( 0.25, 1 )
-
-[node name="MidGround3" parent="Ground/Midground" instance=ExtResource( 11 )]
-position = Vector2( 2844, 192 )
-rotation = -4.8977e-06
-scale = Vector2( 0.8, 1 )
-
-[node name="MidGround4" parent="Ground/Midground" instance=ExtResource( 11 )]
-position = Vector2( 3776, 356 )
-rotation = -4.8977e-06
-scale = Vector2( 0.5, 1 )
-
-[node name="MidGround5" parent="Ground/Midground" instance=ExtResource( 11 )]
-position = Vector2( 4932, 288 )
-rotation = -4.8977e-06
-scale = Vector2( 0.35, 1 )
-
-[node name="MidGround" parent="Ground/Midground" instance=ExtResource( 11 )]
-position = Vector2( 5688, 228 )
-rotation = -4.8977e-06
-scale = Vector2( 0.5, 1 )
-
-[node name="MidGround6" parent="Ground/Midground" instance=ExtResource( 11 )]
-position = Vector2( 6384, 368 )
-rotation = -4.8977e-06
-scale = Vector2( 0.6, 1 )
-
-[node name="MidGround7" parent="Ground/Midground" instance=ExtResource( 11 )]
-position = Vector2( 7772, 216 )
-rotation = -4.8977e-06
-scale = Vector2( 1, 1 )
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -314,38 +238,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="YouWonText" parent="UI" instance=ExtResource( 12 )]
+[node name="YouWonText" parent="UI" instance=ExtResource( 11 )]
 modulate = Color( 1, 1, 1, 0 )
 
 [node name="Traps" type="Node2D" parent="."]
 position = Vector2( 568, 220 )
-
-[node name="FloatingSpikes" parent="Traps" instance=ExtResource( 18 )]
-position = Vector2( 684, -168 )
-
-[node name="FloatingSpikes2" parent="Traps" instance=ExtResource( 18 )]
-position = Vector2( 1644, 16 )
-
-[node name="FloatingSpikes3" parent="Traps" instance=ExtResource( 18 )]
-position = Vector2( 2800, 104 )
-
-[node name="Spikes" parent="Traps" instance=ExtResource( 19 )]
-position = Vector2( 2416, -96 )
-
-[node name="Spikes2" parent="Traps" instance=ExtResource( 19 )]
-position = Vector2( 3664, 188 )
-
-[node name="Spikes3" parent="Traps" instance=ExtResource( 19 )]
-position = Vector2( 5128, -60 )
-
-[node name="FloatingSpikes4" parent="Traps" instance=ExtResource( 18 )]
-position = Vector2( 5804, -12 )
-
-[node name="Spikes4" parent="Traps" instance=ExtResource( 19 )]
-position = Vector2( 6440, 188 )
-
-[node name="Spikes5" parent="Traps" instance=ExtResource( 19 )]
-position = Vector2( 7256, -72 )
 
 [node name="Sky" type="Node2D" parent="."]
 position = Vector2( 51.3912, 487.692 )
@@ -358,66 +255,11 @@ scale = Vector2( 100, 1 )
 
 [node name="Characters" type="Node2D" parent="."]
 
-[node name="Player" parent="Characters" instance=ExtResource( 14 )]
+[node name="Player" parent="Characters" instance=ExtResource( 13 )]
 position = Vector2( 224, 376 )
 
 [node name="Enemies" type="Node2D" parent="Characters"]
 
-[node name="Titan" parent="Characters/Enemies" instance=ExtResource( 17 )]
-position = Vector2( 1036, 180 )
-rotation = -4.8977e-06
-scale = Vector2( 1, 1 )
-
-[node name="Titan2" parent="Characters/Enemies" instance=ExtResource( 17 )]
-position = Vector2( 3088, 152 )
-
-[node name="Titan3" parent="Characters/Enemies" instance=ExtResource( 17 )]
-position = Vector2( 3920, 316 )
-
-[node name="Titan4" parent="Characters/Enemies" instance=ExtResource( 17 )]
-position = Vector2( 3592, 312 )
-
-[node name="Titan5" parent="Characters/Enemies" instance=ExtResource( 17 )]
-position = Vector2( 4476, 436 )
-
-[node name="Titan6" parent="Characters/Enemies" instance=ExtResource( 17 )]
-position = Vector2( 5000, 240 )
-
-[node name="Titan7" parent="Characters/Enemies" instance=ExtResource( 17 )]
-position = Vector2( 5356, 432 )
-
-[node name="Titan8" parent="Characters/Enemies" instance=ExtResource( 17 )]
-position = Vector2( 6580, 320 )
-
-[node name="Titan9" parent="Characters/Enemies" instance=ExtResource( 17 )]
-position = Vector2( 6452, 324 )
-
-[node name="Titan10" parent="Characters/Enemies" instance=ExtResource( 17 )]
-position = Vector2( 6252, 316 )
-
-[node name="Titan11" parent="Characters/Enemies" instance=ExtResource( 17 )]
-position = Vector2( 7128, 432 )
-
-[node name="Titan12" parent="Characters/Enemies" instance=ExtResource( 17 )]
-position = Vector2( 6824, 428 )
-
-[node name="Titan13" parent="Characters/Enemies" instance=ExtResource( 17 )]
-position = Vector2( 7988, 168 )
-
-[node name="Titan14" parent="Characters/Enemies" instance=ExtResource( 17 )]
-position = Vector2( 7468, 172 )
-
 [node name="Instructions" type="Node2D" parent="."]
 modulate = Color( 1, 1, 1, 0.670588 )
 z_index = 10
-
-[node name="FoliageLabel" type="Label" parent="Instructions"]
-margin_left = 2844.0
-margin_top = 32.0
-margin_right = 3235.0
-margin_bottom = 80.0
-custom_fonts/font = SubResource( 3 )
-text = "Leaves may block Grapple Arrows"
-__meta__ = {
-"_edit_use_anchors_": false
-}

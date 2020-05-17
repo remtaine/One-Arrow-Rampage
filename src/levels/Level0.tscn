@@ -405,12 +405,14 @@ __meta__ = {
 
 [node name="AttackLabel" type="Label" parent="Instructions"]
 modulate = Color( 1, 1, 1, 0.658824 )
-margin_left = 1948.0
-margin_top = 204.0
-margin_right = 2269.0
-margin_bottom = 252.0
+margin_left = 1920.0
+margin_top = 188.0
+margin_right = 2272.0
+margin_bottom = 287.0
 custom_fonts/font = SubResource( 3 )
-text = "Left Click to Attack"
+text = "Left Click to
+ Attack facing cursor"
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }

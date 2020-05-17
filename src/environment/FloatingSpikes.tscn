@@ -58,7 +58,7 @@ script = ExtResource( 3 )
 [node name="Sprite" type="AnimatedSprite" parent="."]
 material = SubResource( 1 )
 frames = SubResource( 8 )
-frame = 5
+frame = 3
 playing = true
 
 [node name="Hitboxes" type="Node2D" parent="Sprite"]
@@ -68,10 +68,10 @@ scale = Vector2( 0.24503, 0.155065 )
 
 [node name="Sprite2" type="TextureRect" parent="."]
 material = SubResource( 1 )
-margin_left = -1.3
-margin_top = 23.37
-margin_right = 3.18599
-margin_bottom = 462.508
+margin_left = -1.0
+margin_top = 23.0
+margin_right = 3.0
+margin_bottom = 913.0
 texture = ExtResource( 4 )
 stretch_mode = 2
 __meta__ = {

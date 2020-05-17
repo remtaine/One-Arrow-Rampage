@@ -49,6 +49,7 @@ __meta__ = {
 margin_left = 416.0
 margin_right = 566.0
 shortcut_in_tooltip = false
+dest = "res://src/levels/Level1.tscn"
 
 [node name="HoverSound" parent="Node2D/StartButton" index="4"]
 stream = ExtResource( 7 )
@@ -82,7 +83,7 @@ margin_top = 28.0
 margin_right = 172.0
 margin_bottom = 82.0
 custom_fonts/font = SubResource( 2 )
-text = "v0.8
+text = "v0.9
 Made for The Godot Wild Jam #21
 Theme: Connection"
 align = 2
