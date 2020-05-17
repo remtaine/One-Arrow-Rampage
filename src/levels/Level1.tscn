@@ -275,7 +275,6 @@ scale = Vector2( 0.6, 1 )
 [node name="MidGround7" parent="Ground/Midground" instance=ExtResource( 11 )]
 position = Vector2( 7772, 216 )
 rotation = -4.8977e-06
-scale = Vector2( 1, 1 )
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -330,7 +329,7 @@ position = Vector2( 1644, 16 )
 position = Vector2( 2800, 104 )
 
 [node name="Spikes" parent="Traps" instance=ExtResource( 19 )]
-position = Vector2( 2416, -96 )
+position = Vector2( 2380, -96 )
 
 [node name="Spikes2" parent="Traps" instance=ExtResource( 19 )]
 position = Vector2( 3664, 188 )
@@ -366,7 +365,6 @@ position = Vector2( 224, 376 )
 [node name="Titan" parent="Characters/Enemies" instance=ExtResource( 17 )]
 position = Vector2( 1036, 180 )
 rotation = -4.8977e-06
-scale = Vector2( 1, 1 )
 
 [node name="Titan2" parent="Characters/Enemies" instance=ExtResource( 17 )]
 position = Vector2( 3088, 152 )
