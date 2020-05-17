@@ -14,9 +14,13 @@ onready var won_text = $UI/YouWonText
 
 onready var enemies_handler = $Characters/Enemies
 
+export var level_instance_name = "none"
+
 func _ready():
 #	time_start = OS.get_ticks_msec()
 	Utils.current_level = self
+	Utils.current_level_name = level_instance_name
+	print("current level is ", Utils.current_level_name)
 	time_start = OS.get_unix_time()
 	set_process(true)
 	Utils.can_restart = false

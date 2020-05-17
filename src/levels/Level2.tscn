@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://images/background/layers/Layer_0003_6.png" type="Texture" id=1]
 [ext_resource path="res://images/background/layers/Layer_0005_5.png" type="Texture" id=2]
@@ -16,6 +16,10 @@
 [ext_resource path="res://src/levels/Level.gd" type="Script" id=14]
 [ext_resource path="res://fonts/BebasNeue Bold.ttf" type="DynamicFontData" id=15]
 [ext_resource path="res://src/environment/MidGround.tscn" type="PackedScene" id=16]
+[ext_resource path="res://src/characters/Titan.tscn" type="PackedScene" id=17]
+[ext_resource path="res://src/environment/FloatingSpikes.tscn" type="PackedScene" id=18]
+[ext_resource path="res://src/environment/Spikes.tscn" type="PackedScene" id=19]
+[ext_resource path="res://src/ui/TitleLabel.tscn" type="PackedScene" id=20]
 
 [sub_resource type="DynamicFont" id=1]
 size = 36
@@ -26,8 +30,13 @@ font_data = ExtResource( 15 )
 size = 24
 font_data = ExtResource( 15 )
 
-[node name="Level1" type="Node2D"]
+[sub_resource type="DynamicFont" id=3]
+size = 48
+font_data = ExtResource( 15 )
+
+[node name="Level2" type="Node2D"]
 script = ExtResource( 14 )
+level_instance_name = "Level2"
 
 [node name="Background" type="ParallaxBackground" parent="."]
 
@@ -210,23 +219,23 @@ position = Vector2( 984, -175.997 )
 scale = Vector2( 0.5, 1 )
 
 [node name="MidGround2" parent="Ground/MidGround" instance=ExtResource( 16 )]
-position = Vector2( 672, -311.999 )
+position = Vector2( 687.999, -311.999 )
 rotation = 3.2482e-13
-scale = Vector2( 0.35, 1 )
+scale = Vector2( 0.5, 1 )
 
 [node name="MidGround3" parent="Ground/MidGround" instance=ExtResource( 16 )]
-position = Vector2( 1580, -123.994 )
-scale = Vector2( 0.3, 1 )
+position = Vector2( 1580, -147.994 )
+scale = Vector2( 0.5, 1 )
 
 [node name="MidGround4" parent="Ground/MidGround" instance=ExtResource( 16 )]
-position = Vector2( 2200, -223.991 )
+position = Vector2( 2200, -195.991 )
 rotation = 1.51582e-12
 scale = Vector2( 0.45, 1 )
 
 [node name="MidGround5" parent="Ground/MidGround" instance=ExtResource( 16 )]
 position = Vector2( 2752, -279.988 )
 rotation = 1.6241e-12
-scale = Vector2( 0.35, 1 )
+scale = Vector2( 0.5, 1 )
 
 [node name="MidGround6" parent="Ground/MidGround" instance=ExtResource( 16 )]
 position = Vector2( 3132, -87.9862 )
@@ -298,10 +307,51 @@ __meta__ = {
 }
 
 [node name="YouWonText" parent="UI" instance=ExtResource( 11 )]
-modulate = Color( 1, 1, 1, 0 )
 
 [node name="Traps" type="Node2D" parent="."]
 position = Vector2( 568, 220 )
+
+[node name="Spikes" parent="Traps" instance=ExtResource( 19 )]
+position = Vector2( 1188, 188 )
+
+[node name="Spikes2" parent="Traps" instance=ExtResource( 19 )]
+position = Vector2( 792, 48 )
+
+[node name="Spikes4" parent="Traps" instance=ExtResource( 19 )]
+position = Vector2( 2348, 188 )
+
+[node name="FloatingSpikes2" parent="Traps" instance=ExtResource( 18 )]
+position = Vector2( 2528, 136 )
+
+[node name="FloatingSpikes3" parent="Traps" instance=ExtResource( 18 )]
+position = Vector2( 1848, 156 )
+
+[node name="Spikes5" parent="Traps" instance=ExtResource( 19 )]
+position = Vector2( 2224, 28 )
+
+[node name="Spikes6" parent="Traps" instance=ExtResource( 19 )]
+position = Vector2( 2880, 136 )
+
+[node name="FloatingSpikes5" parent="Traps" instance=ExtResource( 18 )]
+position = Vector2( 3156, 116 )
+
+[node name="Spikes7" parent="Traps" instance=ExtResource( 19 )]
+position = Vector2( 3464, 20 )
+
+[node name="Spikes8" parent="Traps" instance=ExtResource( 19 )]
+position = Vector2( 3168, -104 )
+
+[node name="Spikes9" parent="Traps" instance=ExtResource( 19 )]
+position = Vector2( 4224, 188 )
+
+[node name="FloatingSpikes6" parent="Traps" instance=ExtResource( 18 )]
+position = Vector2( 3772, 164 )
+
+[node name="FloatingSpikes" parent="Traps" instance=ExtResource( 18 )]
+position = Vector2( 976, 20 )
+
+[node name="Spikes3" parent="Traps" instance=ExtResource( 19 )]
+position = Vector2( 1764, 188 )
 
 [node name="Sky" type="Node2D" parent="."]
 position = Vector2( 51.3912, 487.692 )
@@ -319,6 +369,65 @@ position = Vector2( 224, 376 )
 
 [node name="Enemies" type="Node2D" parent="Characters"]
 
+[node name="Titan" parent="Characters/Enemies" instance=ExtResource( 17 )]
+position = Vector2( 1608, 292 )
+
+[node name="Titan2" parent="Characters/Enemies" instance=ExtResource( 17 )]
+position = Vector2( 1408, 296 )
+
+[node name="Titan3" parent="Characters/Enemies" instance=ExtResource( 17 )]
+position = Vector2( 1060, 160 )
+
+[node name="Titan4" parent="Characters/Enemies" instance=ExtResource( 17 )]
+position = Vector2( 2036, 300 )
+
+[node name="Titan5" parent="Characters/Enemies" instance=ExtResource( 17 )]
+position = Vector2( 2704, 432 )
+
+[node name="Titan6" parent="Characters/Enemies" instance=ExtResource( 17 )]
+position = Vector2( 3260, 188 )
+
+[node name="Titan7" parent="Characters/Enemies" instance=ExtResource( 17 )]
+position = Vector2( 3100, 188 )
+
+[node name="Titan8" parent="Characters/Enemies" instance=ExtResource( 17 )]
+position = Vector2( 3596, 380 )
+
+[node name="Titan9" parent="Characters/Enemies" instance=ExtResource( 17 )]
+position = Vector2( 3920, 264 )
+
+[node name="Titan10" parent="Characters/Enemies" instance=ExtResource( 17 )]
+position = Vector2( 3684, 136 )
+
+[node name="Titan11" parent="Characters/Enemies" instance=ExtResource( 17 )]
+position = Vector2( 4480, 436 )
+
+[node name="Titan12" parent="Characters/Enemies" instance=ExtResource( 17 )]
+position = Vector2( 2160, 316 )
+
+[node name="Titan14" parent="Characters/Enemies" instance=ExtResource( 17 )]
+position = Vector2( 4920, 432 )
+
+[node name="Titan15" parent="Characters/Enemies" instance=ExtResource( 17 )]
+position = Vector2( 4116, 260 )
+
 [node name="Instructions" type="Node2D" parent="."]
 modulate = Color( 1, 1, 1, 0.670588 )
 z_index = 10
+
+[node name="Label" type="Label" parent="Instructions"]
+margin_left = 1256.0
+margin_top = 112.0
+margin_right = 1768.0
+margin_bottom = 160.0
+custom_fonts/font = SubResource( 3 )
+text = "Press S to Jump down platforms"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TitleLabel" parent="Instructions" instance=ExtResource( 20 )]
+margin_top = 220.0
+margin_bottom = 415.0
+text = "Level 3
+"

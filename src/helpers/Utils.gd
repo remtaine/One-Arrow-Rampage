@@ -6,6 +6,7 @@ var player = null
 var camera_screenshake = null
 var can_restart = false
 var current_level = null
+var current_level_name = "none"
 var has_won = false
 
 static func get_dir(a1, a2):

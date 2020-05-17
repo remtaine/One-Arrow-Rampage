@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://src/environment/Spikes.tscn" type="PackedScene" id=1]
 [ext_resource path="res://fonts/BebasNeue Bold.ttf" type="DynamicFontData" id=2]
@@ -20,6 +20,7 @@
 [ext_resource path="res://images/background/layers/Layer_0005_5.png" type="Texture" id=18]
 [ext_resource path="res://src/menus/YouWonText.tscn" type="PackedScene" id=19]
 [ext_resource path="res://src/tilesets/Props.tres" type="TileSet" id=20]
+[ext_resource path="res://src/ui/TitleLabel.tscn" type="PackedScene" id=21]
 
 [sub_resource type="DynamicFont" id=1]
 size = 36
@@ -36,6 +37,7 @@ font_data = ExtResource( 2 )
 
 [node name="Level0" type="Node2D"]
 script = ExtResource( 4 )
+level_instance_name = "Level0"
 
 [node name="Background" type="ParallaxBackground" parent="."]
 
@@ -183,13 +185,13 @@ texture = ExtResource( 16 )
 centered = false
 offset = Vector2( 0, -793 )
 
-[node name="DecorTileMap" type="TileMap" parent="."]
+[node name="BackgroundDecorTileMap" type="TileMap" parent="."]
 scale = Vector2( 1.5, 1.5 )
 z_index = -30
 tile_set = ExtResource( 20 )
 cell_size = Vector2( 1, 1 )
 format = 1
-tile_data = PoolIntArray( 18482542, 12, 0, 18809718, 10, 0 )
+tile_data = PoolIntArray( 11144911, 11, 0, 11603419, 14, 0, 18221948, 15, 0, 18482542, 12, 0, 18809718, 10, 0, 19730533, 13, 0 )
 
 [node name="Ground" type="Node2D" parent="."]
 position = Vector2( 51.3912, 487.692 )
@@ -271,6 +273,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="ForegroundDecorTileMap" type="TileMap" parent="."]
+scale = Vector2( 1.5, 1.5 )
+tile_set = ExtResource( 20 )
+cell_size = Vector2( 1, 1 )
+format = 1
+tile_data = PoolIntArray( 8916255, 17, 0, 9570542, 18, 0, 9963371, 0, 0, 17762741, 16, 0, 18681511, 5, 0 )
+
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="TimeLabel" type="Label" parent="UI"]
@@ -309,7 +318,6 @@ __meta__ = {
 }
 
 [node name="YouWonText" parent="UI" instance=ExtResource( 19 )]
-modulate = Color( 1, 1, 1, 0 )
 
 [node name="Traps" type="Node2D" parent="."]
 position = Vector2( 568, 220 )
@@ -375,15 +383,22 @@ position = Vector2( 5848, 440 )
 [node name="Titan7" parent="Characters/Enemies" instance=ExtResource( 11 )]
 position = Vector2( 6032, 436 )
 
+[node name="Titan8" parent="Characters/Enemies" instance=ExtResource( 11 )]
+position = Vector2( 4144, 432 )
+
 [node name="Instructions" type="Node2D" parent="."]
 modulate = Color( 1, 1, 1, 0.670588 )
 z_index = 10
 
+[node name="TitleLabel" parent="Instructions" instance=ExtResource( 21 )]
+margin_top = 220.0
+margin_bottom = 415.0
+
 [node name="MoveLabel" type="Label" parent="Instructions"]
 modulate = Color( 1, 1, 1, 0.658824 )
-margin_left = 352.0
+margin_left = 644.0
 margin_top = 352.0
-margin_right = 569.0
+margin_right = 861.0
 margin_bottom = 400.0
 custom_fonts/font = SubResource( 3 )
 text = "WASD to move"
@@ -410,8 +425,8 @@ margin_top = 188.0
 margin_right = 2272.0
 margin_bottom = 287.0
 custom_fonts/font = SubResource( 3 )
-text = "Left Click to
- Attack facing cursor"
+text = "Left Click to Attack,
+aim with mouse"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false

@@ -2,71 +2,47 @@
 
 [ext_resource path="res://fonts/BebasNeue Bold.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://sounds/sfx/Attack_Sound.wav" type="AudioStream" id=2]
+[ext_resource path="res://src/menus/MainMenuButton.gd" type="Script" id=3]
 [ext_resource path="res://src/helpers/SceneChanger.tscn" type="PackedScene" id=4]
-
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
-[sub_resource type="ShortCut" id=3]
-
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=6]
 size = 64
 font_data = ExtResource( 1 )
 
-[sub_resource type="Animation" id=5]
-resource_name = "clicked"
-length = 2.0
-tracks/0/type = "value"
-tracks/0/path = NodePath("Label:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
-}
+[sub_resource type="ShortCut" id=2]
 
-[sub_resource type="Animation" id=6]
-length = 2.0
+[sub_resource type="Animation" id=4]
+resource_name = "clicked"
+length = 0.8
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("Label:modulate")
+tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.6, 1.2, 1.8, 2 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ) ]
+"times": PoolRealArray( 0, 0.1, 0.2, 0.201, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
 [node name="MainMenuButton" type="Button"]
-margin_left = 408.0
-margin_top = 248.0
-margin_right = 558.0
-margin_bottom = 323.0
-rect_min_size = Vector2( 150, 75 )
+margin_right = 250.0
+margin_bottom = 55.0
+rect_min_size = Vector2( 55, 50 )
+mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_styles/focus = SubResource( 1 )
-shortcut = SubResource( 3 )
+custom_fonts/font = SubResource( 6 )
+shortcut = SubResource( 2 )
+text = "Sample"
 flat = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="."]
-margin_left = 16.0
-margin_top = 8.0
-margin_right = 138.0
-margin_bottom = 72.0
-custom_fonts/font = SubResource( 4 )
-text = "Start"
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -74,17 +50,9 @@ __meta__ = {
 [node name="SceneChanger" parent="." instance=ExtResource( 4 )]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/clicked = SubResource( 5 )
-anims/idle = SubResource( 6 )
-
-[node name="HoverSound" type="AudioStreamPlayer" parent="."]
+anims/clicked = SubResource( 4 )
 
 [node name="ClickSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 2 )
 volume_db = -30.0
-
-[node name="Tween" type="Tween" parent="."]
-[connection signal="mouse_entered" from="." to="." method="_on_StartButton_mouse_entered"]
-[connection signal="mouse_exited" from="." to="." method="_on_StartButton_mouse_exited"]
-[connection signal="pressed" from="." to="." method="_on_Button_pressed"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

@@ -33,13 +33,19 @@ _global_script_classes=[ {
 "class": "Trap",
 "language": "GDScript",
 "path": "res://src/environment/Trap.gd"
+}, {
+"base": "Button",
+"class": "WinButton",
+"language": "GDScript",
+"path": "res://src/menus/WinButton.gd"
 } ]
 _global_script_class_icons={
 "Behavior": "",
 "Character": "",
 "DecorTile": "",
 "Tiles": "",
-"Trap": ""
+"Trap": "",
+"WinButton": ""
 }
 
 [application]

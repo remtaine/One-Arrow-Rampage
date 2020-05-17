@@ -1,5 +1,7 @@
 extends Button
 
+class_name WinButton
+
 export var dest = "res://src/levels/Level0.tscn"
 
 onready var anim = $AnimationPlayer
