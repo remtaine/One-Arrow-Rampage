@@ -125,3 +125,7 @@ change_weapon_wheel={
 2d_physics/layer_5="hitbox"
 2d_physics/layer_6="hurtbox"
 2d_physics/layer_7="sky"
+
+[rendering]
+
+quality/driver/driver_name="GLES2"
