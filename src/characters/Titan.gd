@@ -251,6 +251,7 @@ func disable_hitboxes():
 	
 func hit():
 	hp -= 1000
+	$AnimationPlayer/HurtAnimationPlayer.play("hurt")
 	hp_bar.set_value(hp)
 	Utils.freeze_frame()
 	if hp <= 0:

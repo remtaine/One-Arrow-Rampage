@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+signal grappling_hook_removed
+
 var _velocity
 var _speed = 1000
 var _dir
@@ -34,7 +36,7 @@ func _physics_process(delta):
 	look_at(_rot)
 
 func setup(dir, pos, rot, owner):
-	
+	self.connect("grappling_hook_removed",owner,"_on_grappling_hook_removed")
 	_dir = dir.normalized()
 	position = pos
 	initial_y = pos.y	
@@ -45,6 +47,7 @@ func setup(dir, pos, rot, owner):
 	_velocity = _speed * _dir
 
 func fade_away():
+	emit_signal("grappling_hook_removed")
 	queue_free()
 
 func _on_Area2D_body_entered(body):
@@ -83,6 +86,7 @@ func _on_PlayerMoveTimer_timeout():
 	_owner.hook_move_outcome("failure")
 
 func retract():
+	#TODO add retracting motion
 	fade_away()
 #	_dir = Utils.get_dir(_owner, self)
 #	if global_position.distance_to(_owner.global_position) < _owner.HOOK_LEEWAY:

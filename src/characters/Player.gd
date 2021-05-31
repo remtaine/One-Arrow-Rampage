@@ -118,7 +118,7 @@ var _last_input_direction = Vector2.ZERO
 
 var can
 var current_hook
-var current_hook_wr
+#var current_hook_wr
 var is_running = false
 var is_holding_jump = false
 var is_flipped = false
@@ -205,8 +205,8 @@ func _physics_process(delta):
 		reset_grapple()
 		
 	if global_position.y > 640 and is_alive:
-		if current_hook != null and current_hook_wr.get_ref():
-			current_hook.queue_free()
+		if current_hook:# and current_hook_wr.get_ref():
+			current_hook.fade_away()
 		healthUI.update_health(0, true)
 		die()
 	input = get_raw_input(state)
@@ -251,12 +251,14 @@ func _physics_process(delta):
 			if is_on_floor():
 				change_state(EVENTS.LAND)
 		STATES.GRAPPLE_MOVE:
-			if current_hook_wr.get_ref():
-				_dir = Utils.get_dir(current_hook, self)
-			if current_hook.global_position.distance_to(global_position) < HOOK_LEEWAY:
+			if !current_hook:
 				change_state(EVENTS.GRAPPLE_DONE)
 			else:
-				_velocity = GRAPPLE_SPEED * _dir
+				_dir = Utils.get_dir(current_hook, self)
+				if current_hook.global_position.distance_to(global_position) < HOOK_LEEWAY:
+					change_state(EVENTS.GRAPPLE_DONE)
+				else:
+					_velocity = GRAPPLE_SPEED * _dir
 
 	match state: # for velocity.y
 		STATES.GRAPPLE_MOVE:
@@ -328,13 +330,16 @@ func enter_state():
 		STATES.FLY:
 			finish_hook()
 		STATES.GRAPPLE_LAUNCH_AIR, STATES.GRAPPLE_LAUNCH_GROUND:
-			#creating hoook
+			#creating hook
 			last_clicked_mouse_pos = get_global_mouse_position()
 			last_global_pos = global_position
+			
+			#creating hook
 			var hook = g_hook_resource.instance()
 			hook.setup(Utils.get_dir(g_hook_pos, pivot_pos), g_hook_pos.global_position, g_hook_aim.global_position, self)
 			current_hook = hook
 			get_parent().get_parent().add_child(hook)
+			
 			continue
 		STATES.GRAPPLE_LAUNCH_GROUND:
 			if animation.get_current_animation() == "walk":
@@ -393,9 +398,9 @@ func get_event(input): #only events based on input here!
 	return e	
 	
 func finish_hook():
-	if current_hook_wr.get_ref() and current_hook != null:
+	if current_hook:
 		current_hook.fade_away()
-		current_hook = null
+#		current_hook = null
 		change_state(EVENTS.GRAPPLE_DONE)
 
 func add_friction(friction = FRICTION):
@@ -417,18 +422,18 @@ func hook_launch_outcome(outcome, hook = current_hook):
 		"success":
 			change_state(EVENTS.GRAPPLE_SUCCESS)
 			current_hook = hook	
-			current_hook_wr = weakref(hook)
+#			current_hook_wr = weakref(hook)
 		"failure":
 			change_state(EVENTS.GRAPPLE_FAIL)
 			hook.retract()
-			current_hook = null
+#			current_hook = null
 
 func hook_move_outcome(outcome = "failure"):
 	match outcome:
 		"failure":
-			if current_hook_wr.get_ref():
+			if current_hook:#_wr.get_ref():
 				current_hook.fade_away()
-				current_hook = null
+#				current_hook = null
 
 func hit():
 	_velocity.x *= 0.3
@@ -501,3 +506,7 @@ func play_attack_audio():
 	
 func _on_InvulnerabilityTimer_timeout():
 	is_invulnerable = false
+
+func _on_grappling_hook_removed():
+	current_hook = null
+#	grapp
