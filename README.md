@@ -1,2 +1,2 @@
-# one-arrow-rampage-mobile
-Mobile version of One Arrow Rampage
+# one-arrow-rampage
+Mobile friendly version of One Arrow Rampage
