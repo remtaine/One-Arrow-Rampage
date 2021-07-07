@@ -1,4 +1,5 @@
-extends "res://src/characters/Character.gd"
+class_name Titan
+extends Character
 
 var STATES = {
 	IDLE = "idle",
@@ -50,12 +51,12 @@ export var color = Color(255,0,0,1)
 onready var sprite = $AnimatedSprite
 onready var animation = $AnimationPlayer
 onready var roam_range = $AnimatedSprite/Range/RoamArea2D
-onready var death_audio = $DeathAudio
+#onready var death_audio = $DeathAudio
 
-onready var death_audio1 = $DeathAudio1
-onready var death_audio2 = $DeathAudio2
-onready var death_audio3 = $DeathAudio3
-onready var death_audios = [death_audio1, death_audio2, death_audio3]
+onready var death_audio1 := $DeathAudio1
+onready var death_audio2 := $DeathAudio2
+onready var death_audio3 := $DeathAudio3
+onready var death_audios := [death_audio1, death_audio2, death_audio3]
 
 var current_phase = PHASE.ZERO
 var current_scale_x
@@ -165,8 +166,9 @@ func enter_state():
 		STATES.IDLE:
 			change_animation("idle")
 		STATES.FALL:
-			if animation.current_animation != "fall_continue":
-				change_animation("fall")
+			pass
+#			if animation.current_animation != "fall_continue":
+#				change_animation("fall")
 		STATES.ROAM:
 			hide_all_emotes()
 			_speed = SPEED
@@ -207,7 +209,7 @@ func get_event():
 	Converts the player's input to events. The state machine
 	uses these events to trigger transitions from one state to another.
 	"""
-	var event = EVENTS.INVALID
+#	var event = EVENTS.INVALID
 #	if animation.current_animation == "attack":
 #		return EVENTS.ATTACK
 	if animation.is_active() and animation.current_animation == "attack":
@@ -277,7 +279,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		enemies_damaged = []
 #		change_state(EVENTS.CHASE)
 	elif anim_name == "fall":
-		change_animation("fall_continue")
+		change_animation("fall")
 
 func _on_AttackArea2D_body_entered(body):
 	if body.is_in_group("human"):

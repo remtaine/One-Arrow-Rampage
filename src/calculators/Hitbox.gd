@@ -34,11 +34,15 @@ func _ready():
 #		area.host.hit()
 
 func enable():
-	$CollisionShape2D.disabled = false
+#	$CollisionShape2D.disabled = false
+	$CollisionShape2D.call_deferred("set_disabled", false)
+	
 	
 func disable():
-	$CollisionShape2D.disabled = true	
-
+#	$CollisionShape2D.disabled = true	
+	$CollisionShape2D.call_deferred("set_disabled", true)
+	
+	
 func _on_Hitbox_body_entered(body):
 	if $CollisionShape2D.disabled:
 		return

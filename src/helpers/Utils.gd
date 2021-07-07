@@ -20,10 +20,10 @@ static func get_input_direction(is_human = true, event = Input):
 	else:
 		return Vector2(-1,0)
 
-func play_audio(val, pitch_type = "none"):
-	var pitch	
-	var r	
-	var s
+func play_audio(val : Array, pitch_type = "none"):
+	var pitch : float
+	var r : int
+	var s : int
 	
 	match pitch_type:
 		"enemy":
@@ -47,7 +47,7 @@ func play_audio(val, pitch_type = "none"):
 	val[r].play()
 
 func reset_scene():
-	get_tree().reload_current_scene()
+	var _error = get_tree().reload_current_scene()
 	
 func freeze_frame(delay = 15):
 	OS.delay_msec(delay)

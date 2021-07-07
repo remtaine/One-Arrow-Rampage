@@ -283,22 +283,33 @@ tile_data = PoolIntArray( 8916255, 17, 0, 9570542, 18, 0, 9963371, 0, 0, 1776274
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="TimeLabel" type="Label" parent="UI"]
-margin_left = 468.0
-margin_top = 32.0
-margin_right = 579.0
-margin_bottom = 112.0
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -100.0
+margin_top = 25.0732
+margin_right = 100.0
+margin_bottom = 61.0732
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = SubResource( 1 )
 text = "0:21"
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="KilledLabel" type="Label" parent="UI"]
-margin_left = 22.0
-margin_top = 48.0
-margin_bottom = 99.0
+[node name="Goals" type="VBoxContainer" parent="UI"]
+margin_left = 18.0
+margin_top = 60.0
+margin_right = 150.0
+margin_bottom = 112.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="KilledLabel" type="Label" parent="UI/Goals"]
+margin_right = 132.0
+margin_bottom = 24.0
 custom_fonts/font = SubResource( 2 )
 text = "0/21 killed"
 valign = 1
@@ -306,10 +317,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SilentKilledLabel" type="Label" parent="UI"]
-margin_left = 20.0
-margin_top = 76.0
-margin_bottom = 127.0
+[node name="SilentKilledLabel" type="Label" parent="UI/Goals"]
+margin_top = 28.0
+margin_right = 132.0
+margin_bottom = 52.0
 custom_fonts/font = SubResource( 2 )
 text = "03 stealth kills"
 valign = 1
@@ -358,7 +369,7 @@ scale = Vector2( 100, 1 )
 [node name="Characters" type="Node2D" parent="."]
 
 [node name="Player" parent="Characters" instance=ExtResource( 6 )]
-position = Vector2( 224, 376 )
+position = Vector2( 224.895, 376 )
 
 [node name="Enemies" type="Node2D" parent="Characters"]
 

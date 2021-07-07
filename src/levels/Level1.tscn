@@ -293,10 +293,18 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="KilledLabel" type="Label" parent="UI"]
-margin_left = 22.0
-margin_top = 48.0
-margin_bottom = 99.0
+[node name="Goals" type="VBoxContainer" parent="UI"]
+margin_left = 18.0
+margin_top = 60.0
+margin_right = 150.0
+margin_bottom = 112.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="KilledLabel" type="Label" parent="UI/Goals"]
+margin_right = 132.0
+margin_bottom = 24.0
 custom_fonts/font = SubResource( 2 )
 text = "0/21 killed"
 valign = 1
@@ -304,10 +312,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SilentKilledLabel" type="Label" parent="UI"]
-margin_left = 20.0
-margin_top = 76.0
-margin_bottom = 127.0
+[node name="SilentKilledLabel" type="Label" parent="UI/Goals"]
+margin_top = 28.0
+margin_right = 132.0
+margin_bottom = 52.0
 custom_fonts/font = SubResource( 2 )
 text = "03 stealth kills"
 valign = 1

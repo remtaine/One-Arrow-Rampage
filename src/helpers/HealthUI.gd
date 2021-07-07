@@ -1,4 +1,4 @@
-extends Sprite
+extends Control
 
 var hp = 3
 var hearts = []

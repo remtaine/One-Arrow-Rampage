@@ -7,8 +7,8 @@ var currently_silent_killed = 0
 var currently_killed = 0
 var total_enemies_on_map = 0
 
-onready var silent_killed_label = $UI/SilentKilledLabel
-onready var killed_label = $UI/KilledLabel
+onready var silent_killed_label = $UI/Goals/SilentKilledLabel
+onready var killed_label = $UI/Goals/KilledLabel
 onready var time_label = $UI/TimeLabel
 onready var won_text = $UI/YouWonText
 
@@ -70,13 +70,13 @@ func update_silent_killed_label(val = 1):
 	else:
 		percent = 100
 	silent_killed_label.text = String(ceil(percent)) + "% Stealth Kills"
-	silent_killed_label.set_align(Label.ALIGN_CENTER)
+#	silent_killed_label.set_align(Label.ALIGN_CENTER)
 	
 func update_killed_label(val = 1):
 	currently_killed += val
-	killed_label.set_align(Label.ALIGN_CENTER)
+#	killed_label.set_align(Label.ALIGN_CENTER)
 	killed_label.text = String(currently_killed) + "/" + String(total_enemies_on_map) + " Killed"
-	killed_label.set_align(Label.ALIGN_CENTER)
+#	killed_label.set_align(Label.ALIGN_CENTER)
 	
 	if currently_killed >= total_enemies_on_map and total_enemies_on_map != 0 and Utils.player.is_alive:
 		won_text.appear()

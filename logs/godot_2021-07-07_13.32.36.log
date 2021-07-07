@@ -1,0 +1,32 @@
+Godot Engine v3.3.2.stable.custom_build - https://godotengine.org
+OpenGL ES 2.0 Renderer: Intel(R) Iris(TM) Graphics 6100
+OpenGL ES Batching: ON
+ 
+Registered camera FaceTime HD Camera with id 1 position 0 at index 0
+1 shader_type canvas_item;
+2 render_mode unshaded;
+3  
+4 uniform float width : hint_range(0.0, 16.0);
+5 uniform vec4 outline_color : hint_color;
+6  
+7 void fragment()
+8 {
+9     vec2 size = vec2(width) / vec2(textureSize(TEXTURE, 0));
+10    
+11     vec4 sprite_color = texture(TEXTURE, UV);
+12    
+13     float alpha = sprite_color.a;
+14     alpha += texture(TEXTURE, UV + vec2(0.0, -size.y)).a;
+15     alpha += texture(TEXTURE, UV + vec2(size.x, -size.y)).a;
+16     alpha += texture(TEXTURE, UV + vec2(size.x, 0.0)).a;
+17     alpha += texture(TEXTURE, UV + vec2(size.x, size.y)).a;
+18     alpha += texture(TEXTURE, UV + vec2(0.0, size.y)).a;
+19     alpha += texture(TEXTURE, UV + vec2(-size.x, size.y)).a;
+20     alpha += texture(TEXTURE, UV + vec2(-size.x, 0.0)).a;
+21     alpha += texture(TEXTURE, UV + vec2(-size.x, -size.y)).a;
+22    
+23     vec3 final_color = mix(outline_color.rgb, sprite_color.rgb, sprite_color.a);
+24     COLOR = vec4(final_color, clamp(alpha, 0.0, 1.0));
+25 }
+**SHADER ERROR**: Built-in function "textureSize(sampler2D, int)" is only supported on the GLES3 backend, but your project is using GLES2.
+   At: :9:(null)() - Built-in function "textureSize(sampler2D, int)" is only supported on the GLES3 backend, but your project is using GLES2.

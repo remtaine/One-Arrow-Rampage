@@ -468,7 +468,8 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "attack_swing":
 		change_state(EVENTS.STOP)
 	elif anim_name == "fall":
-		change_animation("fall_continue")
+		pass
+#		change_animation("fall_continue")
 	elif anim_name == "die":
 		if not Utils.has_won:
 			$UI/YouDiedText.appear()
@@ -483,8 +484,9 @@ func _on_Sprite_animation_finished():
 		change_state(EVENTS.STOP)
 		print("DONE WITH ATTACK")
 	elif sprite.get_animation() == "fall":
-		change_animation("fall_continue")
-
+#		change_animation("fall_continue")
+		pass
+		
 func change_animation(anim):
 	animation.play(anim)
 	match anim:
